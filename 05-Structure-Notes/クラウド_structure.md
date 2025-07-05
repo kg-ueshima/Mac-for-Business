@@ -1,0 +1,104 @@
+# クラウド の構造化
+
+## 概要
+クラウドに関する情報の構造化と関連性の整理
+
+## 主要トピック
+
+### 使い方・ガイド
+- ファイル数: 1個
+
+- **Azure AI Foundry とは使い方やできることを解説.md**
+  - カテゴリ: tutorials
+  - キーワード: 機械学習, 管理, データ, プログラミング, クラウド, API, Python, AI, 学習, 開発, 業務, Azure, 使い方, プロジェクト, テスト, 手順
+  - 概要: ---
+title: "Azure AI Foundry とは?使い方やできることを解説"
+source: "https://www.avepoint.co.jp/blog/about-azure-ai-studio/"
+author:
+  - "[[SharePointのアクセス権限とは？種類や設定方法、注意点を解説]]"
+published: 2024-05-05
+created: 2025-...
+
+### その他
+- ファイル数: 4個
+
+- **browser-use で Gemini と DeepSeek を使用する.md**
+  - カテゴリ: tutorials
+  - キーワード: データ, API, Python, 使い方, 手順
+  - 概要: ---
+title: "browser-use で Gemini と DeepSeek を使用する"
+source: "https://zenn.dev/gunjo/articles/72d30b516e68c1"
+author:
+  - "[[Zenn]]"
+published: 2025-01-04
+created: 2025-06-11
+description:
+tags:
+  - "cli...
+
+- **Cursor v1.0リリース今Cursorで何ができるのか.md**
+  - カテゴリ: tutorials
+  - キーワード: 機械学習, 管理, クラウド, AI, 学習, 開発, 使い方, CI/CD, 手順, データ, プログラミング, その他, API, Python, 思考, 調査, 戦略, テスト, Docker, 個人, プロジェクト, アイデア, デバッグ, Git, チーム, 分析
+  - 概要: ---
+title: "[Cursor v1.0リリース]今Cursorで何ができるのか"
+source: "https://zenn.dev/service/articles/dbb6123a4732ed"
+author:
+  - "[[Zenn]]"
+published: 2025-06-05
+created: 2025-06-06
+description:
+tags:
+  - "clippi...
+
+- **Apple、Apple Intelligenceに対応したMac用写真編集アプリ「Pixelmator Pro 3.7」を配布開始  Apple Apps.md**
+  - カテゴリ: personal_notes
+  - キーワード: その他, アイデア
+  - 概要: ---
+title: "Apple、Apple Intelligenceに対応したMac用写真編集アプリ「Pixelmator Pro 3.7」を配布開始 | Apple Apps"
+source: "https://www.macotakara.jp/etc/category-60/entry-49151.html"
+author:
+  - "[[Mac OTAKARA]]"
+published...
+
+- **ノーコードで実現！　DifyでカスタマーサポートAIチャットbotを作成する.md**
+  - カテゴリ: tutorials
+  - キーワード: 管理, クラウド, AI, 学習, 開発, 使い方, 手順, プログラミング, その他, API, 興味, 営業, 顧客, 人事, 業務, マーケティング, プロジェクト, 研究, デバッグ, Git, メモ
+  - 概要: ---
+title: "ノーコードで実現！　DifyでカスタマーサポートAIチャットbotを作成する"
+source: "https://atmarkit.itmedia.co.jp/ait/spv/2506/19/news001.html"
+author:
+  - "[[山田研二（著）／山田祥寛（監修）]]"
+published: 2025-06-19
+created: 2025-06-20
+d...
+
+## 関連性分析
+
+### 共通キーワード
+- API: 4回
+- 使い方: 4回
+- 手順: 4回
+- 管理: 3回
+- データ: 3回
+- プログラミング: 3回
+- クラウド: 3回
+- Python: 3回
+- AI: 3回
+- 学習: 3回
+- 開発: 3回
+- プロジェクト: 3回
+- その他: 3回
+- 機械学習: 2回
+- 業務: 2回
+- テスト: 2回
+- アイデア: 2回
+- デバッグ: 2回
+- Git: 2回
+
+## 学習の流れ
+
+1. **基礎知識**: 基本概念と概要
+2. **実践**: 使い方と設定
+3. **応用**: 高度な機能と活用方法
+4. **評価**: 比較とレビュー
+
