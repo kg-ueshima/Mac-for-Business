@@ -1,11 +1,28 @@
 import requests
 import datetime
 import os
+from pathlib import Path
+from dotenv import load_dotenv
 from msal import PublicClientApplication, SerializableTokenCache
 
-# ▼ Azureアプリ登録時の情報（必要に応じて書き換えてください）
-CLIENT_ID = 'a9741f3f-0d88-415a-bf33-fcfae84d8d7e'
-TENANT_ID = '5483b7b9-ff5a-4b52-9169-f8884e38833a'
+# 環境変数を読み込み
+project_root = Path(__file__).parent.parent.parent
+env_file = project_root / "env.local"
+if env_file.exists():
+    load_dotenv(env_file)
+else:
+    load_dotenv()  # デフォルトの.envファイルを試行
+
+# ▼ Azureアプリ登録時の情報（環境変数から取得）
+CLIENT_ID = os.getenv('MICROSOFT_CLIENT_ID')
+TENANT_ID = os.getenv('MICROSOFT_TENANT_ID')
+
+# 環境変数のチェック
+if not CLIENT_ID or not TENANT_ID:
+    print("エラー: 環境変数が設定されていません")
+    print("env.localファイルにMICROSOFT_CLIENT_IDとMICROSOFT_TENANT_IDを設定してください")
+    exit(1)
+
 AUTHORITY = f'https://login.microsoftonline.com/{TENANT_ID}'
 SCOPES = [
     'Channel.ReadBasic.All',

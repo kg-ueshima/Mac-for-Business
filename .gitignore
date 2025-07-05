@@ -1,3 +1,28 @@
+# Obsidian
 .obsidian/ 
+
+# 機密情報
 .03-Permanent-Notes/acounts.md
+.env
+env.local
+*.env
+
+# トークンキャッシュ
 .token_cache.bin
+token_cache.bin
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+
+# ログファイル
+logs/
+*.log
+
+# macOS
+.DS_Store
