@@ -25,7 +25,7 @@ report_lines.append("【Teams】\n" + "\n".join(teams_logs))
 #     report_lines.append(gemini.summarize(f['content']))
 
 # 5. 日報保存
-output_path = Path.home() / "OneDrive" / "日報" / f"{yesterday}_日報.txt"
+output_path = Path("reports") / f"{yesterday}_その日のやり取り.txt"
 output_path.parent.mkdir(parents=True, exist_ok=True)
 output_path.write_text("\n\n".join(report_lines), encoding="utf-8")
-print(f"日報を保存しました：{output_path}")
+print(f"やり取りを保存しました：{output_path}")

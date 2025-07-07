@@ -6,12 +6,9 @@ from dotenv import load_dotenv
 from msal import PublicClientApplication, SerializableTokenCache
 
 # 環境変数を読み込み
-project_root = Path(__file__).parent.parent.parent
-env_file = project_root / "env.local"
-if env_file.exists():
-    load_dotenv(env_file)
-else:
-    load_dotenv()  # デフォルトの.envファイルを試行
+env_file = str(Path.home()) + "/Workspace/Mac for Business/" + "env.local"
+load_dotenv(env_file)
+print("DEBUG (teams.py):", os.getenv('MICROSOFT_CLIENT_ID'), os.getenv('MICROSOFT_TENANT_ID'))
 
 # ▼ Azureアプリ登録時の情報（環境変数から取得）
 CLIENT_ID = os.getenv('MICROSOFT_CLIENT_ID')
