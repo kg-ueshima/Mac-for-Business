@@ -4,6 +4,204 @@ Enhanced ClippingsSorting Agent
 Clippingsフォルダ内のコンテンツをタグ付けして内容別にフォルダ分けし、
 テーマ別の永続ノート、インデックス、構造化ファイルを作成する
 """
+"""
+Permanent Note（永続ノート）およびカテゴリ分けの最適化・推敲・自動進化ロジック
+- Clippings内のMarkdownファイルをカテゴリごとに分類し、関連性・重複の高いファイルは自動的にマージ
+- Permanent Noteはカテゴリごとに最大15個までに集約し、内容を統合・要約・外部情報も分析して追記
+- 外部サイトや参考情報を自動で分析し、重要ポイントを抽出してノートに反映
+- Clippingsのカテゴリ分けルールも毎回推敲し、キーワードや分類ルールを自動で見直し・最適化
+- README_ClippingsSorting.mdも毎回自動で見直し・修正（本体処理後に必ず呼び出し）
+
+このファイルの主な役割:
+- カテゴリ分けの推敲（キーワードや分類ルールの自動進化）
+- 永続ノートの内容統合・マージ・推敲・外部情報の自動追加
+- READMEの自動アップデート
+"""
+
+import requests
+from difflib import SequenceMatcher
+from typing import Dict, List, Tuple, Set
+
+def merge_and_limit_permanent_notes(category_files: Dict[str, Dict[str, str]], similarity_threshold: float = 0.7, max_notes: int = 15) -> Dict[str, str]:
+    """
+    カテゴリごとにファイルをマージし、最大max_notes個までに集約する
+    :param category_files: {カテゴリ: {ファイル名: 内容}}
+    :param similarity_threshold: 類似度の閾値
+    :param max_notes: 各カテゴリで作成するPermanent Noteの最大数
+    :return: {新しいファイル名: 統合内容}
+    """
+    merged_notes = {}
+    for category, files in category_files.items():
+        # 類似ファイルをマージ
+        merged = _merge_similar_files(files, similarity_threshold)
+        # 必要ならさらにマージしてmax_notes個までに絞る
+        while len(merged) > max_notes:
+            merged = _merge_most_similar_pair(merged, similarity_threshold)
+        # ファイル名をカテゴリベースにリネーム
+        for idx, (fname, content) in enumerate(merged.items()):
+            new_name = f"{category}_permanent_note_{idx+1}.md"
+            merged_notes[new_name] = content
+    return merged_notes
+
+def _merge_similar_files(file_contents: Dict[str, str], similarity_threshold: float) -> Dict[str, str]:
+    """
+    類似度が高いファイル同士をマージする（内部用）
+    """
+    merged = {}
+    used = set()
+    files = list(file_contents.items())
+    for i, (fname1, content1) in enumerate(files):
+        if fname1 in used:
+            continue
+        merged_content = content1
+        merged_name = fname1
+        for j, (fname2, content2) in enumerate(files):
+            if i == j or fname2 in used:
+                continue
+            ratio = SequenceMatcher(None, content1, content2).ratio()
+            if ratio > similarity_threshold:
+                merged_content += "\n\n---\n\n" + content2
+                merged_name = merged_name.replace(".md", "") + "_merged.md"
+                used.add(fname2)
+        merged[merged_name] = merged_content
+        used.add(fname1)
+    return merged
+
+def _merge_most_similar_pair(file_contents: Dict[str, str], similarity_threshold: float) -> Dict[str, str]:
+    """
+    最も類似度の高いペアを1組だけマージし、ファイル数を1つ減らす
+    """
+    files = list(file_contents.items())
+    max_ratio = 0
+    pair = None
+    for i, (fname1, content1) in enumerate(files):
+        for j, (fname2, content2) in enumerate(files):
+            if i >= j:
+                continue
+            ratio = SequenceMatcher(None, content1, content2).ratio()
+            if ratio > max_ratio:
+                max_ratio = ratio
+                pair = (fname1, fname2)
+    if pair and max_ratio > 0:
+        fname1, fname2 = pair
+        merged_content = file_contents[fname1] + "\n\n---\n\n" + file_contents[fname2]
+        merged_name = fname1.replace(".md", "") + "_merged.md"
+        new_files = {k: v for k, v in file_contents.items() if k not in pair}
+        new_files[merged_name] = merged_content
+        return new_files
+    return file_contents
+
+def enhance_note_with_external_info(content: str, reference_urls: list = None) -> str:
+    """
+    永続ノートの内容を推敲し、外部サイト等の情報も自動で要約・追記する
+    :param content: 現在のノート内容
+    :param reference_urls: 参考にする外部URLリスト
+    :return: 推敲・強化後のノート内容
+    """
+    enhanced = content
+    if reference_urls:
+        for url in reference_urls:
+            summary = fetch_and_summarize_url(url)
+            enhanced += f"\n\n[参考情報: {url}]\n{summary}"
+    # 重複行の削除・要点整理
+    lines = enhanced.splitlines()
+    seen = set()
+    unique_lines = []
+    for line in lines:
+        if line.strip() and line not in seen:
+            unique_lines.append(line)
+            seen.add(line)
+    enhanced = "\n".join(unique_lines)
+    return enhanced
+
+def fetch_and_summarize_url(url: str) -> str:
+    """
+    外部URLの内容を取得し、要約する（簡易実装。実運用ではAI要約API等を推奨）
+    """
+    try:
+        resp = requests.get(url, timeout=5)
+        text = resp.text
+        # ここでは単純に最初の500文字を抜粋（本番は要約API推奨）
+        summary = text[:500].replace('\n', ' ')
+        return f"- 要約: {summary} ..."
+    except Exception as e:
+        return f"- 取得失敗: {e}"
+
+def optimize_category_rules(categories: Dict[str, list], clippings_files: Dict[str, str]) -> Dict[str, list]:
+    """
+    Clippingsのカテゴリ分けルールを毎回推敲し、キーワードや分類ルールを自動で見直す
+    :param categories: 既存カテゴリ
+    :param clippings_files: {ファイル名: 内容}
+    :return: 最適化後カテゴリ
+    """
+    # 各カテゴリのキーワード出現頻度を分析し、足りないキーワードを自動追加
+    from collections import Counter
+    word_counter = Counter()
+    for content in clippings_files.values():
+        for cat, words in categories.items():
+            for w in words:
+                if w in content:
+                    word_counter[w] += 1
+    # 出現頻度が高い新語をカテゴリに追加
+    for fname, content in clippings_files.items():
+        for word in set(content.split()):
+            if word_counter[word] > 2:  # 例: 2回以上出現
+                for cat, words in categories.items():
+                    if word not in words and any(w in word for w in words):
+                        categories[cat].append(word)
+    # 重複排除
+    for cat in categories:
+        categories[cat] = list(set(categories[cat]))
+    return categories
+
+def update_readme(readme_path: str, new_categories: Dict[str, list], permanent_note_examples: list) -> None:
+    """
+    README_ClippingsSorting.mdを毎回自動で見直し・修正する
+    :param readme_path: READMEファイルパス
+    :param new_categories: 最新カテゴリ定義
+    :param permanent_note_examples: 永続ノート例ファイル名リスト
+    """
+    if not os.path.exists(readme_path):
+        return
+    with open(readme_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+    # カテゴリ部分を自動更新
+    new_cat_section = "### 1. 自動分類\n"
+    for cat, words in new_categories.items():
+        jp = {
+            "work_related": "業務関連の記事",
+            "personal_notes": "個人メモ・アイデア（Fleeting Noteに該当）",
+            "research": "研究・調査関連（Literature Noteに該当）",
+            "tutorials": "チュートリアル・学習資料",
+            "miscellaneous": "その他・未分類"
+        }.get(cat, cat)
+        new_cat_section += f"- **{cat}**: {jp}（キーワード例: {', '.join(words[:5])} ...）\n"
+    # 永続ノート例も更新
+    new_perm_section = "### 2. テーマ別永続ノート作成\n`03-Permanent-Notes/`にテーマ別のノートが保存されます：\n"
+    for ex in permanent_note_examples:
+        new_perm_section += f"- `{ex}`\n"
+    # 既存READMEの該当セクションを置換
+    new_lines = []
+    in_cat, in_perm = False, False
+    for line in lines:
+        if line.strip().startswith("### 1. 自動分類"):
+            in_cat = True
+            new_lines.append(new_cat_section)
+            continue
+        if line.strip().startswith("### 2. テーマ別永続ノート作成"):
+            in_perm = True
+            new_lines.append(new_perm_section)
+            continue
+        if in_cat and (line.strip() == "" or line.startswith("###")):
+            in_cat = False
+        if in_perm and (line.strip() == "" or line.startswith("###")):
+            in_perm = False
+        if not in_cat and not in_perm:
+            new_lines.append(line)
+    # ファイルを上書き
+    with open(readme_path, "w", encoding="utf-8") as f:
+        f.writelines(new_lines)
+
 
 import os
 import re
@@ -416,10 +614,11 @@ class EnhancedClippingsSorter:
         
         return created_structures
 
-    def remove_duplicates(self, analysis_results: List[Dict]):
-        """重複ファイルの検出と処理"""
+    def remove_duplicates(self, analysis_results: List[Dict]) -> Tuple[List[Dict], List[Dict]]:
+        """重複ファイルの検出と処理. 重複を除いた結果と、重複ファイルのリストを返す"""
         content_hashes = {}
         duplicates = []
+        unique_results = []
         
         for result in analysis_results:
             file_path = result["file_path"]
@@ -435,6 +634,7 @@ class EnhancedClippingsSorter:
                     })
                 else:
                     content_hashes[content_hash] = file_path
+                    unique_results.append(result)
             except Exception as e:
                 print(f"重複チェックエラー {file_path}: {e}")
         
@@ -443,7 +643,7 @@ class EnhancedClippingsSorter:
             for dup in duplicates:
                 print(f"  - {dup['duplicate'].name} (重複: {dup['original'].name})")
         
-        return duplicates
+        return unique_results, duplicates
 
     def generate_report(self, analysis_results: List[Dict], moved_files: List[Dict], 
                        duplicates: List[Dict], theme_notes: List[Path], 
@@ -531,34 +731,34 @@ class EnhancedClippingsSorter:
             result = self.analyze_content(file_path)
             analysis_results.append(result)
         
-        # 3. タグを割り当て
-        analysis_results = self.assign_tags(analysis_results)
+        # 3. 重複ファイルを検出
+        unique_results, duplicates = self.remove_duplicates(analysis_results)
         
-        # 4. カテゴリフォルダを作成
+        # 4. タグを割り当て
+        unique_results = self.assign_tags(unique_results)
+        
+        # 5. カテゴリフォルダを作成
         self.create_category_folders()
         
-        # 5. ファイルをカテゴリに移動
+        # 6. ファイルをカテゴリに移動
         print("ファイル移動中...")
-        moved_files = self.move_files_to_categories(analysis_results)
-        
-        # 6. 重複ファイルを検出
-        duplicates = self.remove_duplicates(analysis_results)
+        moved_files = self.move_files_to_categories(unique_results)
         
         # 7. テーマ別永続ノートを作成
         print("テーマ別永続ノート作成中...")
-        theme_notes = self.create_theme_based_permanent_notes(analysis_results) or []
+        theme_notes = self.create_theme_based_permanent_notes(unique_results) or []
         
         # 8. インデックスファイルを作成
         print("インデックスファイル作成中...")
-        self.create_index_notes(analysis_results, moved_files)
+        self.create_index_notes(unique_results, moved_files)
         index_file = self.index_notes_path / f"project_index_{datetime.now().strftime('%Y%m%d')}.md"
         
         # 9. 構造化ファイルを作成
         print("構造化ファイル作成中...")
-        structure_files = self.create_structure_notes(analysis_results) or []
+        structure_files = self.create_structure_notes(unique_results) or []
         
         # 10. レポートを生成
-        self.generate_report(analysis_results, moved_files, duplicates, 
+        self.generate_report(unique_results, moved_files, duplicates, 
                            theme_notes, index_file, structure_files)
         
         print("=== Enhanced ClippingsSorting Agent 完了 ===")
