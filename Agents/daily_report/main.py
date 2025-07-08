@@ -6,12 +6,12 @@ yesterday = datetime.date.today()- datetime.timedelta(days=1)
 report_lines = []
 
 # 1. Teams チャット/投稿取得
-teams_logs = teams.get_yesterday_messages()
-report_lines.append("【Teams】\n" + "\n".join(teams_logs))
+# teams_logs = teams.get_yesterday_messages()
+# report_lines.append("【Teams】\n" + "\n".join(teams_logs))
 
 # 2. Chatwork メッセージ取得
-chatwork_logs = chatwork.get_yesterday_messages()
-report_lines.append("【Chatwork】\n" + "\n".join(chatwork_logs))
+# chatwork_logs = chatwork.get_yesterday_messages()
+# report_lines.append("【Chatwork】\n" + "\n".join(chatwork_logs))
 
 # 3. 送信メール取得
 sent_mails = email_client.get_yesterday_sent_emails()

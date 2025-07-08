@@ -83,7 +83,7 @@ def get_yesterday_messages():
         for msg in msg_res.get("value", []):
             created = msg.get('createdDateTime', '')[:10]
             if created == yesterday:
-                sender = msg.get('from', {}).get('user', {}).get('displayName', '不明')
+                sender = (msg.get('from') or {}).get('user', {}).get('displayName', '不明')
                 content = msg.get('body', {}).get('content', '').strip()
                 messages.append(f"[{sender}] {content}")
 
