@@ -1,24 +1,56 @@
-# Enhanced ClippingsSorting Agent
+# Enhanced ClippingsSorting Agent × Zettelkasten
 
 ## 概要
 
-Enhanced ClippingsSorting Agentは、`Clippings`フォルダ内のMarkdownファイルを自動的に分析し、内容に基づいてカテゴリ別に分類し、さらに以下の機能を提供します：
+Enhanced ClippingsSorting Agentは、`Clippings`フォルダ内のMarkdownファイルを自動的に分析し、内容に基づいてカテゴリ別に分類し、さらにZettelkasten方式に基づくノート整理・知識管理を支援します。
 
+- **Zettelkasten流 永続ノート作成**: Fleeting Note（思考用ノート）、Literature Note（文献ノート）、Permanent Note（永続ノート）を自動生成・分類
 - **テーマ別永続ノート作成**: 関連する内容をまとめたファイル（例：Cursorについて.md）
 - **インデックスファイル作成**: プロジェクト全体の情報インデックス
-- **構造化ファイル作成**: テーマに沿った関係性の整理
+- **構造化ファイル作成**: テーマや知識の関係性を整理
+
+---
+
+## Zettelkasten方式との連携
+
+### ノートの種類
+
+- **Fleeting Note（思考用ノート）**  
+  一時的なメモやアイデア。とにかく思いついたことを記録。  
+  → `Clippings/fleeting_notes/` に自動分類
+
+- **Literature Note（文献ノート）**  
+  読書・資料から得た知識や要点。  
+  → `Clippings/literature_notes/` に自動分類
+
+- **Permanent Note（永続ノート）**  
+  自分の言葉で再構成した知識。複数ノートや情報を統合し、テーマごとにまとめる。  
+  → `03-Permanent-Notes/` に自動生成
+
+### Zettelkasten的なワークフロー
+
+1. **Fleeting Noteを素早く記録**  
+   思いついたことや気づきをClippingsに保存
+2. **Literature Noteで情報整理**  
+   読書・資料からの要点をまとめる
+3. **Permanent Noteで知識を再構成**  
+   複数ノートを統合し、自分の知識ネットワークを構築
+4. **定期的な見直し・リンク付け**  
+   関連ノート同士をリンクし、ネットワークを発展
+
+---
 
 ## 機能
 
 ### 1. 自動分類
 - **work_related**: 業務関連の記事
-- **personal_notes**: 個人メモ・アイデア
-- **research**: 研究・調査関連
+- **personal_notes**: 個人メモ・アイデア（Fleeting Noteに該当）
+- **research**: 研究・調査関連（Literature Noteに該当）
 - **tutorials**: チュートリアル・学習資料
 - **miscellaneous**: その他・未分類
 
 ### 2. テーマ別永続ノート作成
-以下のテーマで関連ファイルをまとめたノートを作成：
+以下のテーマで関連ファイルをまとめたPermanent Noteを作成：
 - **Cursor**: Cursorエディタ関連
 - **Obsidian**: Obsidian関連
 - **AI**: 人工知能・機械学習関連
@@ -34,11 +66,13 @@ Enhanced ClippingsSorting Agentは、`Clippings`フォルダ内のMarkdownファ
 - カテゴリ別インデックス
 - テーマ別インデックス
 - タグ別インデックス
+- Zettelkasten的リンクインデックス
 
 ### 4. 構造化ファイル作成
 - テーマ別の関連性分析
 - 学習の流れの整理
 - 共通キーワードの抽出
+- ノート間リンク構造の可視化
 
 ### 5. キーワード分析
 - ファイル名と内容からキーワードを抽出
@@ -50,7 +84,9 @@ Enhanced ClippingsSorting Agentは、`Clippings`フォルダ内のMarkdownファ
 - カテゴリフォルダの自動作成
 - ファイルの自動移動
 - 重複ファイルの検出
-- 分析結果の永続ノート作成
+- Zettelkasten流 永続ノートの自動生成
+
+---
 
 ## 使用方法
 
