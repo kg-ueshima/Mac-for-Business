@@ -217,3 +217,60 @@ tell application "Safari"
 		close privateWindow
 	end tell
 end tell
+
+/*
+【病棟別入退院数データ送信_to_m3.scpt をMacで自動実行する方法】
+
+1. Automatorで「アプリケーション」を作成し、AppleScriptを実行する
+----------------------------------------------------------
+1) Automatorを起動し、「新規書類」→「アプリケーション」を選択
+2) 「アクション」から「AppleScriptを実行」を検索し、右側にドラッグ
+3) 下記のようにスクリプトを記述
+
+例:
+do shell script "osascript '/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団　慶友会　吉田病院/00_Automatecpt/病棟別入退院数データ送信_to_m3.scpt'"
+
+4) ファイル名を「病棟別入退院数データ送信.app」などで保存
+
+2. カレンダーやcronで自動実行する
+----------------------------------------------------------
+【カレンダー.appで自動化】
+1) カレンダー.appで新規イベントを作成
+2) 「通知」→「カスタム」→「ファイルを開く」→上記で作成した.appを指定
+3) 実行したい時刻にイベントを設定
+
+【cronで自動化（ターミナル利用）】
+1) ターミナルで下記コマンドを実行し、crontabを編集
+crontab -e
+
+2) 例えば毎朝7時に実行したい場合（パスは適宜修正）
+0 7 * * * osascript '/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団　慶友会　吉田病院/00_Automatecpt/病棟別入退院数データ送信_to_m3.scpt'
+
+※cronからosascriptを使う場合、権限や環境変数に注意
+
+3. シェルスクリプトで直接実行
+----------------------------------------------------------
+【ターミナルやLaunchAgentによる自動実行方法まとめ】
+
+1. ターミナルからAppleScriptを直接実行する場合
+----------------------------------------------------------
+osascript '/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団　慶友会　吉田病院/00_Automatecpt/病棟別入退院数データ送信_to_m3.scpt'
+
+2. LaunchAgent（macOSの自動起動機能）を使う場合
+----------------------------------------------------------
+① 設定ファイル（例: com.keiyukai.m3upload.plist）を作成し、下記ディレクトリに配置
+~/Library/LaunchAgents/com.keiyukai.m3upload.plist
+
+② ターミナルで以下のコマンドを順に実行
+launchctl load ~/Library/LaunchAgents/com.keiyukai.m3upload.plist   # 読み込み
+launchctl start com.keiyukai.m3upload                               # 手動起動（必要に応じて）
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.keiyukai.m3upload.plist  # macOS Ventura以降
+
+※launchctl bootstrapはmacOSのバージョンによって必要な場合があります。
+
+【注意】
+- AppleScript/Automator/cronの実行権限やセキュリティ設定（システム環境設定→セキュリティとプライバシー→フルディスクアクセス等）に注意
+- ファイルパスに全角文字が含まれる場合、ターミナルやcronでのパス指定は特に注意
+- osascriptコマンドはmacOS標準搭載
+
+*/
