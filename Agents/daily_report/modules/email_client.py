@@ -32,6 +32,10 @@ def get_yesterday_sent_emails():
     try:
         # IMAPサーバへ接続
         imap = imaplib.IMAP4_SSL(IMAP_SERVER, IMAP_PORT)
+        # Noneチェック（型安全のため）
+        if EMAIL_ACCOUNT is None or EMAIL_PASSWORD is None:
+            print("EMAIL_ACCOUNT または EMAIL_PASSWORD が設定されていません")
+            return messages
         imap.login(EMAIL_ACCOUNT, EMAIL_PASSWORD)
         print("IMAP接続成功")
 
@@ -49,7 +53,7 @@ def get_yesterday_sent_emails():
         # 昨日の日付で検索
         since = yesterday_date.strftime("%d-%b-%Y")
         before = (yesterday_date + datetime.timedelta(days=1)).strftime("%d-%b-%Y")
-        # Gmailは日本時間でなくUTC基準なので、多少のズレが出る場合あり
+        # 送信済みメールから、昨日の日付のメールを検索
         status, data = imap.search(None, f'SINCE {since}', f'BEFORE {before}')
         if status != "OK":
             print("メール検索失敗")
@@ -89,6 +93,11 @@ def get_yesterday_sent_emails():
             # 昨日の日付のみ
             if msg_date_local != yesterday_date:
                 continue  # 昨日以外はスキップ
+
+            # fromアドレスが ueshima@keiyukai-group.com のみ抽出
+            from_addr = decode_mime_words(msg.get("From", ""))
+            if "ueshima@keiyukai-group.com" not in from_addr:
+                continue  # 自分が送信したもの以外はスキップ
 
             subject = decode_mime_words(msg.get("Subject", "（件名なし）"))
             to = decode_mime_words(msg.get("To", "不明"))
