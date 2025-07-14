@@ -6,6 +6,9 @@
 .env
 env.local
 *.env
+client_id.json
+service_account.json
+token.json
 
 # トークンキャッシュ
 .token_cache.bin
