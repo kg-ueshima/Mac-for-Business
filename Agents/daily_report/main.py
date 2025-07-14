@@ -1,5 +1,5 @@
 import datetime
-from modules import teams , chatwork, email_client, onedrive, gemini
+from modules import teams,chatwork,email_client,onedrive,gemini
 from pathlib import Path
 
 yesterday = datetime.date.today()- datetime.timedelta(days=1)
@@ -14,8 +14,8 @@ report_lines = []
 # report_lines.append("【Chatwork】\n" + "\n".join(chatwork_logs))
 
 # 3. 送信メール取得
-sent_mails = email_client.get_yesterday_sent_emails()
-report_lines.append(gemini.summarize("【送信メール】\n" + "\n".join(sent_mails)))
+# sent_mails = email_client.get_yesterday_sent_emails()
+# report_lines.append(gemini.summarize("【送信メール】\n" + "\n".join(sent_mails)))
 
 # 4. OneDriveファイル取得
 new_files = onedrive.get_yesterday_created_files()

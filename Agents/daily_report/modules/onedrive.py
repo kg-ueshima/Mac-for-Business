@@ -3,16 +3,22 @@ import datetime
 import requests
 from pathlib import Path
 from dotenv import load_dotenv
+from msal import PublicClientApplication, SerializableTokenCache
 
 # .env.local から環境変数を読み込む
 env_path = Path(__file__).parent.parent.parent.parent / 'env.local'
 load_dotenv(dotenv_path=env_path)
 
-CLIENT_ID = os.getenv("MICROSOFT_CLIENT_ID")
+CLIENT_ID = os.getenv("ONEDRIVE_CLIENT_ID")
 TENANT_ID = os.getenv("MICROSOFT_TENANT_ID")
-SECRET_ID = os.getenv("MICROSOFT_SECRET_ID")
+SECRET_ID = os.getenv("ONEDRIVE_SECRET_VALUE")
 AUTHORITY = f"https://login.microsoftonline.com/{TENANT_ID}"
 SCOPES = ["https://graph.microsoft.com/.default"]
+# 環境変数のチェック
+if not CLIENT_ID or not TENANT_ID:
+    print("エラー: 環境変数が設定されていません")
+    print("env.localファイルにMICROSOFT_CLIENT_IDとMICROSOFT_TENANT_IDを設定してください")
+    exit(1)
 
 import msal
 
@@ -25,7 +31,7 @@ def get_access_token():
     result = app.acquire_token_silent(SCOPES, account=None)
     if not result:
         result = app.acquire_token_for_client(scopes=SCOPES)
-    if "access_token" not in result:
+    if not result or 'access_token' not in result:
         print("OneDrive用トークン取得失敗:", result)
         return None
     return result["access_token"]
