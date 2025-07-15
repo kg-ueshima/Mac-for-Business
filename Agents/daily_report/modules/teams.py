@@ -1,6 +1,6 @@
-import requests
-import datetime
 import os
+import datetime
+import requests
 from pathlib import Path
 from dotenv import load_dotenv
 from msal import PublicClientApplication, SerializableTokenCache
