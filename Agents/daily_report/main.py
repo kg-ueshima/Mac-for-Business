@@ -1,5 +1,5 @@
 import datetime
-from modules import teams,chatwork,email_client,onedrive,gemini
+from modules import teams,chatwork,email_client,onedrive,gemini,calendar_client
 from pathlib import Path
 
 
@@ -32,6 +32,15 @@ for f in new_files:
     #     report_lines.append(gemini.summarize(content))
     # else:
     #     report_lines.append("（ファイル内容の取得に失敗）")
+
+# 4. Googleカレンダー予定取得
+calendar_events = calendar_client.get_events_on_date()
+if calendar_events:
+    for event in calendar_events:
+        summary = gemini.summarize(event)
+        report_lines.append(f"【Googleカレンダー予定】要約\n{summary}\n\n\n{event}")
+else:
+    report_lines.append("【Googleカレンダー予定】本日の予定はありません")
 
 # 5. 日報保存
 output_path = Path("reports") / f"{yesterday}_その日のやり取り.txt"

@@ -4,7 +4,7 @@ source .venv/bin/activate
 python3 Agents/daily_report/main.py 
 
 #backup command
-rsync -aq --info=stats2 --delete --exclude '.git' --exclude '.venv' --exclude '.obsidian' '/Users/ueshima/Workspace/Mac for Business/' '/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団 慶友会 吉田病院/Mac for Business-backup'
+rsync -aq --delete --exclude '.git' --exclude '.venv' --exclude '.obsidian' '/Users/ueshima/Workspace/Mac for Business/' '/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団 慶友会 吉田病院/Mac for Business-backup'
 
 #git push refused
 #BFGで機密ファイルを削除
