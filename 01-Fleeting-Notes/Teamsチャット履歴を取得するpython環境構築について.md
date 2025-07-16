@@ -15,6 +15,9 @@ MacBook環境で、以下の情報を自動取得し、日報として保存し�
 
 ## システム構成概要
 
+Microsoft Entra管理センターにアクセス
+https://entra.microsoft.com/#home
+
 | 対象      | 取得方法                                      |
 |-----------|-----------------------------------------------|
 | Teams     | Microsoft Graph API（認証要：Azure登録）      |

@@ -4,6 +4,8 @@ import requests
 from pathlib import Path
 from dotenv import load_dotenv
 from msal import PublicClientApplication, SerializableTokenCache
+from dateutil import parser
+import pytz
 
 # 環境変数を読み込み
 env_path = Path(__file__).parent.parent.parent.parent / 'env.local'
@@ -69,7 +71,9 @@ headers = {"Authorization": f"Bearer {access_token}"}
 
 # ▼ 本日分のチャットメッセージを取得する関数
 def get_yesterday_messages():
-    yesterday = (datetime.date.today() - datetime.timedelta(days=1)).isoformat()
+    JST = pytz.timezone('Asia/Tokyo')
+    now_jst = datetime.datetime.now(JST)
+    yesterday_jst = (now_jst - datetime.timedelta(days=1)).date()
     url = 'https://graph.microsoft.com/v1.0/me/chats'
     res = requests.get(url, headers=headers)
     chats = res.json().get('value', [])
@@ -81,10 +85,68 @@ def get_yesterday_messages():
         msg_res = requests.get(msg_url, headers=headers).json()
 
         for msg in msg_res.get("value", []):
-            created = msg.get('createdDateTime', '')[:10]
-            if created == yesterday:
+            created_utc = msg.get('createdDateTime', '')
+            if not created_utc:
+                continue
+            try:
+                dt_utc = parser.isoparse(created_utc)
+                dt_jst = dt_utc.astimezone(JST)
+                created_jst_date = dt_jst.date()
+            except Exception:
+                continue
+            if created_jst_date == yesterday_jst:
                 sender = (msg.get('from') or {}).get('user', {}).get('displayName', '不明')
                 content = msg.get('body', {}).get('content', '').strip()
                 messages.append(f"[{sender}] {content}")
+    return messages
 
+def get_yesterday_channel_messages():
+    """
+    自分が所属する全チームの全チャンネルの投稿（会話）から、昨日(JST)分のみを抽出して返す
+    """
+    JST = pytz.timezone('Asia/Tokyo')
+    now_jst = datetime.datetime.now(JST)
+    yesterday_jst = (now_jst - datetime.timedelta(days=1)).date()
+    messages = []
+    # 1. 所属チーム一覧取得
+    teams_url = 'https://graph.microsoft.com/v1.0/me/joinedTeams'
+    teams_res = requests.get(teams_url, headers=headers)
+    if teams_res.status_code != 200:
+        print('チーム一覧取得失敗:', teams_res.text)
+        return messages
+    teams_data = teams_res.json().get('value', [])
+    for team in teams_data:
+        team_id = team.get('id')
+        team_name = team.get('displayName', '不明なチーム')
+        # 2. チャンネル一覧取得
+        channels_url = f'https://graph.microsoft.com/v1.0/teams/{team_id}/channels'
+        channels_res = requests.get(channels_url, headers=headers)
+        if channels_res.status_code != 200:
+            print(f'チャンネル一覧取得失敗({team_name}):', channels_res.text)
+            continue
+        channels_data = channels_res.json().get('value', [])
+        for channel in channels_data:
+            channel_id = channel.get('id')
+            channel_name = channel.get('displayName', '不明なチャンネル')
+            # 3. チャンネル投稿（会話）取得
+            posts_url = f'https://graph.microsoft.com/v1.0/teams/{team_id}/channels/{channel_id}/messages'
+            posts_res = requests.get(posts_url, headers=headers)
+            if posts_res.status_code != 200:
+                print(f'チャンネル投稿取得失敗({team_name}/{channel_name}):', posts_res.text)
+                continue
+            posts_data = posts_res.json().get('value', [])
+            for post in posts_data:
+                created_utc = post.get('createdDateTime', '')
+                if not created_utc:
+                    continue
+                try:
+                    dt_utc = parser.isoparse(created_utc)
+                    dt_jst = dt_utc.astimezone(JST)
+                    created_jst_date = dt_jst.date()
+                except Exception:
+                    continue
+                if created_jst_date == yesterday_jst:
+                    sender = (post.get('from') or {}).get('user', {}).get('displayName', '不明')
+                    content = post.get('body', {}).get('content', '').strip()
+                    messages.append(f"[{team_name}/{channel_name}][{sender}] {content}")
     return messages
