@@ -13,6 +13,8 @@ token.json
 # トークンキャッシュ
 .token_cache.bin
 token_cache.bin
+.token_cache_onedrive.bin
+token_cache_onedrive.bin
 
 # Python
 __pycache__/
