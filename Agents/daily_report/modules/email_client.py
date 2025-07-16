@@ -4,9 +4,12 @@ from email.header import decode_header
 import datetime
 import os
 from dotenv import load_dotenv
+from pathlib import Path
 
-# .env.local から環境変数を読み込む
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '../../.env.local'))
+# 環境変数を読み込み
+env_path = Path(__file__).parent.parent.parent.parent / 'env.local'
+load_dotenv(dotenv_path=env_path)
+print(f"DEBUG (email_client.py): Loading env from {env_path}")
 
 # Gmail IMAP設定
 IMAP_SERVER = os.getenv("IMAP_SERVER", "imap.gmail.com")

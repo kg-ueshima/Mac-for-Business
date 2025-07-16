@@ -3,10 +3,10 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 from pathlib import Path
 
-# --- Load .env.local from the same directory as the script ---
+# 環境変数を読み込み
 env_path = Path(__file__).parent.parent.parent.parent / 'env.local'
 load_dotenv(dotenv_path=env_path)
-print(f"DEBUG: Attempting to load .env file from: {env_path}")
+print(f"DEBUG (gemini.py): Loading env from {env_path}")
 
 def summarize(text):
     """

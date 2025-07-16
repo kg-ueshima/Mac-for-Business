@@ -5,3 +5,11 @@ python3 Agents/daily_report/main.py
 
 #backup command
 rsync -avn --exclude '.git' '/Users/ueshima/Workspace/Mac for Business/' '/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団 慶友会 吉田病院/Mac for Business-backup/'
+
+#git push refused
+#BFGで機密ファイルを削除
+bfg --delete-files token_cache_onedrive.bin #セキュリティ情報が入ったファイル
+#Gitのガベージコレクションを実行
+git reflog expire --expire=now --all && git gc --prune=now --aggressive
+#リモートリポジトリを強制上書き（force push）
+ git push --force
