@@ -43,7 +43,7 @@ else:
     report_lines.append("【Googleカレンダー予定】本日の予定はありません")
 
 # 5. 日報保存
-output_path = Path("reports") / f"{yesterday}_その日のやり取り.txt"
+output_path = Path("80-業務日報") / f"{yesterday}_その日のやり取り.txt"
 output_path.parent.mkdir(parents=True, exist_ok=True)
 
 # 要約結果をまとめて保存（追記モードで書き込む）
@@ -52,6 +52,7 @@ with output_path.open("w", encoding="utf-8") as f:
     f.write("【Teamsチャンネル投稿 - 要約 -】\n" + gemini.summarize(channel_logs) + "\n")
     f.write("【送信メール - 要約 -】\n" + gemini.summarize(sent_mails) + "\n")
     f.write("【OneDrive新規ファイル - 要約 -】\n" + gemini.summarize(new_files) + "\n")
+    f.write("【Googleカレンダー予定 - 要約 -】\n" + gemini.summarize(calendar_events) + "\n")
     f.write("\n\n\n".join(report_lines))
 
 print(f"やり取りを保存しました：{output_path}")

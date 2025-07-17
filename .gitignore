@@ -16,6 +16,8 @@ token_cache.bin
 .token_cache_onedrive.bin
 token_cache_onedrive.bin
 
+onedrive_delta_link.txt
+
 # Python
 __pycache__/
 *.pyc

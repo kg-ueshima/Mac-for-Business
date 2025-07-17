@@ -13,12 +13,17 @@ from datetime import datetime
 import logging
 from gs_schedule_to_google import get_latest_schedule_csv, parse_csv_schedule, insert_events_to_google_calendar
 
+# logsディレクトリ作成
+log_dir = os.path.join(os.path.dirname(__file__), 'logs')
+os.makedirs(log_dir, exist_ok=True)
+log_path = os.path.join(log_dir, 'auto_schedule_sync.log')
+
 # ログ設定
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('auto_schedule_sync.log'),
+        logging.FileHandler(log_path),
         logging.StreamHandler()
     ]
 )

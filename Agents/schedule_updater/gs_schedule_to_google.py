@@ -200,7 +200,7 @@ def insert_events_to_google_calendar(events):
         print(f"新規登録: {event['summary']}")
 
 def get_latest_schedule_csv(download_dir):
-    files = glob.glob(os.path.join(download_dir, "scheduleList-*.csv"))
+    files = glob.glob(os.path.join(download_dir, "scheduleList*.csv"))
     if not files:
         raise FileNotFoundError("scheduleList-*.csv が見つかりません")
     latest_file = max(files, key=os.path.getmtime)

@@ -8,37 +8,39 @@
 ### その他
 - ファイル数: 2個
 
-- **初心者でも分かる！VSCodeでGemini CLIを使いこなす方法 - インストールから応用まで徹底解説.md**
+- **【生成AI】AIによるWebブラウザの自動操作を実現するには.md**
   - カテゴリ: tutorials
-  - キーワード: データ, 分析, Python, AI, 思考, DevOps, 使い方, プロジェクト, AWS, Git, チーム, テスト, 手順, デバッグ, 開発, 管理, ガイド, API
+  - キーワード: プログラミング, Git, AI, 管理, クラウド, Python, AWS, ガイド, 開発, API, テスト, Azure, JavaScript
   - 概要: ---
-title: "初心者でも分かる！VSCodeでGemini CLIを使いこなす方法 - インストールから応用まで徹底解説"
-source: "https://qiita.com/Nakamura-Kaito/items/122963855d7b1deb8a9d"
+title: "【生成AI】AIによるWebブラウザの自動操作を実現するには"
+source: "https://qiita.com/ymd65536/items/1497a60c11ebe1d8dda5"
 author:
-  - "[[Nakamura-Kaito]]"
+  - "[[ymd65536]]"
 published: 2025-07-04
-created:...
+created: 2025-07-10
+description: "自分の言葉で書いて...
 
-- **【無料でできる!】 GeminiCLIを使ってWebサイトを公開してみよう｜むなかた AI×Web3エンジニア.md**
+- **n8nを活用してAIエージェントを開発する方法〜AI技術を使った自動化アプリ開発〜｜Masaland.md**
   - カテゴリ: tutorials
-  - キーワード: Python, AI, プロジェクト, 学習, Git, 手順, プログラミング, 管理, 個人, JavaScript
+  - キーワード: 分析, データ, データベース, チーム, 個人, マーケティング, AI, 管理, クラウド, Docker, 顧客, 開発, API, 業務, プロジェクト, JavaScript
   - 概要: ---
-title: "【無料でできる!】 GeminiCLIを使ってWebサイトを公開してみよう｜むなかた AI×Web3エンジニア"
-source: "https://note.com/munakata_souri/n/n2ccf7c4b1609"
+title: "n8nを活用してAIエージェントを開発する方法〜AI技術を使った自動化アプリ開発〜｜Masaland"
+source: "https://note.com/masaland/n/n01faa5449ee4"
 author:
-  - "[[むなかた AI×Web3エンジニア]]"
-published: 2025-06-30
-created: 2025-0...
+  - "[[Masaland]]"
+published: 2025-01-08
+created: 2025-07-13
+description: "A...
 
 ## 関連性分析
 
 ### 共通キーワード
-- Python: 2回
 - AI: 2回
-- プロジェクト: 2回
-- Git: 2回
-- 手順: 2回
 - 管理: 2回
+- クラウド: 2回
+- 開発: 2回
+- API: 2回
+- JavaScript: 2回
 
 ## 学習の流れ
 

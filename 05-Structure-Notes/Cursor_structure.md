@@ -6,39 +6,54 @@ Cursorに関する情報の構造化と関連性の整理
 ## 主要トピック
 
 ### その他
-- ファイル数: 2個
+- ファイル数: 3個
 
-- **初心者でも分かる！VSCodeでGemini CLIを使いこなす方法 - インストールから応用まで徹底解説.md**
-  - カテゴリ: tutorials
-  - キーワード: データ, 分析, Python, AI, 思考, DevOps, 使い方, プロジェクト, AWS, Git, チーム, テスト, 手順, デバッグ, 開発, 管理, ガイド, API
+- **SmartDrive FleetDriver アプリ｜車両管理システム｜SmartDrive Fleet｜スマートドライブフリート.md**
+  - カテゴリ: work_related
+  - キーワード: データ, 管理, 業務
   - 概要: ---
-title: "初心者でも分かる！VSCodeでGemini CLIを使いこなす方法 - インストールから応用まで徹底解説"
-source: "https://qiita.com/Nakamura-Kaito/items/122963855d7b1deb8a9d"
+title: "SmartDrive FleetDriver アプリ｜車両管理システム｜SmartDrive Fleet｜スマートドライブフリート"
+source: "https://smartdrive.co.jp/fleet/service/app/"
 author:
-  - "[[Nakamura-Kaito]]"
-published: 2025-07-04
-created:...
+  - "[[SmartDrive｜移動データプラットフォームで移動の進化を後押しする]]"
+published:
+c...
 
-- **【無料でできる!】 GeminiCLIを使ってWebサイトを公開してみよう｜むなかた AI×Web3エンジニア.md**
-  - カテゴリ: tutorials
-  - キーワード: Python, AI, プロジェクト, 学習, Git, 手順, プログラミング, 管理, 個人, JavaScript
+- **従業員を動かすために「危機感を煽る」時代遅れのマネジメント　「ビジネスは戦争だ」軍事的な経営論から脱却すべき理由  ログミーBusiness.md**
+  - カテゴリ: work_related
+  - キーワード: 思考, チーム, 経営, 会議, 個人, 興味, AI, Git, マーケティング, 組織, 開発, 人事, 戦略, 仕事, 研究, マネジメント
   - 概要: ---
-title: "【無料でできる!】 GeminiCLIを使ってWebサイトを公開してみよう｜むなかた AI×Web3エンジニア"
-source: "https://note.com/munakata_souri/n/n2ccf7c4b1609"
+title: "従業員を動かすために「危機感を煽る」時代遅れのマネジメント　「ビジネスは戦争だ」軍事的な経営論から脱却すべき理由 | ログミーBusiness"
+source: "https://logmi.jp/main/management/331957"
 author:
-  - "[[むなかた AI×Web3エンジニア]]"
-published: 2025-06-30
-created: 2025-0...
+  - "[[ログミーBusiness - 世界をログする書き起こしメディア]]"
+published: 2025...
+
+- **2025年のエンジニア新人研修の講義資料を公開しました.md**
+  - カテゴリ: tutorials
+  - キーワード: データ, 報告, データベース, チーム, 組織, 興味, Git, AI, クラウド, Docker, Kubernetes, ガイド, 開発, 人事, 業務, 仕事, テスト
+  - 概要: ---
+title: "2025年のエンジニア新人研修の講義資料を公開しました"
+source: "https://blog.cybozu.io/entry/2025/07/08/171543"
+author:
+  - "[[yellow-sabotech]]"
+published: 2025-07-08
+created: 2025-07-09
+description: "開発本部 People ...
 
 ## 関連性分析
 
 ### 共通キーワード
-- Python: 2回
+- データ: 2回
+- 業務: 2回
+- チーム: 2回
+- 興味: 2回
 - AI: 2回
-- プロジェクト: 2回
 - Git: 2回
-- 手順: 2回
-- 管理: 2回
+- 組織: 2回
+- 開発: 2回
+- 人事: 2回
+- 仕事: 2回
 
 ## 学習の流れ
 

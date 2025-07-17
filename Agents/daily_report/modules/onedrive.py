@@ -70,41 +70,63 @@ access_token = result["access_token"]
 headers = {"Authorization": f"Bearer {access_token}"}
 
 def get_access_token():
+    # グローバルなcacheを使う
+    global cache
     app = msal.PublicClientApplication(
         client_id=CLIENT_ID,
-        authority=AUTHORITY
+        authority=AUTHORITY,
+        token_cache=cache
     )
-    
     accounts = app.get_accounts()
     if accounts:
         result = app.acquire_token_silent(SCOPES, account=accounts[0])
     else:
-        result = app.acquire_token_interactive(SCOPES)
+        result = None
     if not result or 'access_token' not in result:
-        print("OneDrive用トークン取得失敗:", result)
-        return None
-    return result["access_token"]
+        # ここで初回のみインタラクティブ認証
+        flow = app.initiate_device_flow(scopes=SCOPES)
+        if "user_code" not in flow:
+            print("デバイスコード認証に失敗しました:", flow)
+            return None
+        print(flow["message"])
+        result = app.acquire_token_by_device_flow(flow)
+        # 認証成功時はキャッシュを保存
+        with open(TOKEN_CACHE_FILE, "w") as f:
+            f.write(cache.serialize())
+    return result["access_token"] if result and "access_token" in result else None
+
+DELTA_LINK_FILE = "onedrive_delta_link.txt"
+
+def load_delta_link():
+    if os.path.exists(DELTA_LINK_FILE):
+        with open(DELTA_LINK_FILE, "r") as f:
+            return f.read().strip()
+    return None
+
+def save_delta_link(link):
+    with open(DELTA_LINK_FILE, "w") as f:
+        f.write(link)
 
 def get_yesterday_created_files():
     """
     OneDriveの昨日作成・編集・移動・保存などの操作履歴を取得し、
     ファイル名・操作時間・ファイル拡張子などを返す（JST基準で昨日を判定）
+    2回目以降はdeltaLinkを使って差分のみ取得し高速化
     """
     access_token = get_access_token()
     if not access_token:
         return []
 
     headers = {"Authorization": f"Bearer {access_token}"}
-    url = "https://graph.microsoft.com/v1.0/me/drive/root/delta"
+    delta_link = load_delta_link()
+    url = delta_link if delta_link else "https://graph.microsoft.com/v1.0/me/drive/root/delta"
     files = []
     JST = pytz.timezone('Asia/Tokyo')
     now_jst = datetime.datetime.now(JST)
     yesterday_jst = (now_jst - datetime.timedelta(days=1)).date()
-    next_link = url
 
-    # delta APIで全履歴を取得（ページング対応）
-    while next_link:
-        res = requests.get(next_link, headers=headers)
+    while url:
+        res = requests.get(url, headers=headers)
         if res.status_code != 200:
             print("OneDrive APIエラー:", res.text)
             break
@@ -134,8 +156,10 @@ def get_yesterday_created_files():
                     "id": item.get("id", ""),
                     "webUrl": item.get("webUrl", ""),
                 })
-        # 次ページがあれば
-        next_link = data.get("@odata.nextLink", None)
+        # deltaLinkの保存
+        if "@odata.deltaLink" in data:
+            save_delta_link(data["@odata.deltaLink"])
+        url = data.get("@odata.nextLink", None)
 
     return files
 

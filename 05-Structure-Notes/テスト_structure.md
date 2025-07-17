@@ -5,86 +5,56 @@
 
 ## 主要トピック
 
-### 使い方・ガイド
-- ファイル数: 2個
-
-- **Azure AI Foundry とは使い方やできることを解説.md**
-  - カテゴリ: tutorials
-  - キーワード: 機械学習, 管理, データ, プログラミング, クラウド, API, Python, AI, 学習, 開発, 業務, Azure, 使い方, プロジェクト, テスト, 手順
-  - 概要: ---
-title: "Azure AI Foundry とは?使い方やできることを解説"
-source: "https://www.avepoint.co.jp/blog/about-azure-ai-studio/"
-author:
-  - "[[SharePointのアクセス権限とは？種類や設定方法、注意点を解説]]"
-published: 2024-05-05
-created: 2025-...
-
-- **Claude Codeの使い方！実際に使ってみた感想やCursorとの機能比較！.md**
-  - カテゴリ: tutorials
-  - キーワード: 管理, AI, 学習, 開発, 使い方, 手順, データ, プログラミング, API, 調査, 経営, 業務, マーケティング, ガイド, 個人, プロジェクト, アイデア, デバッグ, 分析, Git, テスト, データベース
-  - 概要: ---
-title: "Claude Codeの使い方！実際に使ってみた感想やCursorとの機能比較！"
-source: "https://www.sungrove.co.jp/claude-code/"
-author:
-  - "[[やまたに]]"
-published: 2025-05-27
-created: 2025-06-19
-description: "Claude Codeの使い方を初...
-
 ### その他
-- ファイル数: 2個
+- ファイル数: 3個
 
-- **Cursor v1.0リリース今Cursorで何ができるのか.md**
+- **【生成AI】AIによるWebブラウザの自動操作を実現するには.md**
   - カテゴリ: tutorials
-  - キーワード: 機械学習, 管理, クラウド, AI, 学習, 開発, 使い方, CI/CD, 手順, データ, プログラミング, その他, API, Python, 思考, 調査, 戦略, テスト, Docker, 個人, プロジェクト, アイデア, デバッグ, Git, チーム, 分析
+  - キーワード: プログラミング, Git, AI, 管理, クラウド, Python, AWS, ガイド, 開発, API, テスト, Azure, JavaScript
   - 概要: ---
-title: "[Cursor v1.0リリース]今Cursorで何ができるのか"
-source: "https://zenn.dev/service/articles/dbb6123a4732ed"
+title: "【生成AI】AIによるWebブラウザの自動操作を実現するには"
+source: "https://qiita.com/ymd65536/items/1497a60c11ebe1d8dda5"
 author:
-  - "[[Zenn]]"
-published: 2025-06-05
-created: 2025-06-06
-description:
-tags:
-  - "clippi...
+  - "[[ymd65536]]"
+published: 2025-07-04
+created: 2025-07-10
+description: "自分の言葉で書いて...
 
-- **Cursor x Claude Code = Vibes Coding = 俺いる...🤔になった話。.md**
+- **努力してSAAに合格したので勉強方法と解き方のコツをシェア.md**
   - カテゴリ: tutorials
-  - キーワード: テスト, データ, プログラミング, API, AI, 個人, 興味, 学習, 開発, プロジェクト, 研究, 分析, 手順, データベース
+  - キーワード: 思考, 分析, AI, 学習, AWS, 調査, 使い方, 業務, テスト, 研究, 機械学習
   - 概要: ---
-title: "Cursor x Claude Code = Vibes Coding = 俺いる...?🤔になった話。"
-source: "https://zenn.dev/spacemarket/articles/73c24b04da41bb"
+title: "努力してSAAに合格したので勉強方法と解き方のコツをシェア"
+source: "https://qiita.com/ysk91_engineer/items/76db3634cee2b93c0eb0"
 author:
-  - "[[Zenn]]"
-published: 2025-06-14
-created: 2025-06-15
-descri...
+  - "[[ysk91_engineer]]"
+published: 2024-09-16
+created: 2025-07-08
+description:...
+
+- **2025年のエンジニア新人研修の講義資料を公開しました.md**
+  - カテゴリ: tutorials
+  - キーワード: データ, 報告, データベース, チーム, 組織, 興味, Git, AI, クラウド, Docker, Kubernetes, ガイド, 開発, 人事, 業務, 仕事, テスト
+  - 概要: ---
+title: "2025年のエンジニア新人研修の講義資料を公開しました"
+source: "https://blog.cybozu.io/entry/2025/07/08/171543"
+author:
+  - "[[yellow-sabotech]]"
+published: 2025-07-08
+created: 2025-07-09
+description: "開発本部 People ...
 
 ## 関連性分析
 
 ### 共通キーワード
-- データ: 4回
-- プログラミング: 4回
-- API: 4回
-- AI: 4回
-- 学習: 4回
-- 開発: 4回
-- プロジェクト: 4回
-- テスト: 4回
-- 手順: 4回
-- 管理: 3回
-- 使い方: 3回
-- 個人: 3回
-- 分析: 3回
-- 機械学習: 2回
-- クラウド: 2回
-- Python: 2回
-- 業務: 2回
-- 調査: 2回
-- アイデア: 2回
-- デバッグ: 2回
+- AI: 3回
+- テスト: 3回
 - Git: 2回
-- データベース: 2回
+- クラウド: 2回
+- AWS: 2回
+- ガイド: 2回
+- 開発: 2回
+- 業務: 2回
 
 ## 学習の流れ
 

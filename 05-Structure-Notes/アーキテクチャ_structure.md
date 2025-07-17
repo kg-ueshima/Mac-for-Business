@@ -8,128 +8,77 @@
 ### その他
 - ファイル数: 4個
 
-- **Yamlから始める要件定義駆動開発｜そら ☁️ AI × Dify 自動化オタク📱.md**
-  - カテゴリ: tutorials
-  - キーワード: 管理, ガイド, データ, API, Python, AI, 開発, プロジェクト, 手順
-  - 概要: ---
-title: "Yamlから始める要件定義駆動開発｜そら ☁️ AI × Dify 自動化オタク📱"
-source: "https://note.com/sora19ai/n/nb0ac518851bf"
-author:
-  - "[[そら ☁️ AI × Dify 自動化オタク📱]]"
-published: 2025-06-25
-created: 2025-06-26
-descripti...
+- **「全社員がAIを使いこなす」組織は、“5つの課題”を乗り越えている.md**
+  - カテゴリ: work_related
+  - キーワード: 思考, チーム, 組織, AI, 管理, 戦略, 顧客, ガイド, 開発, 業務, 仕事, プロジェクト, 経営
+  - 概要: # 
 
-- **Cursor v1.0リリース今Cursorで何ができるのか.md**
-  - カテゴリ: tutorials
-  - キーワード: 機械学習, 管理, クラウド, AI, 学習, 開発, 使い方, CI/CD, 手順, データ, プログラミング, その他, API, Python, 思考, 調査, 戦略, テスト, Docker, 個人, プロジェクト, アイデア, デバッグ, Git, チーム, 分析
-  - 概要: ---
-title: "[Cursor v1.0リリース]今Cursorで何ができるのか"
-source: "https://zenn.dev/service/articles/dbb6123a4732ed"
-author:
-  - "[[Zenn]]"
-published: 2025-06-05
-created: 2025-06-06
-description:
-tags:
-  - "clippi...
+​
 
-- **ノーコードで実現！　DifyでカスタマーサポートAIチャットbotを作成する.md**
-  - カテゴリ: tutorials
-  - キーワード: 管理, クラウド, AI, 学習, 開発, 使い方, 手順, プログラミング, その他, API, 興味, 営業, 顧客, 人事, 業務, マーケティング, プロジェクト, 研究, デバッグ, Git, メモ
-  - 概要: ---
-title: "ノーコードで実現！　DifyでカスタマーサポートAIチャットbotを作成する"
-source: "https://atmarkit.itmedia.co.jp/ait/spv/2506/19/news001.html"
-author:
-  - "[[山田研二（著）／山田祥寛（監修）]]"
-published: 2025-06-19
-created: 2025-06-20
-d...
+ 要約する
 
-- **Cursor x Claude Code = Vibes Coding = 俺いる...🤔になった話。.md**
-  - カテゴリ: tutorials
-  - キーワード: テスト, データ, プログラミング, API, AI, 個人, 興味, 学習, 開発, プロジェクト, 研究, 分析, 手順, データベース
-  - 概要: ---
-title: "Cursor x Claude Code = Vibes Coding = 俺いる...?🤔になった話。"
-source: "https://zenn.dev/spacemarket/articles/73c24b04da41bb"
-author:
-  - "[[Zenn]]"
-published: 2025-06-14
-created: 2025-06-15
-descri...
+​
 
-### 使い方・ガイド
-- ファイル数: 3個
+[小出翔](https://www.itmedia.co.jp/author/261226/spv/)2025年7月10日
 
-- **【Obsidianの使い方が変わる】Gemini CLIは、あなたの思考に寄り添う「無料の執事」｜少し明るい高橋くん.md**
-  - カテゴリ: tutorials
-  - キーワード: データ, プログラミング, 思考, AI, 個人, 興味, 開発, 業務, JavaScript, メモ, 使い方, プロジェクト, 研究, アイデア, 仕事
-  - 概要: ---
-title: "【Obsidianの使い方が変わる】Gemini CLIは、あなたの思考に寄り添う「無料の執事」｜少し明るい高橋くん"
-source: "https://note.com/chankostin/n/nb33ca6e289fa"
-author:
-  - "[[少し明るい高橋くん]]"
-published: 2025-06-27
-created: 2025-06-28
-desc...
+AI時代、事業が変われば組織も変わる。新規事業創出に伴う人材再配置やスキルベース組織への転換、全社でのAI活用の浸透など、DX推進を成功に導くために、組織・人材戦略や仕組みづくりはますます重要になる。DX推進や組織変革を支援してきたGrow...
 
-- **Claude Codeの使い方！実際に使ってみた感想やCursorとの機能比較！.md**
+- **努力してSAAに合格したので勉強方法と解き方のコツをシェア.md**
   - カテゴリ: tutorials
-  - キーワード: 管理, AI, 学習, 開発, 使い方, 手順, データ, プログラミング, API, 調査, 経営, 業務, マーケティング, ガイド, 個人, プロジェクト, アイデア, デバッグ, 分析, Git, テスト, データベース
+  - キーワード: 思考, 分析, AI, 学習, AWS, 調査, 使い方, 業務, テスト, 研究, 機械学習
   - 概要: ---
-title: "Claude Codeの使い方！実際に使ってみた感想やCursorとの機能比較！"
-source: "https://www.sungrove.co.jp/claude-code/"
+title: "努力してSAAに合格したので勉強方法と解き方のコツをシェア"
+source: "https://qiita.com/ysk91_engineer/items/76db3634cee2b93c0eb0"
 author:
-  - "[[やまたに]]"
-published: 2025-05-27
-created: 2025-06-19
-description: "Claude Codeの使い方を初...
+  - "[[ysk91_engineer]]"
+published: 2024-09-16
+created: 2025-07-08
+description:...
 
-- **【Obsidianの使い方が変わる】Gemini CLIは、あなたの思考に寄り添う「無料の執事」｜少し明るい高橋くん 1.md**
+- **2025年のエンジニア新人研修の講義資料を公開しました.md**
   - カテゴリ: tutorials
-  - キーワード: データ, プログラミング, 思考, AI, 個人, 興味, 開発, 業務, JavaScript, メモ, 使い方, プロジェクト, 研究, アイデア, 仕事
+  - キーワード: データ, 報告, データベース, チーム, 組織, 興味, Git, AI, クラウド, Docker, Kubernetes, ガイド, 開発, 人事, 業務, 仕事, テスト
   - 概要: ---
-title: "【Obsidianの使い方が変わる】Gemini CLIは、あなたの思考に寄り添う「無料の執事」｜少し明るい高橋くん"
-source: "https://note.com/chankostin/n/nb33ca6e289fa"
+title: "2025年のエンジニア新人研修の講義資料を公開しました"
+source: "https://blog.cybozu.io/entry/2025/07/08/171543"
 author:
-  - "[[少し明るい高橋くん]]"
-published: 2025-06-27
-created: 2025-06-28
-desc...
+  - "[[yellow-sabotech]]"
+published: 2025-07-08
+created: 2025-07-09
+description: "開発本部 People ...
+
+- **n8nを活用してAIエージェントを開発する方法〜AI技術を使った自動化アプリ開発〜｜Masaland.md**
+  - カテゴリ: tutorials
+  - キーワード: 分析, データ, データベース, チーム, 個人, マーケティング, AI, 管理, クラウド, Docker, 顧客, 開発, API, 業務, プロジェクト, JavaScript
+  - 概要: ---
+title: "n8nを活用してAIエージェントを開発する方法〜AI技術を使った自動化アプリ開発〜｜Masaland"
+source: "https://note.com/masaland/n/n01faa5449ee4"
+author:
+  - "[[Masaland]]"
+published: 2025-01-08
+created: 2025-07-13
+description: "A...
 
 ## 関連性分析
 
 ### 共通キーワード
-- AI: 7回
-- 開発: 7回
-- プロジェクト: 7回
-- データ: 6回
-- プログラミング: 6回
-- API: 5回
-- 手順: 5回
-- 個人: 5回
-- 使い方: 5回
-- 管理: 4回
-- 興味: 4回
+- AI: 4回
 - 業務: 4回
-- 研究: 4回
-- アイデア: 4回
-- 学習: 4回
-- 思考: 3回
-- メモ: 3回
-- デバッグ: 3回
-- 分析: 3回
-- Git: 3回
-- テスト: 3回
+- チーム: 3回
+- 開発: 3回
+- 思考: 2回
+- 組織: 2回
+- 管理: 2回
+- 顧客: 2回
 - ガイド: 2回
-- Python: 2回
-- JavaScript: 2回
 - 仕事: 2回
-- 調査: 2回
-- マーケティング: 2回
+- プロジェクト: 2回
+- 分析: 2回
+- テスト: 2回
+- データ: 2回
 - データベース: 2回
 - クラウド: 2回
-- その他: 2回
+- Docker: 2回
 
 ## 学習の流れ
 

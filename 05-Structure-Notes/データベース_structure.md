@@ -5,71 +5,44 @@
 
 ## 主要トピック
 
-### 使い方・ガイド
-- ファイル数: 1個
-
-- **Claude Codeの使い方！実際に使ってみた感想やCursorとの機能比較！.md**
-  - カテゴリ: tutorials
-  - キーワード: 管理, AI, 学習, 開発, 使い方, 手順, データ, プログラミング, API, 調査, 経営, 業務, マーケティング, ガイド, 個人, プロジェクト, アイデア, デバッグ, 分析, Git, テスト, データベース
-  - 概要: ---
-title: "Claude Codeの使い方！実際に使ってみた感想やCursorとの機能比較！"
-source: "https://www.sungrove.co.jp/claude-code/"
-author:
-  - "[[やまたに]]"
-published: 2025-05-27
-created: 2025-06-19
-description: "Claude Codeの使い方を初...
-
 ### その他
 - ファイル数: 2個
 
-- **Cursor v1.0リリース今Cursorで何ができるのか.md**
+- **2025年のエンジニア新人研修の講義資料を公開しました.md**
   - カテゴリ: tutorials
-  - キーワード: 機械学習, 管理, クラウド, AI, 学習, 開発, 使い方, CI/CD, 手順, データ, プログラミング, その他, API, Python, 思考, 調査, 戦略, テスト, Docker, 個人, プロジェクト, アイデア, デバッグ, Git, チーム, 分析
+  - キーワード: データ, 報告, データベース, チーム, 組織, 興味, Git, AI, クラウド, Docker, Kubernetes, ガイド, 開発, 人事, 業務, 仕事, テスト
   - 概要: ---
-title: "[Cursor v1.0リリース]今Cursorで何ができるのか"
-source: "https://zenn.dev/service/articles/dbb6123a4732ed"
+title: "2025年のエンジニア新人研修の講義資料を公開しました"
+source: "https://blog.cybozu.io/entry/2025/07/08/171543"
 author:
-  - "[[Zenn]]"
-published: 2025-06-05
-created: 2025-06-06
-description:
-tags:
-  - "clippi...
+  - "[[yellow-sabotech]]"
+published: 2025-07-08
+created: 2025-07-09
+description: "開発本部 People ...
 
-- **Cursor x Claude Code = Vibes Coding = 俺いる...🤔になった話。.md**
+- **n8nを活用してAIエージェントを開発する方法〜AI技術を使った自動化アプリ開発〜｜Masaland.md**
   - カテゴリ: tutorials
-  - キーワード: テスト, データ, プログラミング, API, AI, 個人, 興味, 学習, 開発, プロジェクト, 研究, 分析, 手順, データベース
+  - キーワード: 分析, データ, データベース, チーム, 個人, マーケティング, AI, 管理, クラウド, Docker, 顧客, 開発, API, 業務, プロジェクト, JavaScript
   - 概要: ---
-title: "Cursor x Claude Code = Vibes Coding = 俺いる...?🤔になった話。"
-source: "https://zenn.dev/spacemarket/articles/73c24b04da41bb"
+title: "n8nを活用してAIエージェントを開発する方法〜AI技術を使った自動化アプリ開発〜｜Masaland"
+source: "https://note.com/masaland/n/n01faa5449ee4"
 author:
-  - "[[Zenn]]"
-published: 2025-06-14
-created: 2025-06-15
-descri...
+  - "[[Masaland]]"
+published: 2025-01-08
+created: 2025-07-13
+description: "A...
 
 ## 関連性分析
 
 ### 共通キーワード
-- AI: 3回
-- 学習: 3回
-- 開発: 3回
-- 手順: 3回
-- データ: 3回
-- プログラミング: 3回
-- API: 3回
-- 個人: 3回
-- プロジェクト: 3回
-- 分析: 3回
-- テスト: 3回
-- 管理: 2回
-- 使い方: 2回
-- 調査: 2回
-- アイデア: 2回
-- デバッグ: 2回
-- Git: 2回
+- データ: 2回
 - データベース: 2回
+- チーム: 2回
+- AI: 2回
+- クラウド: 2回
+- Docker: 2回
+- 開発: 2回
+- 業務: 2回
 
 ## 学習の流れ
 
