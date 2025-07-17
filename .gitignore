@@ -9,6 +9,7 @@ env.local
 client_id.json
 service_account.json
 token.json
+Agents/daily_report/modules/token_calendar.json
 
 # トークンキャッシュ
 .token_cache.bin
@@ -17,7 +18,6 @@ token_cache.bin
 token_cache_onedrive.bin
 
 onedrive_delta_link.txt
-Agents/daily_report/modules/token_calendar.json
 
 # Python
 __pycache__/

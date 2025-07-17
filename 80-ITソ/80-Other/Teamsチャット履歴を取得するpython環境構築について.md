@@ -1,22 +1,21 @@
-# Teamsチャット履歴を取得するPython環境構築について
+# Teams・Outlook・OneDriveの履歴を自動取得して日報を作るPython環境まとめ
 
 ## 概要
 
-毎日の日報作成作業をPythonプログラムで自動化します。  
-MacBook環境で、以下の情報を自動取得し、日報として保存します。
-
-- Microsoft Teams のチャット・投稿
-- Chatwork のメッセージ
-- 送信済みメール（Outlook/Gmail）
-- OneDrive 上に作成された新規ファイルのタイトルと内容
-- Gemini CLI を活用した要約または分析
+日々の業務報告（日報）を自動化したい方向けに、Microsoft Teamsのチャット、Outlookの送信済みメール、OneDriveのファイル操作履歴をPythonでまとめて取得し、作業記録を自動生成する仕組みの構築方法を分かりやすくまとめました。
 
 ---
 
-## システム構成概要
+## できること
 
-Microsoft Entra管理センターにアクセス
-https://entra.microsoft.com/#home
+- Teamsの自分の発言履歴を自動取得
+- Outlook（送信済み）メールの件名・宛先を自動取得
+- OneDriveで自分が操作したファイルの履歴を自動取得
+- 取得した内容を日付ごとにまとめて日報として活用
+
+---
+
+## システム全体像
 
 | 対象      | 取得方法                                      |
 |-----------|-----------------------------------------------|
@@ -39,61 +38,22 @@ https://entra.microsoft.com/#home
 
 ---
 
-## スクリプトの骨組み（概要）
-### Agents/daily_report/ のプログラム概要
+## 構築手順
 
-`Agents/daily_report/` ディレクトリには、業務日報を自動収集・生成するためのPythonスクリプト群が含まれています。  
-主な機能と構成は以下の通りです。
+### 1. Microsoft Entra ID（旧Azure AD）でアプリ登録
 
-#### 主な機能
-
-- **Teamsメッセージの自動取得**  
-  Microsoft Graph APIを利用し、Teamsのチャットや投稿を自動で取得します。
-
-- **Chatworkメッセージの自動取得**  
-  Chatwork APIを利用し、指定したルームのメッセージを取得します。
-
-- **送信済みメールの取得**  
-  Outlook（Microsoft Graph API）やGmail APIを利用し、前日に送信したメールを取得します。
-
-- **OneDrive新規ファイルの取得**  
-  OneDrive上で新規作成されたファイルのタイトルや内容を取得します。
-
-- **Gemini CLIによる要約・分析**  
-  取得したファイルやメッセージ内容をGemini CLIで要約・分析します。
-
-- **日報ファイルの自動生成・保存**  
-  取得した情報をまとめ、日付ごとに日報ファイルとして自動保存します。
-
-#### 構成ファイル例
-
-- `main.py`  
-  各種APIから情報を取得し、日報を生成・保存するメインスクリプト。
-
-- `modules/teams.py`  
-  Teamsのチャット・投稿をGraph API経由で取得するモジュール。
-
-- `modules/chatwork.py`  
-  ChatworkのメッセージをAPI経由で取得するモジュール。
-
-- `modules/email_client.py`  
-  OutlookやGmailの送信済みメールを取得するモジュール。
-
-- `modules/onedrive.py`  
-  OneDriveの新規ファイルを取得するモジュール。
-
-- `modules/gemini.py`  
-  Gemini CLIを呼び出して要約・分析を行うモジュール。
-
-#### 日報生成の流れ（例）
-
-1. 各種APIから前日分のデータを取得
-2. 取得したデータを整形し、要約や分析を実施
-3. 日付ごとに日報ファイル（テキスト）として保存
-
-#### 備考
-
-- 認証情報やAPIキーは `env.local` などの環境変数ファイルで管理します。
-- macOS環境での動作を想定していますが、他のOSでもPython環境があれば動作可能です。
+1. [Azureポータル](https://portal.azure.com/)にサインイン
+2. 「Microsoft Entra ID」→「アプリの登録」→「新規登録」
+   - 名前：任意（例：DailyWorkReportGenerator）
+   - サポートされているアカウント：この組織ディレクトリのみ
+   - リダイレクトURI：`http://localhost`
+3. 「APIのアクセス許可」→「Microsoft Graph」→「委任されたアクセス許可」
+   - `Chat.Read.All`（Teamsチャット）
+   - `Mail.Read`（メール）
+   - `Sites.Read.All`（OneDrive/SharePointファイル）
+   - 追加後、「管理者の同意」を付与
+4. 「アプリケーション(クライアント)ID」「ディレクトリ(テナント)ID」を控える
 
 ---
+
+### 2. Python環境セットアップ

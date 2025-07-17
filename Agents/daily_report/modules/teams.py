@@ -95,7 +95,13 @@ def get_yesterday_messages():
             except Exception:
                 continue
             if created_jst_date == yesterday_jst:
-                sender = (msg.get('from') or {}).get('user', {}).get('displayName', '不明')
+                # senderの安全な取得
+                sender = '不明'
+                from_info = msg.get('from')
+                if from_info and isinstance(from_info, dict):
+                    user_info = from_info.get('user')
+                    if user_info and isinstance(user_info, dict):
+                        sender = user_info.get('displayName', '不明')
                 content = msg.get('body', {}).get('content', '').strip()
                 messages.append(f"[{sender}] {content}")
     return messages

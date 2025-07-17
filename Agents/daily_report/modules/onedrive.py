@@ -125,6 +125,12 @@ def get_yesterday_created_files():
     now_jst = datetime.datetime.now(JST)
     yesterday_jst = (now_jst - datetime.timedelta(days=1)).date()
 
+    exclude_folders = [
+        'Mac for Business-backup',
+        'S_画面収録',
+        'Scanner'
+    ]
+
     while url:
         res = requests.get(url, headers=headers)
         if res.status_code != 200:
@@ -134,6 +140,10 @@ def get_yesterday_created_files():
         for item in data.get("value", []):
             # ファイルのみ対象
             if "file" not in item:
+                continue
+            # 除外フォルダ配下のファイルはスキップ
+            parent_path = item.get('parentReference', {}).get('path', '')
+            if any(f"/{folder}" in parent_path for folder in exclude_folders):
                 continue
             # 操作日時（最終更新日時・作成日時・移動日時など）
             created = item.get("createdDateTime", "")
