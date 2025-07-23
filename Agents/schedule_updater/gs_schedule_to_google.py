@@ -53,52 +53,61 @@ def parse_datetime(dt_str):
 def parse_csv_schedule(csv_path):
     import re
     events = []
-    try:
-        with open(csv_path, encoding='shift_jis') as f:
-            reader = csv.DictReader(f)
-            print("CSVヘッダー:", reader.fieldnames)
-            def get_value(row, key):
-                return row.get(key) or row.get('\ufeff' + key) or row.get(key.strip())
-            for row in reader:
-                subject = get_value(row, 'タイトル') or ''
-                description = get_value(row, '内容') or ''
-                start_date = get_value(row, '開始日付')
-                start_time = get_value(row, '開始時刻')
-                end_date = get_value(row, '終了日付')
-                end_time = get_value(row, '終了時刻')
+    tried_encodings = ['shift_jis', 'cp932', 'utf-8-sig', 'utf-8', 'mbcs']
+    last_exception = None
+    for enc in tried_encodings:
+        try:
+            with open(csv_path, encoding=enc) as f:
+                reader = csv.DictReader(f)
+                print(f"CSVヘッダー({enc}):", reader.fieldnames)
+                def get_value(row, key):
+                    return row.get(key) or row.get('\ufeff' + key) or row.get(key.strip())
+                for row in reader:
+                    subject = get_value(row, 'タイトル') or ''
+                    description = get_value(row, '内容') or ''
+                    start_date = get_value(row, '開始日付')
+                    start_time = get_value(row, '開始時刻')
+                    end_date = get_value(row, '終了日付')
+                    end_time = get_value(row, '終了時刻')
 
-                # 日付・時刻の組み立て
-                if not (start_date and start_time and end_date and end_time):
-                    print("スキップ: 日付または時刻が見つかりません", row)
-                    continue
-                start = f"{start_date} {start_time}"
-                end = f"{end_date} {end_time}"
+                    # 日付・時刻の組み立て
+                    if not (start_date and start_time and end_date and end_time):
+                        print("スキップ: 日付または時刻が見つかりません", row)
+                        continue
+                    start = f"{start_date} {start_time}"
+                    end = f"{end_date} {end_time}"
 
-                # All Day Event判定
-                allday_keywords = ['公休', '有給', '休日']
-                all_day_event = not any(kw in subject for kw in allday_keywords)
+                    # All Day Event判定
+                    allday_keywords = ['公休', '有給', '休日']
+                    all_day_event = not any(kw in subject for kw in allday_keywords)
 
-                # Googleカレンダー用イベント形式
-                event = {
-                    'summary': subject,
-                    'description': description,
-                    'start': {
-                        'dateTime': parse_datetime(start).isoformat(),
-                        'timeZone': 'Asia/Tokyo',
-                    },
-                    'end': {
-                        'dateTime': parse_datetime(end).isoformat(),
-                        'timeZone': 'Asia/Tokyo',
-                    },
-                    'allDay': all_day_event,
-                    'reminders': {'useDefault': True},  # Reminder On
-                }
-                events.append(event)
-        print(f"Shift_JISのCSVファイルをGoogleカレンダー形式で変換しました: {len(events)}件の予定")
-        return events
-    except Exception as e:
-        print(f"CSVファイル処理エラー: {e}")
-        raise
+                    # Googleカレンダー用イベント形式
+                    event = {
+                        'summary': subject,
+                        'description': description,
+                        'start': {
+                            'dateTime': parse_datetime(start).isoformat(),
+                            'timeZone': 'Asia/Tokyo',
+                        },
+                        'end': {
+                            'dateTime': parse_datetime(end).isoformat(),
+                            'timeZone': 'Asia/Tokyo',
+                        },
+                        'allDay': all_day_event,
+                        'reminders': {'useDefault': True},  # Reminder On
+                    }
+                    events.append(event)
+            print(f"{enc}のCSVファイルをGoogleカレンダー形式で変換しました: {len(events)}件の予定")
+            return events
+        except Exception as e:
+            print(f"CSVファイル({enc})処理エラー: {e}")
+            last_exception = e
+            continue
+    print(f"CSVファイル処理エラー: 全てのエンコーディングで失敗しました")
+    if last_exception is not None:
+        raise last_exception
+    else:
+        raise Exception("CSVファイルの読み込みに失敗しました（エンコーディング不明）")
 
 def ensure_timezone(dt_str):
     # すでにタイムゾーンが付いていなければ+09:00を付与
@@ -178,12 +187,12 @@ def is_duplicate_event(service, calendar_id, event):
     date_str = event['start']['dateTime'][:10]
     events = get_events_on_date(service, calendar_id, date_str)
     for item in events:
-        print(f"[比較] 既存: title={item['summary'].strip()} start={item['start'].get('dateTime')} end={item['end'].get('dateTime')}")
-        print(f"[比較] 新規: title={event['summary'].strip()} start={event['start']['dateTime']} end={event['end']['dateTime']}")
+        # print(f"[比較] 既存: title={item['summary'].strip()} start={item['start'].get('dateTime')} end={item['end'].get('dateTime')}")
+        # print(f"[比較] 新規: title={event['summary'].strip()} start={event['start']['dateTime']} end={event['end']['dateTime']}")
         if (item['summary'].strip() == event['summary'].strip() and
             normalize_datetime(item['start'].get('dateTime')) == normalize_datetime(event['start']['dateTime']) and
             normalize_datetime(item['end'].get('dateTime')) == normalize_datetime(event['end']['dateTime'])):
-            print("→ 完全一致：重複と判定")
+            # print("→ 完全一致：重複と判定")
             return True
     return False
 
@@ -194,7 +203,7 @@ def insert_events_to_google_calendar(events):
         if not is_kari:
             delete_kari_events(service, CALENDAR_ID, event)
         if is_duplicate_event(service, CALENDAR_ID, event):
-            print(f"重複予定をスキップ: {event['summary']}")
+            # print(f"重複予定をスキップ: {event['summary']}")
             continue
         service.events().insert(calendarId=CALENDAR_ID, body=event).execute()
         print(f"新規登録: {event['summary']}")

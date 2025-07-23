@@ -1,5 +1,5 @@
 #!/bin/bash
-# @Agents/Agent_REDME.md
+# @Agents/Agent_README.md
 # このファイルにカーソルを合わせて「@」で実行できるようにする
 
 # Python仮想環境の有効化
