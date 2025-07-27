@@ -70,10 +70,16 @@ access_token = result["access_token"]
 headers = {"Authorization": f"Bearer {access_token}"}
 
 # ▼ 本日分のチャットメッセージを取得する関数
-def get_yesterday_messages():
+def get_yesterday_messages(target_date=None):
     JST = pytz.timezone('Asia/Tokyo')
-    now_jst = datetime.datetime.now(JST)
-    yesterday_jst = (now_jst - datetime.timedelta(days=1)).date()
+    if target_date:
+        # 文字列の場合はdatetimeに変換
+        if isinstance(target_date, str):
+            target_date = datetime.datetime.strptime(target_date, '%Y-%m-%d').date()
+        target_jst = target_date
+    else:
+        now_jst = datetime.datetime.now(JST)
+        target_jst = (now_jst - datetime.timedelta(days=1)).date()
     url = 'https://graph.microsoft.com/v1.0/me/chats'
     res = requests.get(url, headers=headers)
     chats = res.json().get('value', [])
@@ -94,7 +100,7 @@ def get_yesterday_messages():
                 created_jst_date = dt_jst.date()
             except Exception:
                 continue
-            if created_jst_date == yesterday_jst:
+            if created_jst_date == target_jst:
                 # senderの安全な取得
                 sender = '不明'
                 from_info = msg.get('from')
@@ -106,13 +112,19 @@ def get_yesterday_messages():
                 messages.append(f"[{sender}] {content}")
     return messages
 
-def get_yesterday_channel_messages():
+def get_yesterday_channel_messages(target_date=None):
     """
     自分が所属する全チームの全チャンネルの投稿（会話）から、昨日(JST)分のみを抽出して返す
     """
     JST = pytz.timezone('Asia/Tokyo')
-    now_jst = datetime.datetime.now(JST)
-    yesterday_jst = (now_jst - datetime.timedelta(days=1)).date()
+    if target_date:
+        # 文字列の場合はdatetimeに変換
+        if isinstance(target_date, str):
+            target_date = datetime.datetime.strptime(target_date, '%Y-%m-%d').date()
+        target_jst = target_date
+    else:
+        now_jst = datetime.datetime.now(JST)
+        target_jst = (now_jst - datetime.timedelta(days=1)).date()
     messages = []
     # 1. 所属チーム一覧取得
     teams_url = 'https://graph.microsoft.com/v1.0/me/joinedTeams'
@@ -151,7 +163,7 @@ def get_yesterday_channel_messages():
                     created_jst_date = dt_jst.date()
                 except Exception:
                     continue
-                if created_jst_date == yesterday_jst:
+                if created_jst_date == target_jst:
                     # senderの安全な取得
                     sender = '不明'
                     from_info = post.get('from')

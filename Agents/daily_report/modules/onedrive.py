@@ -107,7 +107,7 @@ def save_delta_link(link):
     with open(DELTA_LINK_FILE, "w") as f:
         f.write(link)
 
-def get_yesterday_created_files():
+def get_yesterday_created_files(target_date=None):
     """
     OneDriveの昨日作成・編集・移動・保存などの操作履歴を取得し、
     ファイル名・操作時間・ファイル拡張子などを返す（JST基準で昨日を判定）
@@ -118,12 +118,22 @@ def get_yesterday_created_files():
         return []
 
     headers = {"Authorization": f"Bearer {access_token}"}
-    delta_link = load_delta_link()
-    url = delta_link if delta_link else "https://graph.microsoft.com/v1.0/me/drive/root/delta"
+    # 指定日がある場合はキャッシュを使用しない
+    if target_date:
+        url = "https://graph.microsoft.com/v1.0/me/drive/root/delta"
+    else:
+        delta_link = load_delta_link()
+        url = delta_link if delta_link else "https://graph.microsoft.com/v1.0/me/drive/root/delta"
     files = []
     JST = pytz.timezone('Asia/Tokyo')
-    now_jst = datetime.datetime.now(JST)
-    yesterday_jst = (now_jst - datetime.timedelta(days=1)).date()
+    if target_date:
+        # 文字列の場合はdatetimeに変換
+        if isinstance(target_date, str):
+            target_date = datetime.datetime.strptime(target_date, '%Y-%m-%d').date()
+        target_jst = target_date
+    else:
+        now_jst = datetime.datetime.now(JST)
+        target_jst = (now_jst - datetime.timedelta(days=1)).date()
 
     exclude_folders = [
         'Mac for Business-backup',
@@ -158,7 +168,7 @@ def get_yesterday_created_files():
             created_jst = utc_to_jst_date(created)
             modified_jst = utc_to_jst_date(modified)
             # JST基準で昨日作成・編集・移動・保存されたもののみ
-            if created_jst == yesterday_jst or modified_jst == yesterday_jst:
+            if created_jst == target_jst or modified_jst == target_jst:
                 files.append({
                     "name": item.get("name", ""),
                     "operation_time": modified or created,
@@ -166,8 +176,8 @@ def get_yesterday_created_files():
                     "id": item.get("id", ""),
                     "webUrl": item.get("webUrl", ""),
                 })
-        # deltaLinkの保存
-        if "@odata.deltaLink" in data:
+        # deltaLinkの保存（指定日がない場合のみ）
+        if "@odata.deltaLink" in data and not target_date:
             save_delta_link(data["@odata.deltaLink"])
         url = data.get("@odata.nextLink", None)
 

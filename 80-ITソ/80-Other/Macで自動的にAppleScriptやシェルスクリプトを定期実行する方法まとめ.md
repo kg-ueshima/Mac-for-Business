@@ -1,5 +1,4 @@
-/*
-Macで自動的にメール送信する手順（例：Python + AppleScript + Automator）
+# Macで自動的にAppleScriptやシェルスクリプトを定期実行する方法まとめ
 
 ------------------------------------------------------------------------
 -- Safari で Web からコピー → Excel に貼り付け → 保存して終了
@@ -274,3 +273,110 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.keiyukai.m3upload.pl
 - osascriptコマンドはmacOS標準搭載
 
 */
+
+
+Mac apple scriipt を毎週水曜8:00に自動実行するす方法を教えて
+#ファイルの場所
+/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団　慶友会　吉田病院/00_Automate
+#ファイル
+病棟別入退院数データ送信_to_m3.scpt
+
+実行コマンド確認
+ターミナルで単発実行できることを確認。
+/usr/bin/osascript "/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団　慶友会　吉田病院/00_Automate/病棟別入退院数データ送信_to_m3.scpt"
+LaunchAgent 用 plist を作成
+~/Library/LaunchAgents/com.keiyukai.m3upload.plist というファイルを新規作成し、下記内容を保存。
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- 任意の一意ラベル -->
+  <key>Label</key><string>com.keiyukai.m3upload</string>
+
+  <!-- 実行コマンド -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/osascript</string>
+    <string>/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団　慶友会　吉田病院/00_Automate/病棟別入退院数データ送信_to_m3.scpt</string>
+  </array>
+
+  <!-- 毎週水曜 08:00 -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key><integer>3</integer>  <!-- 1=日, 2=月, 3=火… -->
+    <key>Hour</key><integer>8</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+
+  <!-- ログ出力（任意） -->
+  <key>StandardOutPath</key><string>/tmp/m3upload.out</string>
+  <key>StandardErrorPath</key><string>/tmp/m3upload.err</string>
+</dict>
+</plist>
+ロード（読み込み）
+launchctl load ~/Library/LaunchAgents/com.keiyukai.m3upload.plist
+次回ログイン以降も自動でロードされる。
+動作確認
+直近の水曜 08:00 に実行されるか、もしくは手動トリガで即実行確認：
+launchctl start com.keiyukai.m3upload
+成功／エラーは /tmp/m3upload.out と /tmp/m3upload.err を確認。
+メンテナンス
+変更時は
+launchctl unload ~/Library/LaunchAgents/com.keiyukai.m3upload.plist
+# plist 修正後
+launchctl load   ~/Library/LaunchAgents/com.keiyukai.m3upload.plist
+
+<array>
+  <string>/usr/bin/open</string>
+  <string>-a</string><string>Terminal</string>
+  <string>/usr/bin/osascript</string>
+  <string>/Users/.../病棟別入退院数データ送信_to_m3.scpt</string>
+</array>
+launchctl unload → load で再読み込み。
+※ Mac がターミナルを前面に出して実行するため、バックグラウンド感は薄れます。
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- 一意のラベル -->
+  <key>Label</key>
+  <string>com.keiyukai.daily_task</string>
+
+  <!-- 実行コマンド -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団　慶友会　吉田病院/00_Automate/daily_task.sh</string>
+  </array>
+
+  <!-- 毎日 08:00（必要に応じて Hour/Minute を変更） -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>   <integer>8</integer>
+    <key>Minute</key> <integer>0</integer>
+  </dict>
+
+  <!-- ログ出力先（ホーム配下に保存） -->
+  <key>StandardOutPath</key>
+  <string>/Users/ueshima/Library/Logs/daily_task.out</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/ueshima/Library/Logs/daily_task.err</string>
+
+  <!-- ログイン直後にも実行したい場合は true に -->
+  <key>RunAtLoad</key>
+  <true/>
+</dict>
+</plist>
+
+
+# 使い方
+# 読み込み
+launchctl load ~/Library/LaunchAgents/com.keiyukai.daily_task.plist
+
+# 変更したら
+launchctl unload ~/Library/LaunchAgents/com.keiyukai.daily_task.plist
+launchctl load   ~/Library/LaunchAgents/com.keiyukai.daily_task.plist
+時刻を変える場合は <Hour> と <Minute> を修正。
+RunAtLoad を外せばログイン時の即実行を無効化可能。
+ログは ~/Library/Logs/ に残るので Finder からも確認しやすい。

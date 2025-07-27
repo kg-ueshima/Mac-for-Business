@@ -18,8 +18,6 @@ EMAIL_ACCOUNT = os.getenv("EMAIL_ACCOUNT")  # .env.local に EMAIL_ACCOUNT を�
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")  # .env.local に EMAIL_PASSWORD を設定
 LABEL_NAME = os.getenv("LABEL_NAME", "ueshima@keiyukai-group.com")  # .env.local に LABEL_NAME を設定（なければデフォルト）
 
-# 昨日の日付を比較用に整形
-yesterday_date = datetime.date.today() - datetime.timedelta(days=1)
 
 def decode_mime_words(s):
     if not s:
@@ -30,8 +28,15 @@ def decode_mime_words(s):
         for fragment, encoding in decoded_fragments
     ])
 
-def get_yesterday_sent_emails():
+def get_yesterday_sent_emails(target_date=None):
     messages = []
+    # ターゲット日付の設定
+    if target_date:
+        # 文字列の場合はdatetimeに変換
+        if isinstance(target_date, str):
+            target_date = datetime.datetime.strptime(target_date, '%Y-%m-%d').date()
+    else:
+        target_date = datetime.date.today() - datetime.timedelta(days=1)
     try:
         # IMAPサーバへ接続
         imap = imaplib.IMAP4_SSL(IMAP_SERVER, IMAP_PORT)
@@ -53,10 +58,10 @@ def get_yesterday_sent_emails():
             imap.logout()
             return messages
 
-        # 昨日の日付で検索
-        since = yesterday_date.strftime("%d-%b-%Y")
-        before = (yesterday_date + datetime.timedelta(days=1)).strftime("%d-%b-%Y")
-        # 送信済みメールから、昨日の日付のメールを検索
+        # ターゲット日付で検索
+        since = target_date.strftime("%d-%b-%Y")
+        before = (target_date + datetime.timedelta(days=1)).strftime("%d-%b-%Y")
+        # 送信済みメールから、ターゲット日付のメールを検索
         status, data = imap.search(None, f'SINCE {since}', f'BEFORE {before}')
         if status != "OK":
             print("メール検索失敗")
@@ -64,7 +69,7 @@ def get_yesterday_sent_emails():
             return messages
 
         mail_ids = data[0].split()
-        print(f"ラベル「{label_name}」の昨日のメール件数: {len(mail_ids)}")
+        print(f"ラベル「{label_name}」の{target_date}のメール件数: {len(mail_ids)}")
 
         # 最新100件だけ取得（必要に応じて調整）
         fetch_count = min(100, len(mail_ids))
@@ -93,9 +98,9 @@ def get_yesterday_sent_emails():
             except Exception:
                 msg_date_local = None
 
-            # 昨日の日付のみ
-            if msg_date_local != yesterday_date:
-                continue  # 昨日以外はスキップ
+            # ターゲット日付のみ
+            if msg_date_local != target_date:
+                continue  # ターゲット日付以外はスキップ
 
             # fromアドレスが ueshima@keiyukai-group.com のみ抽出
             from_addr = decode_mime_words(msg.get("From", ""))

@@ -12,7 +12,9 @@ from pathlib import Path
 from datetime import datetime
 import logging
 from gs_schedule_to_google import get_latest_schedule_csv, parse_csv_schedule, insert_events_to_google_calendar
+import datetime
 
+print(f"処理開始：{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 # logsディレクトリ作成
 log_dir = os.path.join(os.path.dirname(__file__), 'logs')
 os.makedirs(log_dir, exist_ok=True)
@@ -31,7 +33,17 @@ logger = logging.getLogger(__name__)
 
 class AutoScheduleSync:
     def __init__(self):
-        self.applescript_path = "/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団　慶友会　吉田病院/00_Automate/groupsession_schedule_to_google.scpt"
+        # OneDrive上のファイルを/Users/ueshima/Scripts/にコピーしてから実行する
+        original_applescript_path = "/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団　慶友会　吉田病院/00_Automate/groupsession_schedule_to_google.scpt"
+        self.applescript_path = "/Users/ueshima/Scripts/groupsession_schedule_to_google.scpt"
+        # コピー処理（初期化時に毎回上書きコピー）
+        try:
+            import shutil
+            shutil.copy2(original_applescript_path, self.applescript_path)
+            os.chmod(self.applescript_path, 0o755)  # 実行権限付与
+        except Exception as e:
+            logger.error(f"AppleScriptのコピーまたは権限付与に失敗: {e}")
+        
         self.download_dir = os.path.expanduser("~/Downloads")
         self.last_processed_file = None
         self.last_processed_time = None

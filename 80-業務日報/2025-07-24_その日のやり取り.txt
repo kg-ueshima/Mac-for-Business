@@ -1,0 +1,1535 @@
+【Teamsチャット投稿 - 要約 -】
+**解釈**:
+この質問は、複数のテキストメッセージ（チャットログ）を要約することを求めています。メッセージは複数人の間でやり取りされており、主に電子カルテ導入、医療関連の会議、データ抽出、医師事務作業補助者の加算など、医療機関におけるIT関連や運営に関する話題が中心です。プロの編集者として、これらの情報を簡潔にまとめ、全体像を把握できる要約を作成します。
+
+**回答**:
+上島亮氏を中心に、電子カルテ導入に関する準備、医療関連会議の調整、データ抽出の依頼と確認、医師事務作業補助者の加算に関する情報共有などが行われている。
+具体的には、7月28日に電子カルテのキックオフミーティングが開催されること、参加者の調整、会議室の確保などが議論されている。また、入院患者のデータ抽出に関するSQLクエリの修正や、抽出されたデータ項目の確認が行われている。
+その他、7月診療分の算定リスト、ウェルモ社のmilmo recoderに関する相談会、診療情報提供書の受取方式とその品質問題、医療安全管理委員会への代理出席依頼、病院運営報告会議の議事録などが共有されている。
+
+**再考**:
+上記の回答は、各メッセージの内容を網羅的に記述しようとした結果、やや冗長になってしまっています。プロの編集者として、より洗練された要約を目指し、重要度の高い情報を優先的に、かつ簡潔に記述する必要があります。特に、全体の流れを意識し、個々のメッセージの関係性を明確にする必要があります。
+
+**最終的な回答**:
+**解釈**:
+この質問は、複数のチャットログを要約することを求めています。ログの内容は、電子カルテ導入準備、医療会議、データ抽出、医師事務に関するものが中心です。プロの編集者として、これらの情報を包括的かつ簡潔に要約します。
+
+**最終的な回答**:
+医療機関内で、上島亮氏を中心に電子カルテ導入に向けた準備が進められています。7月28日にキックオフミーティングが予定され、参加者の調整が行われています。また、患者データの抽出、医療安全管理委員会への出席、診療情報提供書の品質問題、ウェルモ社とのmilmo recoderに関する相談など、多岐にわたる業務が同時進行しており、情報共有と連携が重視されている様子が伺えます。
+
+**自己評価**:
+要約は、元のメッセージの主要な内容を捉え、簡潔かつ明確に表現できています。メッセージ全体の流れと、関連するタスクの状況を把握できるように構成されており、プロの編集者として適切な水準であると判断できます。
+
+【Teamsチャンネル投稿 - 要約 -】
+**解釈**:
+この質問は、私がプロの編集者として、与えられた複数のテキストメッセージの要約を生成することを求めています。各メッセージの内容を理解し、最も重要な情報を抽出し、簡潔かつ分かりやすい要約を作成する必要があります。テキストメッセージには、会議の予定、検査結果、システムイベントメッセージ、病院運営会議の中止通知などが含まれています。
+
+**回答**:
+複数のメッセージを要約します。
+
+*   **ITソリューション課:** 上島から澤村、和華、天谷、竜二、堀川、拓真へ。11/16(日)の11:00-16:30に予定を確保依頼（振り休予定、昼食はおにぎり/サンドウィッチ）。
+*   **クラスター対策:** 検査結果陽性通知、システムイベントメッセージ。
+*   **医療法人社団慶友会吉田病院:** システムイベントメッセージ。
+*   **看護支援室:** システムイベントメッセージ。
+*   **経営管理部・経営戦略:** システムイベントメッセージ（スマホ管理関係含む）。
+*   **教えて・お願い ITソリューション！:** システムイベントメッセージ。
+*   **病院運営会議:** 本間より、議題なしのため病院運営会議の中止通知。
+*   **部署長⇔人事:** システムイベントメッセージ（人事関連）。
+*   **医師入退職管理:** システムイベントメッセージ（入職）。
+
+**再考**:
+上記の回答は、各メッセージの概要を個別に記述しており、情報としては正確ですが、全体をまとめた「要約」としては最適ではありません。各メッセージのカテゴリをまとめ、より簡潔にすることが可能です。また、システムイベントメッセージという抽象的な表現を避けて、具体的な内容が分かれば記述する方が望ましいです。しかし、与えられた情報からは具体的な内容を推測できないため、今回は現状維持とします。
+
+**最終的な回答**:
+以下の内容のメッセージが報告されています。
+
+*   **予定調整:** 11/16(日)にITソリューション課の上島から澤村ら6名へ予定確保依頼。
+*   **クラスター対策:** 検査結果陽性通知。
+*   **会議中止:** 病院運営会議は議題なしのため中止。
+*   **システム通知:** その他、医療法人社団慶友会吉田病院、看護支援室、経営管理部(スマホ管理関係含む)、ITソリューション、人事、医師入退職関連のシステムイベントメッセージが通知。
+
+**自己評価**:
+この最終的な回答は、複数のメッセージをカテゴリ別に整理し、重複を避けて簡潔にまとめることができています。各メッセージの内容を正確に反映しつつ、全体としての情報を把握しやすいように構成されています。プロの編集者として、十分な品質の要約を提供できたと評価できます。
+
+【送信メール - 要約 -】
+**解釈**:
+この質問は、与えられた一連のメールのやり取りを、プロの編集者として最も適切な要約を生成することを求めています。メールの主な内容は、吉田病院がCSIという会社から電子カルテ、看護支援システム、医事システム導入に向けて、展示会やキックオフミーティングの日程調整を行っている状況です。様々な日程候補、デモ内容、参加者、システム構成などが議論されています。要約では、これらの情報を簡潔にまとめ、重要な決定事項や未解決の課題を明確に記述する必要があります。
+
+**最終的な回答**:
+吉田病院とCSI社は、電子カルテ、看護支援システム、医事システムの導入に向けて、複数回の展示会とキックオフミーティングを計画している。2025年7月31日に2回目の展示会を開催し、電子カルテと看護システムを展示、医事課とのミーティングも予定。展示会の具体的な時間、会議室のレイアウト、必要な機材、各部門の参加状況などが調整されている。稼働日の調整、キックオフミーティングの内容詳細、デモ資料の提供方法など、いくつかの課題が残っている。
+
+【OneDrive新規ファイル - 要約 -】
+**解釈**:
+質問は、与えられたファイルリストの要約をプロの編集者の視点から作成することです。リストには、Excelファイル、CSVファイル、テキストファイル、画像ファイル、Wordファイル、PDFファイル、JSONファイル、シェルスクリプトが含まれており、ファイル名、更新日時、拡張子、ID、URLが記載されています。要約では、これらのファイルを種類、内容、更新日時などに基づいてグルーピングし、全体像が把握できるように記述する必要があります。
+
+**最終的な回答**:
+2025年7月23日から24日に更新されたファイル群には、主に京佑会グループの上嶋亮氏の個人用SharePointに保存された医療関連の書類が含まれています。これらのファイルは、調定金額集計表（修正前後のバージョンを含む）、DPC患者診療行為情報、検証患者一覧など、データ分析や集計に関連するExcelファイルが多数存在します。また、7月診療分の救急医療管理加算算定リストや、地域包括ケア病棟の対象患者一覧など、具体的な診療情報に関するファイルも見られます。
+
+その他、電子カルテキックオフミーティング関連のWord、PDFファイルが複数存在し、RPA関連のSQLテキストファイル、JSONファイル、シェルスクリプト、画像ファイル、FAX/MAILのPDFファイルなど、多岐にわたる種類のファイルが確認できます。これらのファイルは、医療事務、診療情報、システム開発、業務改善など、様々な業務に関連していると考えられます。
+
+【Googleカレンダー予定 - 要約 -】
+**解釈**:
+この質問は、与えられた一連の予定をプロの編集者として最も効果的に要約することを求めています。要約は、予定の内容、時間、場所を簡潔に伝え、全体のスケジュールを把握しやすくする必要があります。
+
+**最終的な回答**:
+7月24日、午前はm3来院対応と経理・医事業務、午後は2回にわたる処遇改善手当に関する職員説明会、医療安全関連の会議・カンファレンス、緩和ケア講演会打合せ、病院運営会議が予定されています。
+
+【Teamsチャット投稿】
+[澤村 和華] <attachment id="1751510646486"></attachment>
+<attachment id="1752549559325"></attachment>
+<p><at id="0">上島　亮</at></p>
+<p>こちらの件、吉田から頂いた一覧患者の情報を取得いたしました。</p>
+<p>申し訳ないのですが、指示の方は情報の精査が難しく取得が出来ませんでした。</p>
+<p>他の情報に過不足が無いか確認をお願いいたします。</p>
+<p>&nbsp;</p>
+<p id="x_codeBlockEditor-d043ccab-24a4-4cd9-9fc1-7c6e0c70af80" itemtype="http://schema.skype.com/CodeBlockEditor">
+&nbsp;</p>
+<pre class="language-php" itemid="codeBlockEditor-d043ccab-24a4-4cd9-9fc1-7c6e0c70af80"><code><br> &nbsp;&nbsp;&nbsp;&nbsp; $sql&nbsp;=&nbsp;<span class="hljs-string">"</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;pid,&nbsp;nyuin_ymd,&nbsp;taiin_ymd,&nbsp;syu_icd,&nbsp;syu_nm&nbsp;as,&nbsp;hezon_bmei_g&nbsp;from&nbsp;ebtbdpc</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;pid&nbsp;=&nbsp;"</span>.$patient[<span class="hljs-string">'pid'</span>].<span class="hljs-string">"</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;nyuin_ymd&nbsp;=&nbsp;'"</span>.$patient[<span class="hljs-string">'in'</span>].<span class="hljs-string">"'</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"</span>;<br> &nbsp;&nbsp;&nbsp;&nbsp; $sql&nbsp;=&nbsp;<span class="hljs-string">"</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;dh.pid,&nbsp;substrb(dh.docdate,&nbsp;0,&nbsp;8),&nbsp;doc_title,&nbsp;iname,&nbsp;num,&nbsp;uname&nbsp;from&nbsp;(</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;*&nbsp;from&nbsp;extbdh1</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;pid&nbsp;=&nbsp;&nbsp;"</span>.$patient[<span class="hljs-string">'pid'</span>].<span class="hljs-string">"</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;docdate&nbsp;between&nbsp;'"</span>.$patient[<span class="hljs-string">'in'</span>].<span class="hljs-string">"000000'&nbsp;and&nbsp;'"</span>.$patient[<span class="hljs-string">'out'</span>].<span class="hljs-string">"999999'</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;dh</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left&nbsp;join&nbsp;extbod1&nbsp;od&nbsp;on&nbsp;dh.pid&nbsp;=&nbsp;od.pid&nbsp;and&nbsp;dh.doc_no&nbsp;=&nbsp;od.doc_no</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;dh.active_flg&nbsp;=&nbsp;1&nbsp;and&nbsp;(od.active_flg&nbsp;=&nbsp;1&nbsp;or&nbsp;od.active_flg&nbsp;is&nbsp;null)</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;dh.doc_k&nbsp;not&nbsp;like&nbsp;'FJ%'</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;(dh.doc_k&nbsp;like&nbsp;'H%'&nbsp;or&nbsp;dh.doc_k&nbsp;like&nbsp;'I%'&nbsp;or&nbsp;(dh.doc_k&nbsp;like&nbsp;'E%'&nbsp;and&nbsp;iattr&nbsp;=&nbsp;'ET1')&nbsp;or&nbsp;(dh.doc_k&nbsp;like&nbsp;'J%'&nbsp;and&nbsp;iattr&nbsp;=&nbsp;'JB1')&nbsp;or&nbsp;(dh.doc_k&nbsp;like&nbsp;'F%'&nbsp;and&nbsp;(iattr&nbsp;=&nbsp;'FBA'&nbsp;or&nbsp;iattr&nbsp;=&nbsp;'FHA'&nbsp;or&nbsp;iattr&nbsp;=&nbsp;'FWD'))&nbsp;or&nbsp;(dh.doc_k&nbsp;like&nbsp;'R003'&nbsp;and&nbsp;(iattr&nbsp;=&nbsp;'RUA'&nbsp;or&nbsp;iattr&nbsp;=&nbsp;'RUB'&nbsp;or&nbsp;iattr&nbsp;=&nbsp;'RUC'&nbsp;or&nbsp;iattr&nbsp;=&nbsp;'RUD'&nbsp;or&nbsp;iattr&nbsp;=&nbsp;'RUG'&nbsp;or&nbsp;iattr&nbsp;=&nbsp;'RUH'&nbsp;or&nbsp;iattr&nbsp;=&nbsp;'RUI'&nbsp;or&nbsp;iattr&nbsp;=&nbsp;'RUM'&nbsp;or&nbsp;iattr&nbsp;=&nbsp;'RU5'&nbsp;or&nbsp;iattr&nbsp;=&nbsp;'RU6')))</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"</span>;</code></pre>
+<p>&nbsp;</p><attachment id="cdc655ad-1152-4df7-8868-a1f370ecf2d7"></attachment><attachment id="b65ca6aa-faba-4f81-8e81-48e35cad74a7"></attachment>
+[澤村 和華] <p><at id="0">上島　亮</at></p>
+<p>hasyo_bmei_gというものがありましたのでそちらを含めた一覧を作成いたしました。</p>
+<p>こちらで問題無さそうかお時間のある時に確認をお願いします。</p>
+<p>&nbsp;</p>
+<p id="x_codeBlockEditor-cbadfd2d-8da6-4351-a95f-6455ca11d16a" itemtype="http://schema.skype.com/CodeBlockEditor">
+&nbsp;</p>
+<pre class="language-php" itemid="codeBlockEditor-cbadfd2d-8da6-4351-a95f-6455ca11d16a"><code><br> &nbsp;&nbsp;&nbsp;&nbsp; $sql&nbsp;=&nbsp;<span class="hljs-string">"</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;pid,&nbsp;nyuin_ymd,&nbsp;taiin_ymd,&nbsp;syu_icd,&nbsp;syu_nm&nbsp;as,&nbsp;hezon_bmei_g,&nbsp;hasyo_bmei_g&nbsp;from&nbsp;ebtbdpc</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;pid&nbsp;=&nbsp;"</span>.$patient[<span class="hljs-string">'pid'</span>].<span class="hljs-string">"</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;nyuin_ymd&nbsp;=&nbsp;'"</span>.$patient[<span class="hljs-string">'in'</span>].<span class="hljs-string">"'</span><br><span class="hljs-string"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"</span>;</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p><attachment id="931cd843-de8e-4f81-88d7-830ce9b1b16f"></attachment>
+[上島　亮] <p><at id="0">澤村</at>&nbsp;<at id="1">和華</at></p>
+<p>対応ありがとうございます</p>
+<p>ebtbdpc　ってものがあったのですね！</p>
+<p>hezon_bmei_gは添付の入院時併存傷病名ってところと確認できました</p>
+<p>その他、医療資源を最も投入した傷病名、入院後発症傷病名ってのもカラムありませんか？</p>
+<p>ID 111055で確認してみました</p><attachment id="7429211e-0005-4840-ac40-f3c1f09eb71e"></attachment><attachment id="446d4199-c968-444e-8227-ece73e775211"></attachment>
+[上島　亮] <div>直帰OKです<br>
+<br>
+緩和ケアは部長指示なんで仕方なし</div>
+[吉田 竜啓] <p>明日7/25（金）<a href="https://teams.microsoft.com/l/message/19:20b811af9f6745aaa80dc3966b66227e@thread.v2/1753152264608?context=%7B%22contextType%22%3A%22chat%22%7D" title="https://teams.microsoft.com/l/message/19:20b811af9f6745aaa80dc3966b66227e@thread.v2/1753152264608?context=%7B%22contextType%22%3A%22chat%22%7D">豊岡包括訪問</a>後、直帰します！</p>
+<p>※現地で退勤打刻予定です<emoji id="1f4dd_memo" alt="📝" title="メモ"></emoji></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<blockquote>
+<p><a href="https://teams.microsoft.com/l/message/19:5f45202776db472f9d73d0b4ba9a9f0c@thread.tacv2/1753340261984?tenantId=5483b7b9-ff5a-4b52-9169-f8884e38833a&amp;groupId=d4583bbe-d10c-497d-83c5-01ef5d11a224&amp;parentMessageId=1753340261984&amp;teamName=IT%E3%82%BD%E3%83%AA%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%AA%B2&amp;channelName=General&amp;createdTime=1753340261984" rel="noreferrer noopener" title="https://teams.microsoft.com/l/message/19:5f45202776db472f9d73d0b4ba9a9f0c@thread.tacv2/1753340261984?tenantId=5483b7b9-ff5a-4b52-9169-f8884e38833a&amp;groupId=d4583bbe-d10c-497d-83c5-01ef5d11a224&amp;parentMessageId=1753340261984&amp;teamName=IT%E3%82%BD%E3%83%AA%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%AA%B2&amp;channelName=General&amp;createdTime=1753340261984" target="_blank">上島　亮: 11/16（日）緩和ケア医学講演会　ITソ　お手伝い依頼 | ITソリューション課 &gt; General | Microsoft Teams</a></p>
+</blockquote>
+<p>＞また、コチラは不参加？で良かったのでしょうか。。<emoji id="faceholdingbacktears" alt="🥹" title="涙をこらえた顔"></emoji></p>
+[吉田 竜啓] <p>ご確認ありがとうございます！</p>
+<p>15分置き、みたいでした<emoji id="1f4a1_electriclightbulb" alt="💡" title="ひらめき"></emoji></p>
+<p>&nbsp;</p>
+<p><a href="http://192.168.1.207/mediawiki/index.php/Crontab%E8%A8%AD%E5%AE%9A%E4%B8%80%E8%A6%A7" rel="noreferrer noopener" title="http://192.168.1.207/mediawiki/index.php/Crontab%E8%A8%AD%E5%AE%9A%E4%B8%80%E8%A6%A7" target="_blank">Crontab設定一覧 - yh-jsys-wiki</a></p>
+<p>※ほりたく作Wikiより。</p>
+[上島　亮] <p>多分解消していると思います</p>
+<p>（cronのタイミングじゃないか）</p>
+[上島　亮] <p>会場でのプレゼン必要ないむね了解です</p>
+<p>16:00以降はフリーですので、その時間にCSIと医事課でミーティング組みますね</p>
+<p>&nbsp;</p>
+<p>医事課はカルテ見ていないと思いますので</p>
+<p>カルテの方に参加してもらうといいかもです</p>
+[佐久間 利孝] 会場でのプレゼンは必要ないです。その日医事課で話をする時間を設定してもらえればと考えてますが可能でしょうか？
+[上島　亮] <p>続けて</p>
+<p>電カルの展示会 7/31</p>
+<p><u>会議室左</u></p>
+<p>14:00−14:45　電子カルテ</p>
+<p>15:00-15:45　電子カルテ</p>
+<p><u>会議室右</u></p>
+<p>14:00−14:45　看護</p>
+<p>15:00-15:45　看護</p>
+<p>を予定しています</p>
+<p>&nbsp;</p>
+<p><strong>レセコンはもう一コマやった方がよいでしょうか？</strong></p>
+[上島　亮] <p>かしこまりました</p>
+<p>名簿に入れておきます</p>
+<p>高山さんに共有お願いします</p>
+[佐久間 利孝] 診療情報で高山さんも入れてもいいと思います。
+[上島　亮] <p>7/28（月）15:30-16:00で電子カルテのキックオフミーティングがあります</p>
+<p>&nbsp;</p>
+<p>添付の皆様に参加していただきたいと思いますので、周知のほどよろしくお願いします</p>
+<p>（狭いですが、理事長が一言お話するので人が多いほうがいいと思います）</p>
+<p>追加もいるようでしたら、ご連絡お願いします</p><attachment id="71c0cdaa-89fd-43a0-ad58-ade01bf72e8c"></attachment>
+[佐久間 利孝] <div>入力終わりました。<br>
+<img src="https://graph.microsoft.com/v1.0/chats/19:5cce44ae-222d-4a41-ba16-f3534889ce31_a3e47220-18c6-43a8-9b8a-4bc75f18277e@unq.gbl.spaces/messages/1753322814482/hostedContents/aWQ9LHR5cGU9MSx1cmw9aHR0cHM6Ly9qcC1wcm9kLmFzeW5jZ3cudGVhbXMubWljcm9zb2Z0LmNvbS92MS9vYmplY3RzLzAtZWpwLWQxLTA3ZGNkMTU1ZWNjYTg4YjAxYzMzN2Q2MmVlZjBmNDBjL3ZpZXdzL2ltZ28=/$value" style="width:3024px; height:4032px"></div>
+[上島　亮] <p><u>m3よりデータ来ました</u></p>
+<p>添付にて7月診療分の算定リストをお送りいたします。</p>
+<p>複数候補が上がっている患者様がいらっしゃいますので</p>
+<p>P/F比ご確認ののち、いずれか算定単価/確度の高いほうを</p>
+<p>算定いただけますと幸いです。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><attachment id="59115c1f-5ddd-47f8-ac4d-34280d5dde43"></attachment>
+[天谷 竜二] <p>お疲れ様です。</p>
+<p>ウェルモさんから返信頂きました。</p>
+<p>日程について、<span style="color:#2B9B62"><strong>8月6日（水）10:00～11:00</strong></span>で調整いたしました<emoji id="bow" alt="🙇‍♂️" title="お辞儀をする男性"></emoji></p>
+<p>&nbsp;</p>
+<p>事前に資料を頂きましたので、こちら共有いたします。</p>
+<p>また、相談会を通してmilmo recoderを操作できるように</p>
+<p>仮IDとPWを配布していただけるとの事でしたので、届きましたら共有いたします<emoji id="bow" alt="🙇‍♂️" title="お辞儀をする男性"></emoji></p><attachment id="973874e5-5af0-47ad-85b1-5bf9c9de6a6a"></attachment><attachment id="789b7ad5-9bd7-4f3d-8be0-82bc2468d547"></attachment>
+[森 英明] <div>日程調整ありがとうございました。<br>
+8/6 10:00〜承知いたしました。<br>
+私はすでに個人的に利用しているので、当日はそちらも使用している感想等もお伝えいたします。</div>
+[上島　亮] <p>7/28（月）15:30-16:00で電子カルテのキックオフミーティングがあります</p>
+<p>&nbsp;</p>
+<p>添付の皆様に参加していただきたいと思いますので、周知のほどよろしくお願いします</p>
+<p>（狭いですが、理事長が一言お話するので人が多いほうがいいと思います）</p>
+<p>追加もいるようでしたら、ご連絡お願いします</p><attachment id="421fea74-6b64-4706-8203-b8f4b35891e7"></attachment>
+[東海林 智美] <p>形が様々なので、配置が難しいのですが、実際貼るとこんな感じになりそうです。</p><attachment id="98ef2094-3be3-42a4-ace8-370b817a20c5"></attachment>
+[東海林 智美] <p>すみません、適当に配置したので実際貼る予定の枚数ではないです。</p>
+<p>実際貼る形でシミュレーションしてみます。</p>
+[上島　亮] <p>結構枚数ありますね</p>
+<p>いいのか悪いのか判断できない・・</p>
+[畠山 ちひろ] <p>ご確認いただきありがとうございます。</p>
+<p>誤読や創作が多かったのも納得ですね<emoji id="blankface" alt="😶" title="口がない顔"></emoji></p>
+<p>&nbsp;</p>
+<p>検証の件承知しました。</p>
+<p>明日はちょっと余裕がないので、1週間程度お時間いただけると有難いです。</p>
+<p>よろしくお願いいたします。</p>
+[上島　亮] <p>予定入院の診療情報提供書は以下の受取方式でした</p>
+<p>MAIL:　旭川日赤、厚生病院、北星ファミリークリニック</p>
+<p>FAX：　旭川医大、市立病院、医療センター</p>
+<p>&nbsp;</p>
+<p>MAILの医療機関も見た感じ、紙印刷したものをスキャンしてFAXした仕上がり</p>
+<p>FAXは一度、地域連携室パソコンで受けて印刷しているが、FAXはFAXなのでpdfのようなきれいなデジタルデータではない</p>
+<p>ということで、とにかく質が悪いです</p>
+<p>&nbsp;</p>
+<p>それをさらに電子カルテにスキャンするので解像度が悪いって感じです</p>
+<p>&nbsp;</p>
+<p><strong>ひとまずパソコンじゃなくiPhoneで直接写真取ってChatGPTに投げるとどうなるかこちらで検証します</strong></p>
+<p><strong>検証機器：iPhone SE 2ndGen、iPhone 16 pro</strong></p>
+<p>&nbsp;</p>
+<p>畠山さん余力あれば、前回と同じやり方（電子カルテスキャン済み診療情報提供書をPCでスクショ）で検証願えますでしょうか？</p>
+<p>&nbsp;</p>
+<table itemprop="copy-paste-table">
+<tbody>
+<tr>
+<td>MAIL</td>
+<td>136592</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>136649</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>126291</td>
+</tr>
+<tr>
+<td>FAX</td>
+<td>136613</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>136338</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>117510</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p><attachment id="2a5d5820-e21c-41c4-a372-cf45a43c74ba"></attachment><attachment id="cee09840-5009-4819-822b-9aad34a94540"></attachment>
+[上島　亮] <p>7/28（月）15:30-16:00で電子カルテのキックオフミーティングがあります</p>
+<p>&nbsp;</p>
+<p>添付の皆様に参加していただきたいと思いますので、周知のほどよろしくお願いします</p>
+<p>（狭いですが、理事長が一言お話するので人が多いほうがいいと思います）</p>
+<p>追加もいるようでしたら、ご連絡お願いします</p><attachment id="ac18a2de-cbea-4831-b183-1722d267241c"></attachment>
+[上島　亮] <p>7/28（月）15:30-16:00で電子カルテのキックオフミーティングがあります</p>
+<p>&nbsp;</p>
+<p>添付の皆様に参加していただきたいと思いますので、周知のほどよろしくお願いします</p>
+<p>（狭いですが、理事長が一言お話するので人が多いほうがいいと思います）</p>
+<p>追加もいるようでしたら、ご連絡お願いします</p><attachment id="4e6fb2d0-e5b0-4eda-b30d-58f5c74c1a49"></attachment>
+[上島　亮] <p>あとで説明します</p>
+[畠山 ちひろ] <p>お疲れ様です。</p>
+<p><strong>医師事務作業補助者の加算</strong>についてご教示いただきたいです。</p>
+<p>&nbsp;</p>
+<p>以前、遼平先生も交えた「医療DX打合せ」の際に、</p>
+<p>畠山も医師事務作業補助者としてカウントされている、とお聞きしました。</p>
+<p>実際はカルテの代行入力などしておりませんが、</p>
+<p>医師事務として配置され、病院の収益になっているということで合ってますか？</p>
+[上島　亮] <p>理事長に確認取れましたので</p>
+<p>大崎最高顧問</p>
+<p>馬場病院長</p>
+<p>石黒副院長</p>
+<p>武田副院長</p>
+<p>吉田副院長</p>
+<p>ご参加よろしくお願いします</p>
+[上島　亮] <div>確認ありがとうございます<br>
+理事長に人選最終確認中です<br>
+決まったらまた連絡します</div>
+[高橋 蓮奈] <p>武田先生　何もなければ出席できます</p>
+<p>石黒先生　月曜忙しいので出席できたらします</p>
+<p>（17：00～レセプト検討会があるのでそこだと確実と武田先生が言っていました。）</p>
+<p>&nbsp;</p>
+<p>遼平先生の都合は畠山さんに確認中です。</p>
+[高橋 蓮奈] <p>遼平先生その日程で大丈夫だそうです。</p>
+[大矢根 未来] <p>大崎先生、馬場先生、ともに大丈夫です。</p>
+[上島　亮] <p>7/28（月）15:30-16:00で電子カルテのキックオフミーティングがあるのですが</p>
+<p>以下の方のご都合伺いたかったです</p>
+<p>&nbsp;</p>
+<p>大崎最高顧問</p>
+<p>馬場病院長</p>
+<p>石黒副院長</p>
+<p>武田副院長</p>
+<p>吉田副院長</p>
+<p>&nbsp;</p>
+<p>内容：<span style="font-size:inherit">導入会社であるCSIから挨拶と、導入に向けて各部署で取り組むことや導入スケジュール説明を行います</span></p>
+[上島　亮] <p>7/28（月）15:30-16:00で電子カルテのキックオフミーティングがあります</p>
+<p>&nbsp;</p>
+<p>添付の皆様に参加していただきたいと思いますので、周知のほどよろしくお願いします</p>
+<p>（狭いですが、理事長が一言お話するので人が多いほうがいいと思います）</p>
+<p>追加もいるようでしたら、ご連絡お願いします</p>
+<p>&nbsp;</p>
+<p>歯科や、林さん、賀木さん系にはこちらからお伝えします</p><attachment id="369733d4-ca6a-460c-b710-f50fbaa602d4"></attachment>
+[田中 景子] <div>ありがとうございます<br>
+よろしくお願いします🙇</div>
+[上島　亮] <p>事務所には私から伝わるから問題無いと思います</p>
+[田中 景子] <div>あ、そうでした<br>
+載せてなかった<br>
+載せた方が良いですか？</div>
+[上島　亮] <p>病院運営報告会議の議事録</p>
+<p>吉田部長から補足、サラッとに来ましたね笑</p>
+[牛尾 和幸] 承知致しました🫡
+[上島　亮] <p>本日15:00からの医療安全管理委員会＠1F会議室右に</p>
+<p>総務から1名代理出席してほしいです、どなたでも構いません</p>
+<p>理由：同時刻に上島が、理事長ミーティング入ったため</p>
+[牛尾 和幸] <p>出口さんの餞別の品などをこちらで決めたいと思います。</p>
+[不明] <systemEventMessage/>
+[不明] <systemEventMessage/>
+[吉田 琢哉] 了解しました、参加させていただきます
+[上島　亮] <p>7/28（月）15:30-16:00で電子カルテのキックオフミーティングがあります</p>
+<p>予定入れさせていただきますので、可能であればご参加お願いします</p>
+<p>当日はCSIよりスケジュールの説明や、各現場に今後確認してもらいたいことなどの話があります</p>
+[澤田 桂子] はいそうです。よろしくお願いいたします😊
+[上島　亮] <p><u>医療安全管理委員会</u></p>
+<p>すみません。</p>
+<p>同時刻に理事長と電子カルテ関連で打ち合わせがあるので、代理を立てたいと思います</p>
+<p>代理は総務課の人員でよろしいかったでしょうか？</p>
+[阿部 恵美] <p>本日の議事録です。印刷ご希望の方は13：30までにお知らせください</p><attachment id="6d43f70d-5590-4800-8a56-027f3132da28"></attachment>
+
+
+【Teamsチャンネル投稿】
+[ITソリューション課/General][上島　亮] <p><at id="0">澤村</at>&nbsp;<at id="1">和華</at>&nbsp;<at id="2">天谷</at>&nbsp;<at id="3">竜二</at>&nbsp;<at id="4">堀川</at>&nbsp;<at id="5">拓真</at></p>
+<p>日曜日で大変申し訳ございませんが、11/16（日）の予定を確保させて下さい</p>
+<p>&nbsp;</p>
+<p>※現時点では振り休で処理される予定です</p>
+<p>※お昼ごはんはおにぎり、サンドウィッチ</p>
+<p>&nbsp;</p>
+<p>時間：11/16 11:00-16:30</p>
+[クラスター対策/検査結果 陽性通知][不明] <attachment id="a3d1dd9c4c4140899701799893538292"></attachment>
+[クラスター対策/General][不明] <systemEventMessage/>
+[医療法人社団　慶友会　吉田病院/General][不明] <systemEventMessage/>
+[看護支援室/General][不明] <systemEventMessage/>
+[経営管理部・経営戦略/General][不明] <systemEventMessage/>
+[経営管理部・経営戦略/スマホ管理関係][不明] <systemEventMessage/>
+[教えて・お願い ITソリューション！/General][不明] <systemEventMessage/>
+[病院運営会議/General][本間 幸子] <p><at id="0">病院運営会議</at></p>
+<p>本日の病院運営会議は議題無しのため中止になりました。</p>
+<p>よろしくお願いいたします。</p>
+<p>&nbsp;</p>
+[部署長⇔人事/人事関連][不明] <systemEventMessage/>
+[医師入退職管理/入職][不明] <systemEventMessage/>
+
+
+【送信メール】
+■ 件名: Re: 【吉田病院】電子カルテ 展示会について
+  宛先: 石崎 迅人 <h-ishizaki@csiinc.co.jp>
+  日付: Thu, 24 Jul 2025 17:07:56 +0900
+  本文:
+石崎様
+
+先程の電話のメモと医事について確認した情報を記載します
+
+7/31（木）で2回目の展示会を行う
+時間は
+14:00-14:45
+15:00-15:45
+会議室を仕切り、左（狭い）電子カルテ、右（広い）看護
+左はCSI様にモニターを持ってきていただき、病院プロジェクターは右で使用する
+
+医事課
+レセコンの展示は必要ない
+16:00から医事課責任者とミーティングの機会を設けて欲しい
+
+明日に院内周知と、出欠確認など行います
+引き続きよろしくお願いします
+
+以上　ご確認のほどよろしくお願いいたします
+
+E-mailまたはMobileへ直接ご連絡下さい
+**************************************************
+　医療法人社団慶友会 吉田病院
+　経営管理部 部長代理 上島 亮
+　医事課 課長代理
+　ITソリューション課 課長
+　〒070-0054
+　北海道旭川市４条西４丁目１－２
+　Mobile:070-5287-9214
+　FAX:0166-24-6769
+　Mail:ueshima@keiyukai-group.com
+**************************************************
+
+> 2025/07/23 19:27、石崎 迅人 <h-ishizaki@csiinc.co.jp>のメール:
+> 
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> 電子カルテ展示会の候補日をご確認いただき、ありがとうございました。
+> 社内で調整可能かどうか確認が取れ次第、ご連絡いたします。
+>  
+> お手数かけますが、よろしくお願いします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: ueshima@keiyukai-group.com <ueshima@keiyukai-group.com>
+> Sent: Wednesday, July 23, 2025 6:30 PM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com>;吉田）情報システム課 <yoshida-system@keiyukai-group.com>; 本社システム営業部-第二システム課<csi_hokkaidosys_2@csiinc.co.jp>; 谷口 麻里亜 <m-taniguchi@csiinc.co.jp>; CSIIBARS札幌担当ML <ibars-csi-sapporo@csiinc.co.jp>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp>; 井田 絢也<ida@csiinc.co.jp>; 佐藤 貴也 <tk-sato@csiinc.co.jp>
+> Subject: Re: 【吉田病院】電子カルテ 展示会について
+>  
+> 石崎様
+>  
+> ■キックオフ
+> 7/28（月）　15:30-16:00　1F会議室
+> 参加見込み：20〜32人
+>  
+>  
+> ■電子カルテ展示
+> 会議室の都合上、8月はほとんど空きがない状態でした
+> 全体的に行うのが以下の7/31、8/13が無理な場合、医師のみで8/4、8/18の遅い時間でも可能です
+>  
+> おすすめは7/31かと思いますがいかがでしょうか？
+>  
+> 電子カルテ展示候補日
+> 7/31（木）
+> 8/13（水）
+>  
+> 医師のみ
+> 8/4（月）　17:00-18:00
+> 8/18（月）　17:00-18:00
+>  
+> 
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+> 
+> 
+> 2025/07/22 13:08、石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>のメール:
+>  
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> 理事長のスケジュールの件、承知しました。
+> 今月中に両方開催するとなると、7月28日(月)の
+> 9時～15時まで展示会形式のデモンストレーション、
+> 15時半～16時までキックオフとなりますがよろしいでしょうか。
+>  
+> 上記日程が厳しければ、8月からは導入フェーズに入りたいため、
+> 2回目のデモンストレーションを開催せずに、キックオフのみを開催させていただければと思います。
+> 導入期間中も操作研修等でMIRAIsの画面を見ることや、操作していただく場面がありますので、
+> そちらで電子カルテの画面や操作感を再度、ご確認いただければと存じます。
+> 2回目のデモが必ず必要であれば、キックオフは7月28日に開催し、デモは8月中で日程調整いたします。
+>  
+> お手数かけますが、ご確認のほどよろしくお願いします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com><ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>>
+> Sent: Saturday, July 19, 2025 4:07 PM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 吉田）情報システム課 <yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>; 本社システム営業部-第二システム課 <csi_hokkaidosys_2@csiinc.co.jp <mailto:csi_hokkaidosys_2@csiinc.co.jp>>; 谷口 麻里亜 <m-taniguchi@csiinc.co.jp <mailto:m-taniguchi@csiinc.co.jp>>; CSIIBARS札幌担当ML <ibars-csi-sapporo@csiinc.co.jp <mailto:ibars-csi-sapporo@csiinc.co.jp>>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>; 井田 絢也 <ida@csiinc.co.jp <mailto:ida@csiinc.co.jp>>; 佐藤 貴也 <tk-sato@csiinc.co.jp <mailto:tk-sato@csiinc.co.jp>>
+> Subject: Re: 【吉田病院】電子カルテ 展示会について
+>  
+> 石崎様
+>  
+> キッキオフは理事長も参加されますが
+> 今のところ7/28　15:30-16:00しか理事長の予定が空いていません
+>  
+> こちらでも確認させていただきますので、何度かやり取りさせていただき日程調整お願いします
+> 
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+> 
+> 
+> 
+> 2025/07/18 20:10、石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>のメール:
+>  
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> 2回目の展示会デモの日程をご提示いただき、ありがとうございました。
+>  
+> 現在、調整中とはなりますが、デモンストレーション時の部屋を分けると言う事なので、
+> 2回目の展示会デモは、電子カルテと看護支援システムにさせていただければと存じます。
+> 看護支援システムのＭＣＳの日程が問題なければ、7月28日(月)でお願いしたいですが、
+> 札幌からの移動となるため、デモの開始時間を午前9時以降に変更していただくことは可能でしょうか。
+>  
+> また、デモの後に15分～30分程のキックオフも予定しておりますので、
+> 展示会デモの終了時間は16時ぐらいまでとさせていただき、
+> 16時半くらいからキックオフとさせていただければと存じます。
+>  
+> 以上となります。
+> お手数かけますが、ご確認のほどよろしくお願いします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com> <ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>>
+> Sent: Friday, July 18, 2025 5:11 PM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 吉田）情報システム課<yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>; 本社システム営業部-第二システム課<csi_hokkaidosys_2@csiinc.co.jp <mailto:csi_hokkaidosys_2@csiinc.co.jp>>; 谷口 麻里亜 <m-taniguchi@csiinc.co.jp <mailto:m-taniguchi@csiinc.co.jp>>; CSIIBARS札幌担当ML <ibars-csi-sapporo@csiinc.co.jp <mailto:ibars-csi-sapporo@csiinc.co.jp>>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>; 井田 絢也 <ida@csiinc.co.jp <mailto:ida@csiinc.co.jp>>; 佐藤 貴也 <tk-sato@csiinc.co.jp <mailto:tk-sato@csiinc.co.jp>>
+> Subject: Re: 【吉田病院】電子カルテ 展示会について
+>  
+> 石崎様
+>  
+> 遅くなって大変申し訳ございませんでしたが、契約の目処も付きました
+> つきましては、２回目の展示会日程を調整お願いします
+>  
+> 候補日（場所が確保できた）：
+> 7/25（金）
+> 8:30-11:00
+> 15:00-18:00
+> 会議室　左右
+>  
+> 7/28（月）
+> 8:30-11:00
+> 13:30-18:00
+> 会議室　左右
+>  
+> 7/29（火）
+> 13:30-18:00
+> 会議室　右
+>  
+> 7/31（木）
+> 13:30-18:00
+> 会議室　右
+>  
+> 会議室　左（狭い）
+> 会議室　右（広い）
+>  
+> 口頭でもお話しましたが、全体、看護、医事など内容や時間帯を分けたり、部屋を分けたりも柔軟に検討したいです
+>  
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+> 
+> 
+> 
+> 
+> 2025/07/16 13:11、佐藤 貴也 <tk-sato@csiinc.co.jp <mailto:tk-sato@csiinc.co.jp>>のメール:
+>  
+> 吉田病院
+> 上島様
+>  
+> お世話になっております。CSI佐藤です。
+>  
+> 申し訳ございません。
+> 宛先未記載で送信してしまいましたので
+> 再送をさせていただきます。
+>  
+> 以下先程の内容と同様となります。
+> ------------------------------------------------------------------------------------------
+> 本日、石崎が体調不良にて休みを頂いていましたので
+> 私の方から返信をさせて頂きます。
+>  
+> 旭川厚生病院の電子カルテはCSI製ではありません。
+>  
+> 旭川厚生病院にこれから導入されるシステムは、
+> NEC製のMegaOak iSという製品で、オンプレとなります。
+> 来年の３月稼働でまだキックオフもしていない状況とヒアリング致しました。
+>  
+>  
+> クラウドの動作検証に関する件についてでしたが、
+> 実際のところは、
+> オンプレ環境の電子カルテと比較し、
+> クラウドはワンテンポ遅れての動作速度となるのが
+> 現状でございます。
+>  
+> 現時点での検証は残念ながら難しいところです。
+> 実際にご契約をして頂いた後に、
+> 弊社にてクラウドDCに電子カルテ環境を構築した後であれば、
+> 院内からのアクセス速度を確認することはできるのですが。。
+>  
+> 明確な回答ができず申し訳ございません。
+> 環境構築後、速度検証を直ぐにでも実施させて頂きます。
+>  
+> よろしくお願い致します。
+>  
+> From: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com> <ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>>
+> Sent: Wednesday, July 16, 2025 12:14 PM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 吉田）情報システム課 <yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>; 本社システム営業部-第二システム課 <csi_hokkaidosys_2@csiinc.co.jp <mailto:csi_hokkaidosys_2@csiinc.co.jp>>; 谷口 麻里亜 <m-taniguchi@csiinc.co.jp <mailto:m-taniguchi@csiinc.co.jp>>; CSIIBARS札幌担当ML <ibars-csi-sapporo@csiinc.co.jp <mailto:ibars-csi-sapporo@csiinc.co.jp>>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>
+> Subject: Re: 【吉田病院】電子カルテ 展示会について
+>  
+> 石崎様
+>  
+> ご質問です
+> 旭川厚生病院に導入する電子カルテはCSI製でしょうか、NEC製でしょうか？
+>  
+> 人づての情報で、
+> 「厚生病院はNECのMegaOakに切り替える」
+> 「MegaOakはクラウドの通信レスポンスに課題を残している」
+> と聞きました
+>  
+> 契約が済んでない状況ではありますが、上記のような話があるにしろ無いにしろ、当院の現在のネットワーク環境で通信レスポンスを検証することは可能でしょうか？
+> 
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+>  
+> 
+> 2025/07/15 8:26、ueshima@keiyukai-group.comのメール <mailto:ueshima@keiyukai-group.com%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB>:
+>  
+> 石崎様
+>  
+> 資料ご提供ありがとうございます
+> 社内共有させていただきます
+>  
+> 動画資料につきましては、次回来院時に受領させていただければと思います。
+> 
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+>  
+> 
+> 2025/07/14 15:50、石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>のメール:
+>  
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> 先日は、デモの機会をいただき、ありがとうございました。
+> デモンストレーションの際にお配りした資料を送付いたします。
+>  
+> デモの画面録画データになりますが、zipファイルにしても
+> データ容量が大きくメールでは送付することができないので、
+> 次回訪問時に病院様のUSB等の媒体の中に入れる形でもよろしいでしょうか。
+>  
+> お手数かけますが、ご確認のほどよろしくお願いします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com> <ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>>
+> Sent: Monday, July 14, 2025 10:53 AM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 吉田）情報システム課 <yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>; 本社システム営業部-第二システム課 <csi_hokkaidosys_2@csiinc.co.jp <mailto:csi_hokkaidosys_2@csiinc.co.jp>>; 谷口 麻里亜 <m-taniguchi@csiinc.co.jp <mailto:m-taniguchi@csiinc.co.jp>>; CSIIBARS札幌担当ML <ibars-csi-sapporo@csiinc.co.jp <mailto:ibars-csi-sapporo@csiinc.co.jp>>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>
+> Subject: Re: 【吉田病院】電子カルテ 展示会について
+>  
+> 石崎様
+>  
+> 先日はご対応いただきありがとうございました
+> 今後の予定などは契約の進みによって変わると思いますので、また相談させて下さい
+>  
+> まずは先日配布いただいた資料のデジタルデータを頂きたいと思いますが可能でしょうか？
+> また、画面録画いただいたものは未編集でかまいませんので、いただければこちらで活用させていただきたいです
+> 合わせてご確認のほどよろしくお願いします
+>  
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+> 
+> 
+> 
+> 
+> 
+> 
+> 2025/07/10 18:27、石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>のメール:
+>  
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> 返信遅くなり申し訳ありません。
+> 明日は、どうぞよろしくお願いいたします。
+> デモ実施に関しましては、柔軟に対応させていただきたいと思います。
+>  
+> ドクター、外来看護師、コメディカルの方々に対して、
+> プロジェクターを用いて集合形式のデモを実施させていただく予定です。
+>  
+> 会場後方に2か所ディスプレイを設置させていただき、
+> それぞれ病棟看護師、医事課職員の方々に
+> 看護支援機能と医事システムの個別のデモを実施させていただきます。
+>  
+> ドクターへのデモにつきましては、流動的になる部分を含めて、
+> 柔軟に対応させていただきますので、ご安心ください。
+>  
+> 資料につきましては、職員様全員分のご紹介資料を準備しております。
+> 今回デモに参加できなかった方々にも資料配布を考えております。
+>  
+> また、キックオフと２回目のデモもご相談の上実施させていただきます。
+>  
+> お手数かけますが、ご確認のほどよろしくお願いします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com> <ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>>
+> Sent: Thursday, July 10, 2025 2:33 PM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 吉田）情報システム課 <yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>; 本社システム営業部-第二システム課 <csi_hokkaidosys_2@csiinc.co.jp <mailto:csi_hokkaidosys_2@csiinc.co.jp>>; 谷口 麻里亜 <m-taniguchi@csiinc.co.jp <mailto:m-taniguchi@csiinc.co.jp>>; CSIIBARS札幌担当ML <ibars-csi-sapporo@csiinc.co.jp <mailto:ibars-csi-sapporo@csiinc.co.jp>>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>
+> Subject: Re: 【吉田病院】電子カルテ 展示会について
+>  
+> 石崎様
+>  
+> 会場がせまく入り切らないことも想定されるので、柔軟に対応お願いします
+> 各時間帯　40から47名の参加が予想されます
+> 添付資料の名簿の赤い枠は、医師で診察時間などの合間での参加になるため流動的な部分です
+>  
+> いよいよ明日は展示となりますが、どうぞよろしくお願いします
+>  
+>  
+> 
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 2025/07/08 15:32、ueshima@keiyukai-group.comのメール <mailto:ueshima@keiyukai-group.com%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB>:
+>  
+> 石崎様 
+>  
+> 看護システム、医事システムについて展示ブース設置いただけるのは問題ないです
+> ぜひお願いします
+> 
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 2025/07/08 15:04、石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>のメール:
+>  
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> 先ほどは、説明不足な部分があり申し訳ございませんでした。
+> 電子カルテのデモは集合形式に変更させていただきましたが、
+> 看護システムと医事システムにつきましては、
+> 電子カルテとは別に、展示会ブースを設ける予定でしたが問題ないでしょうか。
+> 看護師や医事課の職員様は、看護システムと医事システム専用の展示会ブースに来ていただき、
+> それ以外の職員様が電子カルテの集合デモに参加していただく形を想定しておりました。
+>  
+> 以上となります。
+> お手数かけますが、よろしくお願いします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com> <ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>>
+> Sent: Tuesday, July 8, 2025 1:03 PM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 吉田）情報システム課 <yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>; 本社システム営業部-第二システム課 <csi_hokkaidosys_2@csiinc.co.jp <mailto:csi_hokkaidosys_2@csiinc.co.jp>>; 谷口 麻里亜 <m-taniguchi@csiinc.co.jp <mailto:m-taniguchi@csiinc.co.jp>>; CSIIBARS札幌担当ML <ibars-csi-sapporo@csiinc.co.jp <mailto:ibars-csi-sapporo@csiinc.co.jp>>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>
+> Subject: Re: 【吉田病院】電子カルテ 展示会について
+>  
+> 石崎様
+>  
+> 7/11 展示会はいただいたタイムスケジュールで院内周知します
+> 当日はよろしくお願いします
+>  
+> 今から出欠意向調査を行いますが、参加職種により柔軟に内容を変更いただければ助かります
+> （看護職員のみで医事職員がいない中、レセコンの説明は少なくてもかまわないと思いますので）
+>  
+> 出欠意向調査の確認ができましたら、前日までにCSI様にも共有いたします
+> 
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+>  
+> 
+> 2025/07/08 12:00、石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>のメール:
+>  
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> 先ほどは、お電話ありがとうございました。
+>  
+> 7月11日(金)のデモに関しましては、予定通りデモ対応をさせていただきます。
+> 再度、タイムスケジュールを作成いたしましたので、ご確認いただけますでしょうか。
+>  
+> ・1回目デモ：13:30～14:15
+> ・介護保険請求の打ち合わせ：14:15～15:00
+> ・2回目デモ：15:00～15:45
+> ・3回目デモ：16:00～16:45
+>  
+> お手数かけますが、ご確認のほどよろしくお願いします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: 石崎 迅人
+> Sent: Tuesday, July 8, 2025 10:52 AM
+> To: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 吉田）情報システム課 <yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>; 本社システム営業部-第二システム課 <csi_hokkaidosys_2@csiinc.co.jp <mailto:csi_hokkaidosys_2@csiinc.co.jp>>; 谷口 麻里亜 <m-taniguchi@csiinc.co.jp <mailto:m-taniguchi@csiinc.co.jp>>; CSIIBARS札幌担当ML <ibars-csi-sapporo@csiinc.co.jp <mailto:ibars-csi-sapporo@csiinc.co.jp>>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>
+> Subject: RE: 【吉田病院】電子カルテ 展示会について
+>  
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> キックオフ、集合形式デモの件で、返信させていただきます。
+>  
+> 先ほど、賀木様と弊社佐藤が電話にて会話させていただきました。
+> 既にお聞きになられているかもしれませんが、
+> 7月14日(月)のキックオフ及び集合形式のデモに関しましては、
+> 正式な契約前ということもあり、
+> 時期を変更させていただきたいと考えております。
+>  
+> 7月11日(金)のデモに関しましては、予定通りデモ対応をさせていただきます。
+> デモにつきましては、集合形式にて下記の要領で実施させていただけませんでしょうか。
+>  
+> ・1回目デモ：13:30～14:30
+> ・2回目デモ：14:45～15:45
+> ・3回目デモ：16:00～17:00
+>  
+> ※上記は一例となります。
+>  
+> 吉田病院のご都合に合わせてデモ実施させていただきます。
+>  
+> ご多忙のところ恐れ入りますが、
+> ご確認及び、ご調整の程よろしくお願いいたします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com> <ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>>
+> Sent: Tuesday, July 8, 2025 8:24 AM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>; 吉田）情報システム課 <yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>
+> Subject: Re: 【吉田病院】電子カルテ 展示会について
+>  
+> 石崎様
+>  
+> お世話になっております。
+>  
+> 契約に関する社内調整が遅れており、ご迷惑をおかけしておりますこと、深くお詫び申し上げます。
+>  
+> お手数ですが、以下の2点についてご確認いただけますでしょうか。
+> キックオフの日時につきまして、14日からの延期（未定）の認識で齟齬がございませんでしょうか。
+> 展示会について、11日および14日での開催が可能ですが、ご都合はいかがでしょうか。
+>  
+> お忙しいところ恐縮ですが、ご確認のほどよろしくお願い申し上げます。
+>  
+> 何卒よろしくお願いいたします。
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+>  
+> 
+> 2025/06/30 17:17、石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>のメール:
+>  
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> 稼働日は変更可能かどうか、確認が取れ次第ご連絡いたします。
+>  
+> キックオフ資料に関しましては、今週中に作成し送付いたしますので、
+> 内容を確認後、院内周知していただければと存じます。
+>  
+> 以上となります。
+> お手数かけますが、よろしくお願いいたします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com> <ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>>
+> Sent: Monday, June 30, 2025 8:09 AM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 本社システム営業部営業課社員<hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>; 吉田）情報システム課 <yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>
+> Subject: Re: 【吉田病院】電子カルテ 展示会について
+>  
+> 石崎様
+>  
+> ご確認・ご対応ありがとうございます
+>  
+> 稼働日の確認引き継ぎお願いします
+> 展示会デモ、キックオフに関してはいただきた内容で問題ないです
+> 院内周知なでもございますので、大まかな流れを今週中にいただけると助かります
+> 
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 2025/06/27 18:38、石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>のメール:
+>  
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> 本稼働日につきましては、2月に変更可能かどうか
+> 社内で確認中なので、もう少々お待ちいただけますでしょうか。
+>  
+> 展示会デモとキックオフに関しましては、
+> ご記載の日程で対応させていただきます。
+>  
+> 展示会デモのタイムスケジュールは、弊社側で作成し送付させていただきます。
+>  
+> キックオフの内容は、顔合わせ程度の簡潔な物になります。
+> 今回導入するシステムの範囲や、導入開始から稼働までのスケジュール、
+> シーエスアイの導入体制や病院様へのお願い事項などの説明になります。
+> 他にキックオフで説明して欲しい内容があれば資料に追加させていただきます。
+>  
+> 以上となります。
+> お手数かけますが、ご確認のほどよろしくお願いします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com> <ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>>
+> Sent: Friday, June 27, 2025 1:44 PM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>; 吉田）情報システム課 <yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>
+> Subject: Re: 【吉田病院】電子カルテ 展示会について
+>  
+> 石崎様
+>  
+> 3点確認させて下さい
+>  
+> 1.本稼働日程について
+> 12月1日でスケジュール案をいただいておりますが、当院の希望としては2月1日です
+> こちらの調整は可能でしょうか？
+>  
+> リース契約の件で回答できていない中、大変恐縮ですが、部門システムベンダーへも情報連携したいので、ご回答いただけると助かります
+>  
+> 2.展示会
+> 7/11（金） 13:30-17:00
+> 7/14（月） 13:30-16:00
+> 両日電子カルテ、看護支援、医事すべて
+>  
+> 3.キックオフミーティング
+> 7/14（月） 16:30-17:00
+> こちらで行いたいのですが、いかがでしょうか？
+>  
+> キックオフミーティングには理事長も参加していだく予定です
+> その他、病院長や看護師長、パラメディカル各部署責任者、医事責任者などを予定しております
+>  
+> キックオフミーティングの内容詳細はどのようなものになりますでしょうか？
+> 簡単（テキストベース）でよいので式次第やタイムスケジュールを作成いただけますでしょうか？
+> 
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 2025/06/17 17:18、石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>のメール:
+>  
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> 下記の日程で展示会デモを実施させていただきます。
+>  
+> 7/11（金） 13:30-17:00
+> 7/14（月） 13:30-17:00
+>  
+> 詳細な内容については、決まり次第のご連絡お待ちしております。
+>  
+> 以上となります。
+> よろしくお願いいたします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com> <ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>>
+> Sent: Tuesday, June 17, 2025 1:45 PM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>; 吉田）情報システム課 <yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>
+> Subject: Re: 【吉田病院】電子カルテ 展示会について
+>  
+> 石崎様
+>  
+> 展示デモについて
+> 7/11（金） 13:30-17:00
+> 7/14（月） 13:30-17:00
+>  
+> こちらの日程でお願いします
+> 細かい内容については、院内で決まり次第ご連絡いたします
+> 
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 2025/06/17 11:07、石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>のメール:
+>  
+> 吉田病院
+> 上島様
+>  
+> いつもお世話になっております。
+> シーエスアイの石崎です。
+>  
+> 展示会デモの候補日を提示いただき、ありがとうございました。
+>  
+> ２回目の日程は、ピンポイントで申し訳ないのですが、
+> 7/14（月） 13:30-17:00でお願いできればと存じます。
+>  
+> ２回目の看護支援と医事システムの参加可否については、
+> 院内で決まり次第、ご連絡いただければと思います。
+>  
+> 以上となります。
+> お手数かけますが、ご確認のほどよろしくお願いします。
+>  
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+> 株式会社シーエスアイ
+> 本社システム営業部　営業課
+> 石崎迅人
+> 〒003-0029 札幌市白石区平和通15丁目北1番21号
+> TEL：011-861-1501 FAX： 011-861-1510
+> Email：h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>
+> ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+>  
+> From: ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com> <ueshima@keiyukai-group.com <mailto:ueshima@keiyukai-group.com>>
+> Sent: Tuesday, June 10, 2025 5:07 PM
+> To: 石崎 迅人 <h-ishizaki@csiinc.co.jp <mailto:h-ishizaki@csiinc.co.jp>>
+> Cc: 賀木 予防医療事業部 <kagi@keiyukai-group.com <mailto:kagi@keiyukai-group.com>>; 本社システム営業部営業課社員 <hokkaido-eigyo@csiinc.co.jp <mailto:hokkaido-eigyo@csiinc.co.jp>>; 吉田）情報システム課 <yoshida-system@keiyukai-group.com <mailto:yoshida-system@keiyukai-group.com>>
+> Subject: 【吉田病院】電子カルテ 展示会について
+>  
+> CSI
+> 石崎様
+>  
+> 先ほどはお電話ありがとうござました、7/11に行うことにして
+> それ以外の日でも1日お願いしたいです
+>  
+> 7/11は電子カルテ、看護支援、医事の3本建てで行い
+> それ以外の日は応相談ということでお願いします
+>  
+> 7/11（金） 13:30-17:00
+>  
+> 候補日
+> 7/14（月） 13:30-17:00
+> 7/16（水） 13:30-17:00
+> 7/22（火） 13:30-17:00
+> 7/25（水） 13:30-17:00
+>  
+> 
+> 以上　ご確認のほどよろしくお願いいたします
+>  
+> E-mailまたはMobileへ直接ご連絡下さい
+> **************************************************
+> 　医療法人社団慶友会 吉田病院
+> 　経営管理部 部長代理 上島 亮
+> 　医事課 課長代理
+> 　ITソリューション課 課長
+> 　〒070-0054
+> 　北海道旭川市４条西４丁目１－２
+> 　Mobile:070-5287-9214
+> 　FAX:0166-24-6769
+> 　Mail:ueshima@keiyukai-group.com
+> **************************************************
+>  
+> <【吉田病院様】デモ配布資料_20250 711.pdf>
+
+
+
+【OneDrive新規ファイル】
+
+
+
+- 稟議書_進捗管理.xlsx
+
+
+- 調定金額集計表.xlsx
+
+
+- 調定金額集計表_修正前.xlsx
+
+
+- 調定金額集計表_修正後.xlsx
+
+
+- DPC患者診療行為情報一覧 .csv
+
+
+- 検証患者一覧.xlsx
+
+
+- 検証患者一覧.xlsx
+
+
+- sql.txt
+
+
+- 調定金額集計表（請求データ）7.24修正.xlsx
+
+
+- Image (31).jpeg
+
+
+- 理由_地域包括ケア病棟_対象患者一覧_202506.xlsx
+
+
+- 調定金額集計表_修正後.xlsx
+
+
+- 調定金額集計表（請求データ）7.23修正.xlsx
+
+
+- 電子カルテキックオフミーティング.docx
+
+
+- 【吉田病院御中】7月診療分救急医療管理加算算定リスト.xlsx
+
+
+- 電子カルテキックオフミーティング.pdf
+
+
+- 電子カルテキックオフミーティング 1.pdf
+
+
+- 電子カルテキックオフミーティング 2.pdf
+
+
+- 電子カルテキックオフミーティング 3.pdf
+
+
+- FAX.pdf
+
+
+- MAIL.pdf
+
+
+- スクリーンショット 2025-07-24 16.52.33.png
+
+
+- スクリーンショット 2025-07-24 16.54.48.png
+
+
+- 電子カルテキックオフミーティング.docx
+
+
+- 電子カルテキックオフミーティング.pdf
+
+
+- 職員説明会資料Ver2.pdf
+
+
+- 【吉田病院御中】7月診療分救急医療管理加算算定リスト.xlsx
+
+
+- MAIL.pdf
+
+
+- FAX.pdf
+
+
+- ID一覧.xlsx
+
+
+- 20250724165210279.pdf
+
+
+- daily_task.sh
+
+
+- n8n-cloudrun-supabase-10e25f077538.json
+
+
+【Googleカレンダー予定】要約
+**解釈**:
+質問は、私がプロの編集者として、与えられた情報を最も適切に要約することを求めている。与えられた情報は、患者が午前中にm3という医療機関を受診する予定であるという情報である。具体的には、2025年7月24日の午前8時15分から8時30分までの15分間の来院予定である。
+
+**回答**:
+2025年7月24日午前、患者はm3に来院予定（8:15～8:30）。
+
+**再考**:
+上記の回答は、日時、場所、時間帯、予定の種類（来院）という主要な情報を過不足なく含んでいる。より短くすることは可能だが、情報が欠落するリスクがある。例えば「7/24午前、m3来院」とすると、具体的な時間が分からなくなる。
+
+**最終的な回答**:
+患者、2025年7月24日午前8時15分～30分にm3来院。
+
+**自己評価**:
+最終的な回答は、日時、場所、時間、行動（来院）を明確に伝えつつ、冗長な表現を避け、最も簡潔に情報をまとめている。プロの編集者として、必要十分な情報を短い文で伝えることができたと判断する。
+
+
+
+午前m3来院（2025-07-24T08:15:00+09:00〜2025-07-24T08:30:00+09:00）
+
+
+【Googleカレンダー予定】要約
+**解釈**:
+この質問は、私がプロの編集者として、与えられた会議名（職員説明会@1F会議室（2025-07-24T10:30:00+09:00〜2025-07-24T11:00:00+09:00））から、最も的確で簡潔な要約を作成することを求めています。会議のテーマは「今期の吉田病院の処遇改善手当について」です。
+
+**最終的な回答**:
+吉田病院、今期処遇改善手当説明会（7/24）
+
+
+
+職員説明会@1F会議室（2025-07-24T10:30:00+09:00〜2025-07-24T11:00:00+09:00） 今期の吉田病院の処遇改善手当について
+
+
+【Googleカレンダー予定】要約
+**解釈**: この質問は、私がプロの編集者として、指定された会議の予定に関する情報を最も効果的に要約することを求めています。会議名と開催日時が与えられているため、これらを簡潔にまとめることが求められています。
+
+**回答**: m3経理・医事会議（3F会議室）: 7月24日11:15-12:00
+
+**再考**: 上記の回答は会議名、場所、日時を網羅していますが、より簡潔に、かつプロフェッショナルな印象を与えるためには、若干の修正が可能です。例えば、場所を省略するか、時間の表記を少し変更することで、より洗練された印象を与えることができます。
+
+**最終的な回答**: m3経理・医事会議: 7月24日11:15-12:00
+
+**自己評価**: 最終的な回答は、会議名、日時という最も重要な情報を簡潔にまとめており、プロの編集者として適切であると判断します。場所の情報は、必要に応じて補足できる範囲と判断し、簡潔さを優先しました。
+
+
+
+m3経理・医事＠3F会議室（2025-07-24T11:15:00+09:00〜2025-07-24T12:00:00+09:00）
+
+
+【Googleカレンダー予定】要約
+**解釈**:
+質問は、プロの編集者として、与えられた会議の議題を最も適切に要約すること。会議の議題は「職員説明会@1F会議室（2025-07-24T14:00:00+09:00〜2025-07-24T14:30:00+09:00） 今期の吉田病院の処遇改善手当について」である。この議題を簡潔かつ正確に伝える要約を作成する。
+
+**最終的な回答**:
+7月24日14時より1F会議室にて、吉田病院の今期処遇改善手当に関する職員説明会を開催。
+
+
+
+職員説明会@1F会議室（2025-07-24T14:00:00+09:00〜2025-07-24T14:30:00+09:00） 今期の吉田病院の処遇改善手当について
+
+
+【Googleカレンダー予定】要約
+**解釈**:
+
+この質問は、私がプロの編集者として、指定された日時で開催された医療安全管理委員会に関する最も適切な要約を生成することを求めています。要約の対象は会議名と開催日時のみであるため、これらの情報を簡潔にまとめることが求められます。会議の内容に関する情報がないため、会議の存在と日時を明確に伝えることに焦点を当てます。
+
+**回答**:
+
+2025年7月24日15時00分から15時30分に医療安全管理委員会が開催されました。
+
+**再考**:
+
+最初の回答は、会議名と日時を正確に伝えていますが、プロの編集者として、より簡潔で洗練された表現を目指すべきです。開催されたという表現は冗長である可能性があります。
+
+**最終的な回答**:
+
+医療安全管理委員会は2025年7月24日15時00分～15時30分に開催。
+
+**自己評価**:
+
+最終的な回答は、最初の回答よりも簡潔で、プロの編集者として適切な表現になっています。会議名、日時を明確に伝えつつ、無駄な言葉を省いています。
+
+
+
+医療安全管理委員会（2025-07-24T15:00:00+09:00〜2025-07-24T15:30:00+09:00）
+
+
+【Googleカレンダー予定】要約
+**解釈**:
+質問は、プロの編集者として、与えられた会議情報から最高の要約を作成することを求めています。会議情報は、医療安全管理室で開催される医療安全管理室カンファレンスの日時（2025年7月24日15:00〜15:15）を示しています。つまり、この情報を簡潔かつ的確に要約する必要があります。
+
+**回答**:
+医療安全管理室カンファレンスは、2025年7月24日15:00から15:15まで医療安全管理室で開催されます。
+
+**再考**:
+上記の回答は事実を正確に伝えていますが、「最高の要約」というプロの編集者の視点からは、情報が不足している可能性があります。会議の目的や議題が不明なため、現状ではこれ以上の情報を加えることはできません。しかし、もし議題が分かれば、それを追加することでより価値のある要約にできるでしょう。現状では、簡潔さを重視し、時間、場所、会議名を明示することが重要です。
+
+**最終的な回答**:
+2025年7月24日15:00～15:15、医療安全管理室にて医療安全管理室カンファレンスを開催。
+
+**自己評価**:
+提示された情報のみに基づくと、最終的な回答は会議の基本的な詳細（日時と場所）を簡潔にまとめており、プロの編集者として妥当な要約と言えます。さらなる詳細（議題、目的など）があれば、より良い要約が可能ですが、現時点では最適と考えられます。
+
+
+
+医療安全管理室カンファレンス@医療安全管理室（2025-07-24T15:00:00+09:00〜2025-07-24T15:15:00+09:00）
+
+
+【Googleカレンダー予定】要約
+**解釈**: この質問は、与えられた会議情報の要約を、プロの編集者として最高品質で作成することを求めている。会議情報は「緩和ケア講演会打合せ」であり、2025年7月24日の15:30から16:00まで、1階会議室右で開催されるという内容である。
+
+**回答**: 2025年7月24日15:30-16:00、1階会議室右にて緩和ケア講演会の打ち合わせ。
+
+**再考**: 回答は会議情報の基本的な要素を含んでおり、簡潔である。しかし、「プロの編集者」という役割を考慮すると、もう少し情報に意味合いを付加した方が良いかもしれない。例えば、この打ち合わせが何のためのものなのか、目的や期待される成果などが分かれば、より質の高い要約になる。しかし、提供された情報が限られているため、現状ではこれ以上の情報は推測することになる。
+
+**最終的な回答**: 2025年7月24日15:30-16:00、1階会議室右にて緩和ケア講演会の開催に向けた打ち合わせ。
+
+**自己評価**: 最初の回答に比べ、「開催に向けた」という情報を加えることで、打ち合わせの目的がより明確になった。限られた情報の中では、プロの編集者として、会議の文脈を推測し、より読者に分かりやすい表現に近づけることができたと考える。
+
+
+
+緩和ケア講演会打合せ＠1階会議室右（2025-07-24T15:30:00+09:00〜2025-07-24T16:00:00+09:00）
+
+
+【Googleカレンダー予定】要約
+**解釈**:
+
+「プロの編集者」として、与えられた会議情報の最も重要な点を抽出し、簡潔かつ有益な要約を作成する。会議名、場所、日時という基本情報に焦点を当て、読み手が会議の概要を瞬時に把握できるようにする。
+
+**回答**:
+
+病院運営会議が7月24日17時より3F会議室にて開催。
+
+**再考**:
+
+上記は必要最低限の情報を含んでいるが、「最高の要約」という指示を考慮すると、もう少し情報を加えることで、会議の目的や参加者の属性など、より深い情報を提供できる可能性がある。しかし、今回は会議名から内容を推測でき、時間も30分と短いことから、詳細な情報は不要と判断する。シンプルさを重視し、読みやすさを優先する。
+
+**最終的な回答**:
+
+7月24日17時より、3F会議室にて病院運営会議を開催。
+
+**自己評価**:
+
+会議名、場所、日時を明確に記載し、会議の概要を的確に捉えた簡潔な要約となっている。プロの編集者として、情報を効率的に伝え、読み手の時間を無駄にしないという点において、適切であると判断する。
+
+
+
+病院運営会議【３F会議室】（2025-07-24T17:00:00+09:00〜2025-07-24T17:30:00+09:00）
