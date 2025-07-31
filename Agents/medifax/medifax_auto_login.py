@@ -87,13 +87,11 @@ class MedifaxAutoLogin:
         end tell
 
         delay 5
-        tell application "System Events" to keystroke "esc"
         tell application "System Events"
         key code 102
             tell process "Safari"
                 set frontmost to true
                 delay 1
-                keystroke tab
                 keystroke "{self.username}"
                 delay 0.5
                 keystroke tab
@@ -135,7 +133,7 @@ class MedifaxAutoLogin:
         return True
     
     def fetch_rss_feed(self) -> List[Dict]:
-        """RSSフィードを取得して記事情報を抽出"""
+        """RSSフィードを取得して本日分の記事情報のみ抽出"""
         try:
             print(f"RSSフィードを取得中: {self.rss_url}")
             
@@ -143,28 +141,125 @@ class MedifaxAutoLogin:
             response = self.session.get(self.rss_url, timeout=30)
             response.raise_for_status()
             
+            print(f"RSSレスポンスステータス: {response.status_code}")
+            print(f"RSSレスポンスサイズ: {len(response.content)} bytes")
+            
+            # 生のXML内容を確認（デバッグ用）
+            xml_content = response.content.decode('utf-8', errors='ignore')
+            print(f"\n=== RSSフィードの最初の1000文字 ===")
+            print(xml_content[:1000])
+            print("=== RSSフィード内容終了 ===\n")
+            
             # RSSフィードをパース
             feed = feedparser.parse(response.content)
             
+            print(f"RSSフィードから {len(feed.entries)} 件の記事を取得")
+            
+            # 最初の3件の記事の詳細を表示（デバッグ用）
+            if feed.entries:
+                print("\n=== 最初の3件の記事の詳細 ===")
+                for i, entry in enumerate(feed.entries[:3]):
+                    print(f"\n記事 {i+1}:")
+                    print(f"  タイトル: {entry.get('title', 'No title')}")
+                    print(f"  リンク: {entry.get('link', 'No link')}")
+                    print(f"  dc_date: {entry.get('dc_date', 'No dc_date')}")
+                    print(f"  published: {entry.get('published', 'No published')}")
+                    print(f"  published_parsed: {entry.get('published_parsed', 'No published_parsed')}")
+                    if hasattr(entry, 'dc_jdate'):
+                        print(f"  dc_jdate: {entry.dc_jdate}")
+                    print(f"  全キー: {list(entry.keys())}")
+            
             articles = []
-            for entry in feed.entries:
+            today = datetime.date.today()
+            print(f"\n今日の日付: {today}")
+            
+            for i, entry in enumerate(feed.entries):
+                print(f"\n記事 {i+1}: {entry.get('title', 'No title')}")
+                
+                # 各種日付フィールドの取得
+                dc_date = entry.get('dc_date', '')
+                published = entry.get('published', '')
+                published_parsed = entry.get('published_parsed', None)
+                updated = entry.get('updated', '')
+                updated_parsed = entry.get('updated_parsed', None)
+                jdate = getattr(entry, 'dc_jdate', '') if hasattr(entry, 'dc_jdate') else ''
+                
+                # feedparserでの名前空間付き要素の確認
+                print(f"  dc_date: {dc_date}")
+                print(f"  published: {published}")
+                print(f"  updated: {updated}")
+                print(f"  jdate: {jdate}")
+                
+                # 名前空間付き要素の直接確認
+                if hasattr(entry, 'dc_date'):
+                    print(f"  entry.dc_date: {entry.dc_date}")
+                if hasattr(entry, 'dc_jdate'):
+                    print(f"  entry.dc_jdate: {entry.dc_jdate}")
+                
+                # 全属性を確認（デバッグ用）
+                print(f"  entry.__dict__.keys(): {list(entry.__dict__.keys())}")
+                
+                # 日付判定
+                is_today = False
+                # 優先順位: dc_date > published > updated > jdate
+                date_str = None
+                if dc_date:
+                    date_str = dc_date
+                elif published:
+                    date_str = published
+                elif updated:
+                    date_str = updated
+                elif jdate:
+                    date_str = jdate
+
+                # ISO8601形式の日付をパース
+                entry_date = None
+                if date_str:
+                    print(f"  処理する日付文字列: {date_str}")
+                    # 例: 2025-08-01T05:00:05+09:00
+                    try:
+                        # タイムゾーン付きの場合
+                        dt = datetime.datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+                        entry_date = dt.date()
+                        print(f"  パースされた日付: {entry_date}")
+                    except Exception as e:
+                        print(f"  ISO8601パースエラー: {e}")
+                        # それ以外の形式の場合
+                        m = re.match(r"(\d{4})-(\d{2})-(\d{2})", date_str)
+                        if m:
+                            entry_date = datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+                            print(f"  正規表現でパースされた日付: {entry_date}")
+                
+                # published_parsedまたはupdated_parsedがあればそちらも見る
+                if not entry_date and published_parsed:
+                    entry_date = datetime.date(published_parsed.tm_year, published_parsed.tm_mon, published_parsed.tm_mday)
+                    print(f"  published_parsedから取得した日付: {entry_date}")
+                elif not entry_date and updated_parsed:
+                    entry_date = datetime.date(updated_parsed.tm_year, updated_parsed.tm_mon, updated_parsed.tm_mday)
+                    print(f"  updated_parsedから取得した日付: {entry_date}")
+                
+                if entry_date and entry_date == today:
+                    is_today = True
+                    print(f"  ✓ 今日の記事として判定")
+                else:
+                    print(f"  ✗ 今日の記事ではありません (entry_date: {entry_date}, today: {today})")
+
+                if not is_today:
+                    continue
+
                 article = {
                     'title': entry.get('title', ''),
                     'link': entry.get('link', ''),
-                    'published': entry.get('published', ''),
+                    'published': published,
+                    'dc:date': dc_date,
+                    'jdate': jdate,
                     'summary': entry.get('summary', ''),
                     'content': ''
                 }
-                
-                # dc:jdate（日本日付）を取得
-                if hasattr(entry, 'dc_jdate'):
-                    article['jdate'] = entry.dc_jdate
-                else:
-                    article['jdate'] = ''
-                
                 articles.append(article)
+                print(f"  ✓ 記事を追加")
                 
-            print(f"{len(articles)}件の記事を取得しました")
+            print(f"\n{len(articles)}件の本日分の記事を取得しました")
             return articles
             
         except Exception as e:
@@ -251,7 +346,7 @@ class MedifaxAutoLogin:
             
             for i, (article, summary) in enumerate(zip(articles, summaries), 1):
                 f.write(f"## {i}. {article['title']}\n\n")
-                f.write(f"**日付**: {article['jdate'] or article['published']}\n\n")
+                f.write(f"**日付**: {article.get('dc_date') or article.get('published') or article.get('jdate','')}\n\n")
                 f.write(f"**URL**: {article['link']}\n\n")
                 f.write(f"**要約**:\n{summary}\n\n")
                 f.write("---\n\n")
@@ -281,8 +376,9 @@ class MedifaxAutoLogin:
             json_data['articles'].append({
                 'title': article['title'],
                 'link': article['link'],
-                'published': article['published'],
-                'jdate': article['jdate'],
+                'published': article.get('published', ''),
+                'dc:date': article.get('dc_date', ''),
+                'jdate': article.get('jdate', ''),
                 'summary': summary
             })
         
@@ -306,10 +402,10 @@ class MedifaxAutoLogin:
             print("ログインに失敗しました")
             return
         
-        # 2. RSSフィードを取得
+        # 2. RSSフィードを取得（本日分のみ）
         articles = self.fetch_rss_feed()
         if not articles:
-            print("記事が取得できませんでした")
+            print("本日分の記事が取得できませんでした")
             return
         
         # 3. 各記事の内容を取得
