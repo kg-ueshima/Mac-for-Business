@@ -8,3 +8,13 @@ bfg --delete-files token_cache_onedrive.bin #セキュリティ情報が入っ�
 git reflog expire --expire=now --all && git gc --prune=now --aggressive
 #リモートリポジトリを強制上書き（force push）
  git push --force
+
+#geminiに毎日調べてほしいことを聞く
+python3
+from Agents.daily_report.modules.gemini import interactive_report_workflow
+interactive_report_workflow()
+
+#chopinのアイデアを聞く
+python3
+from Agents.chopin.short_video_workflow
+short_video_workflow_chopin()

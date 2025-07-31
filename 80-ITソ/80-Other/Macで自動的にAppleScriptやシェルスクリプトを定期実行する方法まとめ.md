@@ -377,6 +377,8 @@ launchctl load ~/Library/LaunchAgents/com.keiyukai.daily_task.plist
 # 変更したら
 launchctl unload ~/Library/LaunchAgents/com.keiyukai.daily_task.plist
 launchctl load   ~/Library/LaunchAgents/com.keiyukai.daily_task.plist
+launchctl kickstart -k gui/$(id -u)/com.keiyukai.daily_task
+
 時刻を変える場合は <Hour> と <Minute> を修正。
 RunAtLoad を外せばログイン時の即実行を無効化可能。
 ログは ~/Library/Logs/ に残るので Finder からも確認しやすい。

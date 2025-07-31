@@ -18,4 +18,5 @@ python3 Agents/daily_report/main.py
 rsync -avh --delete --exclude '.git' --exclude '.venv' --exclude '.obsidian' '/Users/ueshima/Workspace/Mac for Business/' '/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団　慶友会　吉田病院/Mac for Business-backup' 
 
 
-# 
+# 自宅環境用
+rsync -avh --delete --exclude '.git' --exclude '.venv' --exclude '.obsidian' '/Users/ueshima/Workspace/Mac for Private/' '/Users/ueshima/Library/CloudStorage/OneDrive-医療法人社団　慶友会　吉田病院/Mac for Business-backup' 
