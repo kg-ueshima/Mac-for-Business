@@ -72,7 +72,7 @@ def parse_csv_schedule(csv_path):
 
                     # 日付・時刻の組み立て
                     if not (start_date and start_time and end_date and end_time):
-                        print("スキップ: 日付または時刻が見つかりません", row)
+                        # print("スキップ: 日付または時刻が見つかりません", row)
                         continue
                     start = f"{start_date} {start_time}"
                     end = f"{end_date} {end_time}"

@@ -82,13 +82,17 @@ class MedifaxAutoLogin:
         tell application "Safari"
             activate
             delay 1
-            set loginTab to make new document
+            -- 既存のウィンドウがあるかチェック
+            if (count of windows) > 0 then
+                set loginTab to current tab of front window
+            else
+                set loginTab to make new document
+            end if
             set URL of loginTab to "{login_url}"
         end tell
 
         delay 5
         tell application "System Events"
-        key code 102
             tell process "Safari"
                 set frontmost to true
                 delay 1
@@ -101,7 +105,7 @@ class MedifaxAutoLogin:
                 keystroke return
             end tell
         end tell
-        delay 2
+        delay 3
         '''
 
         print("Safariで自動ログインを実行中...")
@@ -113,14 +117,193 @@ class MedifaxAutoLogin:
             )
             if result.returncode == 0:
                 print("Safariでの自動ログインが完了しました")
-                return True
+                # ログイン後にセッション情報を取得
+                return self.get_safari_session()
             else:
                 print(f"Safari自動ログインエラー: {result.stderr}")
                 return self.manual_login_prompt()
         except Exception as e:
             print(f"Safari自動ログインエラー: {e}")
             return self.manual_login_prompt()
+    
+    def get_safari_session(self):
+        """Safariのセッション情報を取得してrequestsセッションに反映"""
+        try:
+            print("Safariのセッション情報を取得中...")
+            
+            # Safariのクッキー情報を取得
+            apple_script = '''
+            tell application "Safari"
+                set cookieData to ""
+                if (count of windows) > 0 then
+                    repeat with t in tabs of front window
+                        set currentURL to URL of t
+                        if currentURL contains "mfd.jiho.jp" then
+                            set cookieData to "found"
+                            exit repeat
+                        end if
+                    end repeat
+                end if
+                return cookieData
+            end tell
+            '''
+            
+            result = subprocess.run(
+                ['osascript', '-e', apple_script],
+                capture_output=True, text=True
+            )
+            
+            if result.returncode == 0 and "found" in result.stdout:
+                print("Safariでログイン済みセッションを確認しました")
+                # Safariのセッションを模倣するためのヘッダーを設定
+                self.session.headers.update({
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15',
+                    'Accept': 'application/rss+xml, application/xml, text/xml, */*',
+                    'Accept-Language': 'ja-JP,ja;q=0.9,en;q=0.8',
+                    'Accept-Encoding': 'gzip, deflate, br',
+                    'Connection': 'keep-alive',
+                    'Upgrade-Insecure-Requests': '1',
+                    'Sec-Fetch-Dest': 'document',
+                    'Sec-Fetch-Mode': 'navigate',
+                    'Sec-Fetch-Site': 'none',
+                    'Sec-Fetch-User': '?1'
+                })
+                return True
+            else:
+                print("Safariでログイン済みセッションが見つかりません")
+                return self.manual_login_prompt()
+                
+        except Exception as e:
+            print(f"セッション情報取得エラー: {e}")
+            return self.manual_login_prompt()
 
+    def fetch_rss_with_safari(self) -> List[Dict]:
+        """SafariでRSSフィードを取得してスクレイピング"""
+        try:
+            print("SafariでRSSフィードを取得中...")
+            
+            # SafariでRSSフィードを開く
+            apple_script = f'''
+            tell application "Safari"
+                activate
+                delay 1
+                -- 既存のウィンドウがあるかチェック
+                if (count of windows) > 0 then
+                    set rssTab to current tab of front window
+                else
+                    set rssTab to make new document
+                end if
+                set URL of rssTab to "{self.rss_url}"
+            end tell
+            delay 3
+            tell application "Safari"
+                set rssContent to source of document 1
+                return rssContent
+            end tell
+            '''
+            
+            result = subprocess.run(
+                ['osascript', '-e', apple_script],
+                capture_output=True, text=True
+            )
+            
+            if result.returncode == 0 and result.stdout.strip():
+                print("SafariからRSSフィードを取得しました")
+                xml_content = result.stdout.strip()
+                
+                # RSSフィードをパース
+                feed = feedparser.parse(xml_content)
+                
+                print(f"RSSフィードから {len(feed.entries)} 件の記事を取得")
+                
+                # 記事情報を抽出
+                articles = []
+                today = datetime.date.today()
+                print(f"\n今日の日付: {today}")
+                
+                for i, entry in enumerate(feed.entries):
+                    print(f"\n記事 {i+1}: {entry.get('title', 'No title')}")
+                    
+                    # 各種日付フィールドの取得
+                    dc_date = entry.get('dc_date', '')
+                    published = entry.get('published', '')
+                    published_parsed = entry.get('published_parsed', None)
+                    updated = entry.get('updated', '')
+                    updated_parsed = entry.get('updated_parsed', None)
+                    jdate = getattr(entry, 'dc_jdate', '') if hasattr(entry, 'dc_jdate') else ''
+                    
+                    print(f"  dc_date: {dc_date}")
+                    print(f"  published: {published}")
+                    print(f"  updated: {updated}")
+                    print(f"  jdate: {jdate}")
+                    
+                    # 日付判定
+                    is_today = False
+                    # 優先順位: dc_date > published > updated > jdate
+                    date_str = None
+                    if dc_date:
+                        date_str = dc_date
+                    elif published:
+                        date_str = published
+                    elif updated:
+                        date_str = updated
+                    elif jdate:
+                        date_str = jdate
+
+                    # ISO8601形式の日付をパース
+                    entry_date = None
+                    if date_str:
+                        print(f"  処理する日付文字列: {date_str}")
+                        try:
+                            dt = datetime.datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+                            entry_date = dt.date()
+                            print(f"  パースされた日付: {entry_date}")
+                        except Exception as e:
+                            print(f"  ISO8601パースエラー: {e}")
+                            m = re.match(r"(\d{4})-(\d{2})-(\d{2})", date_str)
+                            if m:
+                                entry_date = datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+                                print(f"  正規表現でパースされた日付: {entry_date}")
+                    
+                    # published_parsedまたはupdated_parsedがあればそちらも見る
+                    if not entry_date and published_parsed:
+                        entry_date = datetime.date(published_parsed.tm_year, published_parsed.tm_mon, published_parsed.tm_mday)
+                        print(f"  published_parsedから取得した日付: {entry_date}")
+                    elif not entry_date and updated_parsed:
+                        entry_date = datetime.date(updated_parsed.tm_year, updated_parsed.tm_mon, updated_parsed.tm_mday)
+                        print(f"  updated_parsedから取得した日付: {entry_date}")
+                    
+                    if entry_date and entry_date == today:
+                        is_today = True
+                        print(f"  ✓ 今日の記事として判定")
+                    else:
+                        print(f"  ✗ 今日の記事ではありません (entry_date: {entry_date}, today: {today})")
+
+                    if not is_today:
+                        continue
+
+                    article = {
+                        'title': entry.get('title', ''),
+                        'link': entry.get('link', ''),
+                        'published': published,
+                        'dc_date': dc_date,
+                        'jdate': jdate,
+                        'summary': entry.get('summary', ''),
+                        'content': ''
+                    }
+                    articles.append(article)
+                    print(f"  ✓ 記事を追加")
+                
+                print(f"\n{len(articles)}件の本日分の記事を取得しました")
+                return articles
+                
+            else:
+                print("SafariからRSSフィードを取得できませんでした")
+                return []
+                
+        except Exception as e:
+            print(f"Safari RSS取得エラー: {e}")
+            return []
     
     def manual_login_prompt(self):
         """手動ログインの案内"""
@@ -128,6 +311,7 @@ class MedifaxAutoLogin:
         print(f"1. Safariで {self.login_url} を開いてください")
         print("2. ログイン情報を入力してログインしてください")
         print("3. ログイン後、このプログラムを再実行してください")
+        print("   ※ 既存のSafariウィンドウを使用します")
         
         input("\nログインが完了したら Enter キーを押してください...")
         return True
@@ -137,7 +321,7 @@ class MedifaxAutoLogin:
         try:
             print(f"RSSフィードを取得中: {self.rss_url}")
             
-            # ログイン済みセッションでRSSを取得
+            # まずrequestsセッションで試行
             response = self.session.get(self.rss_url, timeout=30)
             response.raise_for_status()
             
@@ -149,6 +333,11 @@ class MedifaxAutoLogin:
             print(f"\n=== RSSフィードの最初の1000文字 ===")
             print(xml_content[:1000])
             print("=== RSSフィード内容終了 ===\n")
+            
+            # ログインが必要な場合のチェック
+            if "ログイン" in xml_content or "login" in xml_content.lower() or len(xml_content) < 1000:
+                print("ログインが必要なようです。Safariでスクレイピングを試行します...")
+                return self.fetch_rss_with_safari()
             
             # RSSフィードをパース
             feed = feedparser.parse(response.content)
@@ -270,6 +459,8 @@ class MedifaxAutoLogin:
         """記事URLから本文を取得（ログイン済みセッション使用）"""
         try:
             print(f"記事内容を取得中: {url}")
+            
+            # まずrequestsセッションで試行
             response = self.session.get(url, timeout=30)
             response.raise_for_status()
             
@@ -301,10 +492,87 @@ class MedifaxAutoLogin:
                     tag.decompose()
                 content = soup.get_text(strip=True)
             
+            # ログインが必要な場合のチェック
+            if len(content) < 500 or "ログイン" in content or "login" in content.lower():
+                print("ログインが必要なようです。Safariでスクレイピングを試行します...")
+                return self.fetch_article_content_with_safari(url)
+            
             return content[:5000]  # 長すぎる場合は切り詰め
             
         except Exception as e:
             print(f"記事内容取得エラー ({url}): {e}")
+            return self.fetch_article_content_with_safari(url)
+    
+    def fetch_article_content_with_safari(self, url: str) -> str:
+        """Safariで記事内容を取得"""
+        try:
+            print(f"Safariで記事内容を取得中: {url}")
+            
+            # Safariで記事を開く
+            apple_script = f'''
+            tell application "Safari"
+                activate
+                delay 1
+                -- 既存のウィンドウがあるかチェック
+                if (count of windows) > 0 then
+                    set articleTab to current tab of front window
+                else
+                    set articleTab to make new document
+                end if
+                set URL of articleTab to "{url}"
+            end tell
+            delay 3
+            tell application "Safari"
+                set articleContent to source of document 1
+                return articleContent
+            end tell
+            '''
+            
+            result = subprocess.run(
+                ['osascript', '-e', apple_script],
+                capture_output=True, text=True
+            )
+            
+            if result.returncode == 0 and result.stdout.strip():
+                print("Safariから記事内容を取得しました")
+                html_content = result.stdout.strip()
+                
+                soup = BeautifulSoup(html_content, 'html.parser')
+                
+                # 記事本文を抽出（一般的なセレクタ）
+                content_selectors = [
+                    'article',
+                    '.article-content',
+                    '.post-content',
+                    '.entry-content',
+                    '#content',
+                    '.content',
+                    '.article-body',
+                    '.post-body'
+                ]
+                
+                content = ""
+                for selector in content_selectors:
+                    element = soup.select_one(selector)
+                    if element:
+                        content = element.get_text(strip=True)
+                        break
+                
+                # セレクタで見つからない場合はbody全体から抽出
+                if not content:
+                    # 不要な要素を削除
+                    for tag in soup(['script', 'style', 'nav', 'header', 'footer', 'aside', 'menu']):
+                        tag.decompose()
+                    content = soup.get_text(strip=True)
+                
+                return content[:5000]  # 長すぎる場合は切り詰め
+                
+            else:
+                print("Safariから記事内容を取得できませんでした")
+                return ""
+                
+        except Exception as e:
+            print(f"Safari記事内容取得エラー ({url}): {e}")
             return ""
     
     def summarize_article(self, title: str, content: str) -> str:

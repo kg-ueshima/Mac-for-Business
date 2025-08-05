@@ -224,49 +224,21 @@ class EnhancedClippingsSorter:
         
         # カテゴリフォルダの定義
         self.categories = {
-            "work_related": ["業務", "仕事", "プロジェクト", "会議", "報告", "管理"],
-            "personal_notes": ["個人", "メモ", "アイデア", "思考"],
-            "research": ["研究", "調査", "分析", "データ", "統計"],
-            "tutorials": ["チュートリアル", "使い方", "手順", "ガイド", "学習"],
-            "miscellaneous": ["その他", "雑記", "興味"]
+            "AI_Technology": ["AI", "LLM", "生成AI", "機械学習", "Python", "JavaScript", "プログラミング", "開発", "API", "データベース", "クラウド", "Azure", "AWS", "Git", "Docker", "Kubernetes", "DevOps", "CI/CD", "テスト", "デバッグ", "Cursor", "Obsidian", "GitHub", "セキュリティ", "アーキテクチャ"],
+            "Business_Skill": ["業務", "仕事", "プロジェクト", "会議", "報告", "管理", "経営", "マネジメント", "戦略", "マーケティング", "営業", "顧客", "財務", "会計", "人事", "組織", "リーダーシップ", "チーム", "資料作成", "プレゼン", "効率化", "自動化"],
+            "Career_Learning": ["学習", "勉強法", "資格", "SAA", "副業", "キャリア", "読書", "ビジネス書"],
+            "Medical_Healthcare": ["医療", "ヘルスケア", "電子カルテ", "クリニック", "訪問看護", "ELYZA-LLM-Med"],
+            "Miscellaneous": ["その他", "雑記", "興味", "未分類"]
         }
-        
-        # 技術関連キーワード
-        self.tech_keywords = [
-            "AI", "機械学習", "Python", "JavaScript", "プログラミング", "開発",
-            "API", "データベース", "クラウド", "Azure", "AWS", "Git",
-            "Docker", "Kubernetes", "DevOps", "CI/CD", "テスト", "デバッグ"
-        ]
-        
-        # ビジネス関連キーワード
-        self.business_keywords = [
-            "経営", "マネジメント", "戦略", "マーケティング", "営業", "顧客",
-            "財務", "会計", "人事", "組織", "リーダーシップ", "チーム"
-        ]
         
         # テーマ別キーワード（永続ノート作成用）
         self.theme_keywords = {
-            "Cursor": ["Cursor", "cursor", "エディタ", "IDE", "開発環境"],
-            "Obsidian": ["Obsidian", "obsidian", "ノート", "知識管理", "Zettelkasten"],
-            "AI": ["AI", "ai", "人工知能", "機械学習", "ChatGPT", "Claude", "Gemini"],
-            "Python": ["Python", "python", "プログラミング", "スクリプト", "自動化"],
-            "Microsoft": ["Microsoft", "microsoft", "Teams", "Azure", "Office"],
-            "GitHub": ["GitHub", "github", "Git", "git", "バージョン管理"],
-            "Docker": ["Docker", "docker", "コンテナ", "仮想化"],
-            "クラウド": ["クラウド", "cloud", "Cloud", "AWS", "Azure", "GCP"],
-            "DX": ["DX", "dx", "デジタル変革", "デジタル化", "DX推進"],
-            "プロジェクト管理": ["プロジェクト", "project", "管理", "マネジメント", "PM"],
-            "セキュリティ": ["セキュリティ", "security", "Security", "認証", "暗号化"],
-            "データベース": ["データベース", "database", "Database", "SQL", "NoSQL"],
-            "API": ["API", "api", "WebAPI", "REST", "GraphQL"],
-            "フロントエンド": ["フロントエンド", "frontend", "Frontend", "React", "Vue", "Angular"],
-            "バックエンド": ["バックエンド", "backend", "Backend", "サーバー", "サーバーサイド"],
-            "DevOps": ["DevOps", "devops", "CI/CD", "継続的", "デプロイ"],
-            "テスト": ["テスト", "test", "Test", "テスト駆動", "TDD"],
-            "デバッグ": ["デバッグ", "debug", "Debug", "トラブルシューティング"],
-            "パフォーマンス": ["パフォーマンス", "performance", "Performance", "最適化"],
-            "スケーラビリティ": ["スケーラビリティ", "scalability", "Scalability", "拡張性"],
-            "アーキテクチャ": ["アーキテクチャ", "architecture", "Architecture", "設計"]
+            "AI_Development": ["AI", "人工知能", "機械学習", "生成AI", "LLM", "ChatGPT", "Claude", "Gemini", "Python", "API", "開発"],
+            "NoCode_Automation": ["ノーコード", "自動化", "n8n", "ワークフロー", "効率化"],
+            "Data_Analysis": ["データ分析", "可視化", "R言語", "Power BI", "Google Analytics"],
+            "Knowledge_Management": ["Obsidian", "Zettelkasten", "ノート術", "知識管理", "Cursor"],
+            "Career_Development": ["キャリア", "学習法", "資格", "副業", "マネジメント", "リーダーシップ"],
+            "Medical_IT": ["医療", "電子カルテ", "LLM", "ELYZA-LLM-Med", "日本IBM"]
         }
 
     def scan_clippings_folder(self) -> List[Path]:
@@ -309,18 +281,6 @@ class EnhancedClippingsSorter:
                 if keyword.lower() in filename or keyword.lower() in content_lower:
                     category_scores[category] += 1
                     tags.append(keyword)
-        
-        # 技術キーワードチェック
-        for keyword in self.tech_keywords:
-            if keyword.lower() in filename or keyword.lower() in content_lower:
-                category_scores["tutorials"] += 1
-                tags.append(keyword)
-        
-        # ビジネスキーワードチェック
-        for keyword in self.business_keywords:
-            if keyword.lower() in filename or keyword.lower() in content_lower:
-                category_scores["work_related"] += 1
-                tags.append(keyword)
         
         # テーマ別キーワードチェック
         for theme, keywords in self.theme_keywords.items():

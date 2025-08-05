@@ -16,7 +16,7 @@ else:
     # 引数がない場合は昨日を使用
     target_date = datetime.date.today() - datetime.timedelta(days=1)
 
-print(f"処理開始：{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+print(f"業務日報 処理開始：{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 report_lines = []
 
@@ -84,5 +84,5 @@ daily_report_path = output_path.parent / f"{target_date}_日報.txt"
 with daily_report_path.open("w", encoding="utf-8") as f:
     f.write(daily_report)
 
-print(f"処理終了：{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+print(f"業務日報 処理終了：{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 print(f"日報を保存しました：{daily_report_path}")
