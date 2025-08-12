@@ -16,6 +16,8 @@ Agents/daily_report/modules/token_calendar.json
 token_cache.bin
 .token_cache_onedrive.bin
 token_cache_onedrive.bin
+Agents/medifax/.cache/
+Agents/daily_report/modules/teams_token_cache.bin
 
 onedrive_delta_link.txt
 

@@ -6,6 +6,7 @@ SafariでIDとPWを入れてサイトに自動ログインし、
 RSSフィードから医療情報を取得してGeminiで要約する
 """
 
+from string import Template
 import requests
 import feedparser
 from bs4 import BeautifulSoup
@@ -17,8 +18,9 @@ from dotenv import load_dotenv
 from typing import List, Dict, Optional
 import time
 import subprocess
-import json
 import re
+import json
+import pickle
 
 # 環境変数を読み込み
 env_path = Path(__file__).parent.parent.parent / 'env.local'
@@ -35,6 +37,8 @@ modules_path = current_file.parent.parent / 'daily_report' / 'modules'
 sys.path.insert(0, str(modules_path))
 # 直接geminiモジュールをインポート
 import gemini
+import teams
+import teams_notification
 
 
 class MedifaxAutoLogin:
@@ -55,9 +59,77 @@ class MedifaxAutoLogin:
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         })
+        
+        # ログインキャッシュファイル
+        self.cache_dir = Path(current_file.parent / ".cache")
+        self.cache_dir.mkdir(exist_ok=True)
+        self.login_cache_file = self.cache_dir / "medifax_login.pkl"
+        self.cookie_cache_file = self.cache_dir / "medifax_cookies.pkl"
+        
+        # キャッシュからセッション情報を復元
+        self._load_cached_session()
+    
+    def _load_cached_session(self):
+        """キャッシュからセッション情報を読み込む"""
+        try:
+            if self.login_cache_file.exists():
+                # ログイン情報の有効期限をチェック（24時間）
+                cache_time = datetime.datetime.fromtimestamp(self.login_cache_file.stat().st_mtime)
+                if datetime.datetime.now() - cache_time < datetime.timedelta(hours=24):
+                    with open(self.login_cache_file, 'rb') as f:
+                        login_info = pickle.load(f)
+                        print("キャッシュされたログイン情報を使用します")
+                        self.cached_login = True
+                        
+                        # クッキー情報も復元
+                        if self.cookie_cache_file.exists():
+                            with open(self.cookie_cache_file, 'rb') as f:
+                                cookies = pickle.load(f)
+                                self.session.cookies.update(cookies)
+                        return
+                else:
+                    print("キャッシュされたログイン情報が期限切れです")
+            
+            self.cached_login = False
+            
+        except Exception as e:
+            print(f"キャッシュ読み込みエラー: {e}")
+            self.cached_login = False
+    
+    def _save_cached_session(self):
+        """セッション情報をキャッシュに保存"""
+        try:
+            # ログイン成功の記録
+            with open(self.login_cache_file, 'wb') as f:
+                pickle.dump({'logged_in': True, 'timestamp': datetime.datetime.now()}, f)
+            
+            # クッキー情報を保存
+            with open(self.cookie_cache_file, 'wb') as f:
+                pickle.dump(dict(self.session.cookies), f)
+            
+            print("ログイン情報をキャッシュに保存しました")
+            
+        except Exception as e:
+            print(f"キャッシュ保存エラー: {e}")
+    
+    def _clear_cache(self):
+        """キャッシュをクリア"""
+        try:
+            if self.login_cache_file.exists():
+                self.login_cache_file.unlink()
+            if self.cookie_cache_file.exists():
+                self.cookie_cache_file.unlink()
+            print("キャッシュをクリアしました")
+        except Exception as e:
+            print(f"キャッシュクリアエラー: {e}")
     
     def setup_safari_automation(self):
         """Safariでの自動ログイン設定"""
+        # キャッシュされたログイン情報がある場合はスキップ
+        if hasattr(self, 'cached_login') and self.cached_login:
+            print("キャッシュされたログイン情報を使用中 - Safariログインをスキップします")
+            return True
+        
         print("Safariでの自動ログイン設定を確認中...")
         
         # AppleScriptでSafariを開いてログイン
@@ -83,11 +155,7 @@ class MedifaxAutoLogin:
             activate
             delay 1
             -- 既存のウィンドウがあるかチェック
-            if (count of windows) > 0 then
-                set loginTab to current tab of front window
-            else
-                set loginTab to make new document
-            end if
+            set loginTab to make new document
             set URL of loginTab to "{login_url}"
         end tell
 
@@ -96,10 +164,16 @@ class MedifaxAutoLogin:
             tell process "Safari"
                 set frontmost to true
                 delay 1
+                -- 英数入力に切り替え
+                key code 102 -- USキーボード: F6, JISキーボード: 102は英数
+                delay 0.3
                 keystroke "{self.username}"
                 delay 0.5
                 keystroke tab
                 delay 0.5
+                -- 念のため再度英数入力に切り替え
+                key code 102
+                delay 0.3
                 keystroke "{self.password}"
                 delay 0.5
                 keystroke return
@@ -118,7 +192,11 @@ class MedifaxAutoLogin:
             if result.returncode == 0:
                 print("Safariでの自動ログインが完了しました")
                 # ログイン後にセッション情報を取得
-                return self.get_safari_session()
+                success = self.get_safari_session()
+                if success:
+                    # ログイン成功時にキャッシュを保存
+                    self._save_cached_session()
+                return success
             else:
                 print(f"Safari自動ログインエラー: {result.stderr}")
                 return self.manual_login_prompt()
@@ -288,7 +366,6 @@ class MedifaxAutoLogin:
                         'published': published,
                         'dc_date': dc_date,
                         'jdate': jdate,
-                        'summary': entry.get('summary', ''),
                         'content': ''
                     }
                     articles.append(article)
@@ -314,6 +391,8 @@ class MedifaxAutoLogin:
         print("   ※ 既存のSafariウィンドウを使用します")
         
         input("\nログインが完了したら Enter キーを押してください...")
+        # 手動ログイン後もキャッシュを保存
+        self._save_cached_session()
         return True
     
     def fetch_rss_feed(self) -> List[Dict]:
@@ -442,7 +521,6 @@ class MedifaxAutoLogin:
                     'published': published,
                     'dc:date': dc_date,
                     'jdate': jdate,
-                    'summary': entry.get('summary', ''),
                     'content': ''
                 }
                 articles.append(article)
@@ -579,85 +657,216 @@ class MedifaxAutoLogin:
         """Geminiで記事を要約"""
         try:
             prompt = f"""
-以下の医療情報記事を要約してください。
+以下の医療情報記事を読みやすく整理し、詳細な解説と要約を提供してください。
 
 タイトル: {title}
 
-内容:
+記事内容:
 {content}
 
-要約の条件:
-- 医療・病院経営に関連する重要なポイントを抽出
-- 実務的に役立つ情報を優先
-- 簡潔で分かりやすい日本語で
-- 箇条書きで整理
-- 必要に応じて今後の影響や注意点も含める
-- 医療関係者にとって重要な情報を強調
+出力形式:
+【概要】
+記事の内容を1-2段落で簡潔に説明
+
+【重要ポイント】
+• ポイント1
+• ポイント2
+• ポイント3
+（医療・病院経営に関連する重要な内容を箇条書きで）
+
+【詳細解説】
+記事の重要な部分について、背景や意味を含めて詳しく解説
+（読みやすいように段落を分けて記載）
+
+【実務への影響】
+• 病院運営への影響
+• 医療従事者が注意すべき点
+• 今後予想される変化
+
+【まとめ】
+記事全体の要点を1段落でまとめる
+
+注意事項:
+- 専門用語は必要に応じて説明を加える
+- 数値や日付などの具体的な情報は正確に記載
+- 読みやすいように適切に改行を入れる
+- 医療関係者にとって実用的な情報を重視
 """
             return gemini.summarize(prompt)
             
         except Exception as e:
             return f"要約エラー: {e}"
     
-    def save_summary(self, articles: List[Dict], summaries: List[str]):
-        """要約結果をファイルに保存"""
+    def save_digest(self, articles: List[Dict]):
+        """記事情報をファイルに保存（記事内容を取得して要約を含める）"""
         today = datetime.date.today()
-        timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+        # ファイル名を修正
+        md_file = self.output_dir / f"medifax_digest_{today}.md"
+        txt_file = self.output_dir / f"medifax_digest_{today}.txt"
         
-        # 詳細ファイル
-        detail_file = self.output_dir / f"medifax_digest_{today}_{timestamp}.md"
+        # 内容を作成
+        content_lines = []
+        content_lines.append(f"医療情報ダイジェスト - {today}")
+        content_lines.append("=" * 80)
+        content_lines.append(f"取得日時: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        content_lines.append("=" * 80)
+        content_lines.append("")
         
-        with open(detail_file, 'w', encoding='utf-8') as f:
+        for i, article in enumerate(articles, 1):
+            print(f"\n記事 {i}/{len(articles)} を処理中: {article['title']}")
+            
+            # 記事内容を取得
+            content = self.fetch_article_content(article['link'])
+            
+            # 内容を要約
+            if content:
+                summary = self.summarize_article(article['title'], content)
+            else:
+                summary = "記事内容を取得できませんでした。"
+            
+            # 新しいフォーマットで出力
+            content_lines.append(f"【記事 {i}】")
+            content_lines.append("")
+            content_lines.append("タイトル：")
+            content_lines.append(article['title'])
+            content_lines.append("")
+            content_lines.append("解説と要約：")
+            content_lines.append(summary)
+            content_lines.append("")
+            content_lines.append("URL：")
+            content_lines.append(article['link'])
+            content_lines.append("")
+            content_lines.append("-" * 80)
+            content_lines.append("")
+        
+        # MDファイルとして保存
+        with open(md_file, 'w', encoding='utf-8') as f:
+            # Markdown版
             f.write(f"# 医療情報ダイジェスト - {today}\n\n")
             f.write(f"取得日時: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
-            f.write(f"RSS URL: {self.rss_url}\n\n")
+            f.write("=" * 80 + "\n\n")
             
-            for i, (article, summary) in enumerate(zip(articles, summaries), 1):
-                f.write(f"## {i}. {article['title']}\n\n")
-                f.write(f"**日付**: {article.get('dc_date') or article.get('published') or article.get('jdate','')}\n\n")
-                f.write(f"**URL**: {article['link']}\n\n")
-                f.write(f"**要約**:\n{summary}\n\n")
-                f.write("---\n\n")
+            for i, article in enumerate(articles, 1):
+                # MDファイルには既に取得済みの要約を使用
+                idx = content_lines.index(f"【記事 {i}】")
+                title_idx = content_lines.index("タイトル：", idx) + 1
+                summary_idx = content_lines.index("解説と要約：", idx) + 1
+                url_idx = content_lines.index("URL：", idx) + 1
+                
+                f.write(f"## 記事 {i}\n\n")
+                f.write(f"**タイトル：**\n{content_lines[title_idx]}\n\n")
+                
+                # 要約部分を取得
+                summary_end_idx = content_lines.index("URL：", summary_idx)
+                summary_text = "\n".join(content_lines[summary_idx:summary_end_idx-1])
+                f.write(f"**解説と要約：**\n{summary_text}\n\n")
+                f.write(f"**URL：**\n{content_lines[url_idx]}\n\n")
+                f.write("-" * 80 + "\n\n")
         
-        # 要約のみのファイル
-        summary_file = self.output_dir / f"medifax_summary_{today}_{timestamp}.md"
+        # TXTファイルとして保存（Teams用）
+        with open(txt_file, 'w', encoding='utf-8') as f:
+            f.write("\n".join(content_lines))
         
-        with open(summary_file, 'w', encoding='utf-8') as f:
-            f.write(f"# 医療情報要約 - {today}\n\n")
-            f.write(f"取得日時: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+        print(f"\nMDファイルを保存: {md_file}")
+        print(f"TXTファイルを保存: {txt_file}")
+        
+        # 月別フォルダへの移動処理
+        self.move_to_monthly_folder(md_file, today)
+        self.move_to_monthly_folder(txt_file, today)
+        
+        return txt_file  # Teams送信用にTXTファイルを返す
+    
+    def move_to_monthly_folder(self, file_path: Path, date: datetime.date):
+        """前月作成のファイルのみ月別フォルダに移動。今月作成のファイルは移動しない"""
+        try:
+            # ファイルの作成日を取得
+            stat = file_path.stat()
+            created_dt = datetime.datetime.fromtimestamp(stat.st_mtime)
+            created_date = created_dt.date()
+            # 今月の1日
+            first_day_of_this_month = datetime.date(date.year, date.month, 1)
+            # 前月の1日
+            if date.month == 1:
+                prev_month = 12
+                prev_year = date.year - 1
+            else:
+                prev_month = date.month - 1
+                prev_year = date.year
+            first_day_of_prev_month = datetime.date(prev_year, prev_month, 1)
+            first_day_of_next_month = (first_day_of_this_month + datetime.timedelta(days=32)).replace(day=1)
+
+            # 作成日が前月に該当する場合のみ移動
+            if first_day_of_prev_month <= created_date < first_day_of_this_month:
+                monthly_folder = self.output_dir / f"{prev_year:04d}-{prev_month:02d}"
+                monthly_folder.mkdir(parents=True, exist_ok=True)
+                new_file_path = monthly_folder / file_path.name
+                file_path.rename(new_file_path)
+                print(f"ファイルを前月フォルダに移動: {new_file_path}")
+            else:
+                print("今月作成のファイルのため移動しません")
+        except Exception as e:
+            print(f"月別フォルダへの移動エラー: {e}")
+            # エラーが発生しても元のファイルは残す
+    
+    def send_to_teams(self, articles: List[Dict], file_path: Path):
+        """Teamsのチャンネルにメッセージとファイルを送信"""
+        try:
+            # メッセージ内容を作成（HTML形式で改行を明確に）
+            today = datetime.date.today()
             
-            for i, (article, summary) in enumerate(zip(articles, summaries), 1):
-                f.write(f"## {i}. {article['title']}\n\n")
-                f.write(f"{summary}\n\n")
-        
-        # JSON形式でも保存（後で処理しやすい）
-        json_file = self.output_dir / f"medifax_data_{today}_{timestamp}.json"
-        
-        json_data = {
-            'date': today.isoformat(),
-            'timestamp': datetime.datetime.now().isoformat(),
-            'rss_url': self.rss_url,
-            'articles': []
-        }
-        
-        for article, summary in zip(articles, summaries):
-            json_data['articles'].append({
-                'title': article['title'],
-                'link': article['link'],
-                'published': article.get('published', ''),
-                'dc:date': article.get('dc_date', ''),
-                'jdate': article.get('jdate', ''),
-                'summary': summary
-            })
-        
-        with open(json_file, 'w', encoding='utf-8') as f:
-            json.dump(json_data, f, ensure_ascii=False, indent=2)
-        
-        print(f"詳細ファイルを保存: {detail_file}")
-        print(f"要約ファイルを保存: {summary_file}")
-        print(f"JSONファイルを保存: {json_file}")
-        
-        return detail_file, summary_file, json_file
+            # HTMLフォーマットで見やすく整形
+            content_parts = []
+            content_parts.append(f"<h2>本日の医療情報ダイジェストを作成しました</h2>")
+            content_parts.append("<br/>")
+            content_parts.append(f"<strong>📅 日付:</strong> {today}<br/>")
+            content_parts.append(f"<strong>📊 取得記事数:</strong> {len(articles)}件<br/>")
+            content_parts.append("<br/>")
+            content_parts.append("<strong>📰 本日の記事一覧:</strong><br/>")
+            content_parts.append("<br/>")
+            
+            for i, article in enumerate(articles, 1):
+                content_parts.append(f"{i}. {article['title']}<br/>")
+            
+            content_parts.append("<br/>")
+            content_parts.append("<strong>📎 詳細な解説と要約は添付ファイルをご確認ください</strong><br/>")
+            
+            content = "".join(content_parts)
+            
+            # ファイル内容を読み込む
+            with open(file_path, 'r', encoding='utf-8') as f:
+                file_content = f.read()
+            
+            # タイトルも見やすく
+            title = f"医療情報ダイジェスト {today}"
+            
+            # teams_notificationモジュールにファイル送信機能がある場合はそれを使用
+            try:
+                # ファイル添付付きの送信を試みる
+                success = teams_notification.send_teams_notification_with_file(
+                    title, 
+                    content, 
+                    file_path=str(file_path),
+                    file_name=file_path.name
+                )
+            except AttributeError:
+                # ファイル添付機能がない場合は、内容を含めて送信
+                full_content = content + "<br/><br/>"
+                full_content += "=" * 80 + "<br/><br/>"
+                full_content += "<strong>添付ファイル内容:</strong><br/><br/>"
+                # テキストファイルの内容をHTML形式に変換
+                file_lines = file_content.split('\n')
+                for line in file_lines:
+                    full_content += line.replace(' ', '&nbsp;') + "<br/>"
+                
+                success = teams_notification.send_teams_notification(title, full_content)
+            
+            if success:
+                print("Teamsにメッセージを送信しました")
+            else:
+                print("Teamsへのメッセージ送信に失敗しました")
+            
+        except Exception as e:
+            print(f"Teams送信エラー: {e}")
     
     def run(self):
         """メイン処理"""
@@ -676,28 +885,19 @@ class MedifaxAutoLogin:
             print("本日分の記事が取得できませんでした")
             return
         
-        # 3. 各記事の内容を取得
-        summaries = []
-        for i, article in enumerate(articles, 1):
-            print(f"\n記事 {i}/{len(articles)} を処理中...")
-            print(f"タイトル: {article['title']}")
-            
-            # 記事内容を取得
-            content = self.fetch_article_content(article['link'])
-            if content:
-                # Geminiで要約
-                summary = self.summarize_article(article['title'], content)
-                summaries.append(summary)
-                print("要約完了")
-            else:
-                summaries.append("記事内容の取得に失敗しました")
-                print("記事内容の取得に失敗")
-            
-            # API制限を避けるため少し待機
-            time.sleep(1)
+        # 3. 結果を保存（要約・jsonは出力しない）
+        txt_file = self.save_digest(articles)
         
-        # 4. 結果を保存
-        detail_file, summary_file, json_file = self.save_summary(articles, summaries)
+        # 4. Teamsに送信
+        self.send_to_teams(articles, txt_file)
+        
+        # 5. TXTファイルを削除（Teams送信後）
+        try:
+            if txt_file.exists():
+                txt_file.unlink()
+                print(f"TXTファイルを削除しました: {txt_file}")
+        except Exception as e:
+            print(f"TXTファイル削除エラー: {e}")
         
         print(f"\n処理完了: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"処理した記事数: {len(articles)}")

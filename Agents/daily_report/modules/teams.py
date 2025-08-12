@@ -28,7 +28,9 @@ SCOPES = [
     'ChannelMessage.Read.All',
     'Chat.Read',
     'User.Read',
-    'User.ReadBasic.All'
+    'User.ReadBasic.All',
+    'ChannelMessage.Send',
+    'Team.ReadBasic.All'
 ]
 
 # ▼ トークンキャッシュ設定（ファイルに保存）
@@ -174,3 +176,83 @@ def get_yesterday_channel_messages(target_date=None):
                     content = post.get('body', {}).get('content', '').strip()
                     messages.append(f"[{team_name}/{channel_name}][{sender}] {content}")
     return messages
+
+def send_message_to_channel(team_id: str, channel_id: str, message: str):
+    """
+    指定されたチームのチャンネルにメッセージを送信
+    """
+    try:
+        url = f'https://graph.microsoft.com/v1.0/teams/{team_id}/channels/{channel_id}/messages'
+        
+        # メッセージの本文を作成
+        body = {
+            "body": {
+                "contentType": "html",
+                "content": message
+            }
+        }
+        
+        response = requests.post(url, headers=headers, json=body)
+        
+        if response.status_code == 201:
+            print(f"メッセージを送信しました: {response.json().get('id', 'unknown')}")
+            return True
+        else:
+            print(f"メッセージ送信エラー: {response.status_code} - {response.text}")
+            return False
+            
+    except Exception as e:
+        print(f"メッセージ送信エラー: {e}")
+        return False
+
+def get_teams_and_channels():
+    """
+    自分が所属するチームとチャンネルの一覧を取得
+    """
+    try:
+        teams_list = []
+        
+        # 所属チーム一覧取得
+        teams_url = 'https://graph.microsoft.com/v1.0/me/joinedTeams'
+        teams_res = requests.get(teams_url, headers=headers)
+        
+        if teams_res.status_code != 200:
+            print('チーム一覧取得失敗:', teams_res.text)
+            return teams_list
+            
+        teams_data = teams_res.json().get('value', [])
+        
+        for team in teams_data:
+            team_id = team.get('id')
+            team_name = team.get('displayName', '不明なチーム')
+            
+            # チャンネル一覧取得
+            channels_url = f'https://graph.microsoft.com/v1.0/teams/{team_id}/channels'
+            channels_res = requests.get(channels_url, headers=headers)
+            
+            if channels_res.status_code != 200:
+                print(f'チャンネル一覧取得失敗({team_name}):', channels_res.text)
+                continue
+                
+            channels_data = channels_res.json().get('value', [])
+            team_channels = []
+            
+            for channel in channels_data:
+                channel_id = channel.get('id')
+                channel_name = channel.get('displayName', '不明なチャンネル')
+                team_channels.append({
+                    'id': channel_id,
+                    'name': channel_name
+                })
+            
+            teams_list.append({
+                'id': team_id,
+                'name': team_name,
+                'channels': team_channels
+            })
+            
+        return teams_list
+        
+    except Exception as e:
+        print(f"チーム・チャンネル一覧取得エラー: {e}")
+        return []

@@ -13,7 +13,55 @@ from bs4 import BeautifulSoup
 # 環境変数を読み込み
 env_path = Path(__file__).parent.parent.parent.parent / 'env.local'
 load_dotenv(dotenv_path=env_path)
-print(f"DEBUG (gemini.py): Loading env from {env_path}")
+
+def summarize_for_folder(topic: str) -> str:
+    """
+    トピック名を40バイト以内に要約・安全化する
+    """
+    try:
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            # APIキーがない場合は、手動で要約・安全化
+            safe_topic = re.sub(r'[^\w\u3000-\u303F\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\-_.]', '_', topic)
+            if len(safe_topic.encode('utf-8')) > 40:
+                safe_topic = safe_topic[:20]  # 20文字に制限
+            return safe_topic
+        
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel("gemini-2.0-flash")
+        prompt = f"""
+以下のトピック名を40バイト以内の安全なフォルダ名に変換してください。
+
+条件:
+- 40バイト以内（UTF-8エンコーディング）
+- ファイルシステムで安全な文字のみ使用
+- 内容が分かる簡潔な表現
+- 日本語可
+- 記号は _ と - のみ使用
+
+トピック名: {topic}
+
+回答は変換後の文字列のみを出力してください。
+"""
+        response = model.generate_content(prompt)
+        result = response.text.strip()
+        
+        # 結果が40バイトを超える場合は手動で調整
+        if len(result.encode('utf-8')) > 40:
+            # 手動で要約・安全化
+            safe_topic = re.sub(r'[^\w\u3000-\u303F\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\-_.]', '_', topic)
+            if len(safe_topic.encode('utf-8')) > 40:
+                safe_topic = safe_topic[:20]  # 20文字に制限
+            return safe_topic
+        
+        return result
+    except Exception as e:
+        # エラーの場合は手動で要約・安全化
+        safe_topic = re.sub(r'[^\w\u3000-\u303F\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\-_.]', '_', topic)
+        if len(safe_topic.encode('utf-8')) > 40:
+            safe_topic = safe_topic[:20]  # 20文字に制限
+        return safe_topic
+
 
 def summarize(text):
     """
@@ -37,7 +85,6 @@ def summarize(text):
 5. 自己評価は内部で行ってください。
 
 # 出力フォーマット:
-**回答**:
 （最終的な回答のみを簡潔・明確に記述）
 
 # 質問:
@@ -306,7 +353,7 @@ def interactive_report_workflow() -> None:
     today = datetime.date.today().strftime("%Y%m%d")
     if url_mode:
         parsed_url = urlparse(topic)
-        domain = parsed_url.netloc.replace('.', '_')
+        domain = parsed_url.netloc.replace('.', "_")
         # Attempt to analyse the page title or content if BeautifulSoup is available
         try:
             # Use the same headers as fetch_url_content for consistency

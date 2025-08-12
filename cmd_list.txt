@@ -18,3 +18,6 @@ interactive_report_workflow()
 python3
 from Agents.chopin.short_video_workflow
 short_video_workflow_chopin()
+
+#Deep Research
+bash Claude/scripts/run_workflow_claude.sh "トピックス"

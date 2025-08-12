@@ -3,6 +3,7 @@ import os
 from datetime import datetime, timedelta
 import re
 from pathlib import Path
+import shutil
 
 # Gemini API用モジュール（パスは適宜修正）
 sys.path.append(str(Path(__file__).parent / "modules"))
@@ -23,6 +24,19 @@ def get_last_7days_files(base_dir="80-業務日報", ref_date=None):
             files.append((d.strftime('%Y-%m-%d'), fpath))
     return sorted(files)
 
+def get_daily_interaction_files(base_dir="80-業務日報", ref_date=None):
+    """直近7日分の 'その日のやり取り' ファイルパスリストを返す"""
+    if ref_date is None:
+        ref_date = datetime.today()
+    files = []
+    for i in range(7):
+        d = ref_date - timedelta(days=i)
+        fname = f"{d.strftime('%Y-%m-%d')}_その日のやり取り.txt"
+        fpath = os.path.join(base_dir, fname)
+        if os.path.exists(fpath):
+            files.append((d.strftime('%Y-%m-%d'), fpath))
+    return sorted(files)
+
 def collect_daily_reports(files):
     """日付とファイルパスのリストから日報内容をまとめて返す"""
     daily_data = []
@@ -31,6 +45,70 @@ def collect_daily_reports(files):
             content = f.read().strip()
         daily_data.append((date_str, content))
     return daily_data
+
+def move_daily_reports_to_monthly_folder(files):
+    """日報ファイルを年月フォルダに移動する"""
+    base_dir = Path("80-業務日報")
+    
+    for date_str, fpath in files:
+        # 日付から年月を取得
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d")
+        year_month = date_obj.strftime("%Y-%m")
+        
+        # 年月フォルダを作成
+        monthly_folder = base_dir / year_month
+        monthly_folder.mkdir(exist_ok=True)
+        
+        # ファイルを移動
+        source_path = Path(fpath)
+        dest_path = monthly_folder / source_path.name
+        
+        try:
+            shutil.move(str(source_path), str(dest_path))
+            print(f"移動完了: {source_path.name} → {year_month}/")
+        except Exception as e:
+            print(f"移動エラー: {source_path.name} - {e}")
+
+def move_daily_files_to_monthly_folder(ref_date=None):
+    """日報ファイルとその日のやり取りファイルを年月フォルダに移動する"""
+    # 日報ファイルを取得
+    daily_files = get_last_7days_files(ref_date=ref_date)
+    # その日のやり取りファイルを取得
+    interaction_files = get_daily_interaction_files(ref_date=ref_date)
+    
+    # 両方のファイルを移動
+    move_daily_reports_to_monthly_folder(daily_files)
+    move_daily_reports_to_monthly_folder(interaction_files)
+
+def move_previous_month_weekly_reports(ref_date):
+    """前月の週報ファイルを年月フォルダに移動する"""
+    base_dir = Path("80-業務日報")
+    
+    # 前月の年月を取得
+    prev_month = ref_date.replace(day=1) - timedelta(days=1)
+    prev_year_month = prev_month.strftime("%Y-%m")
+    
+    # 前月の週報ファイルを検索
+    weekly_reports = []
+    for file_path in base_dir.glob(f"{prev_year_month}-*_週報.txt"):
+        if file_path.is_file():
+            weekly_reports.append(str(file_path))
+    
+    if weekly_reports:
+        # 前月フォルダを作成
+        monthly_folder = base_dir / prev_year_month
+        monthly_folder.mkdir(exist_ok=True)
+        
+        # 週報ファイルを移動
+        for report_path in weekly_reports:
+            source_path = Path(report_path)
+            dest_path = monthly_folder / source_path.name
+            
+            try:
+                shutil.move(str(source_path), str(dest_path))
+                print(f"前月週報移動完了: {source_path.name} → {prev_year_month}/")
+            except Exception as e:
+                print(f"前月週報移動エラー: {source_path.name} - {e}")
 
 def make_weekly_prompt(daily_data):
     """週報用Geminiプロンプトを生成"""
@@ -105,6 +183,15 @@ def main():
     with out_path.open("w", encoding="utf-8") as f:
         f.write(weekly_report)
     print(f"週報を保存しました: {out_path}")
+
+    # 前月の週報ファイルを年月フォルダに移動
+    print("前月の週報ファイルを年月フォルダに移動中...")
+    move_previous_month_weekly_reports(ref_date)
+
+    # 日報ファイルとその日のやり取りファイルを年月フォルダに移動
+    print("日報ファイルとその日のやり取りファイルを年月フォルダに移動中...")
+    move_daily_files_to_monthly_folder(ref_date)
+    print("移動処理が完了しました。")
 
 if __name__ == "__main__":
     main()
