@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- ジョブの識別子 -->
+    <key>Label</key>
+    <string>com.medifax.digest</string>
+    
+    <!-- 実行するスクリプトのパス -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/ueshima/Workspace/Mac for Business/Agents/medifax/run_medifax_digest.sh</string>
+    </array>
+    
+    <!-- 実行スケジュール: 平日（月〜金）の8:00 -->
+    <key>StartCalendarInterval</key>
+    <array>
+        <!-- 月曜日 -->
+        <dict>
+            <key>Weekday</key>
+            <integer>1</integer>
+            <key>Hour</key>
+            <integer>8</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+        <!-- 火曜日 -->
+        <dict>
+            <key>Weekday</key>
+            <integer>2</integer>
+            <key>Hour</key>
+            <integer>8</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+        <!-- 水曜日 -->
+        <dict>
+            <key>Weekday</key>
+            <integer>3</integer>
+            <key>Hour</key>
+            <integer>8</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+        <!-- 木曜日 -->
+        <dict>
+            <key>Weekday</key>
+            <integer>4</integer>
+            <key>Hour</key>
+            <integer>8</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+        <!-- 金曜日 -->
+        <dict>
+            <key>Weekday</key>
+            <integer>5</integer>
+            <key>Hour</key>
+            <integer>8</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+    </array>
+    
+    <!-- 作業ディレクトリ -->
+    <key>WorkingDirectory</key>
+    <string>/Users/ueshima/Workspace/Mac for Business</string>
+    
+    <!-- 環境変数 -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin</string>
+        <key>LANG</key>
+        <string>ja_JP.UTF-8</string>
+    </dict>
+    
+    <!-- ログ出力設定 -->
+    <key>StandardOutPath</key>
+    <string>/Users/ueshima/Workspace/Mac for Business/Agents/medifax/logs/stdout.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/Users/ueshima/Workspace/Mac for Business/Agents/medifax/logs/stderr.log</string>
+    
+    <!-- システム起動時の動作 -->
+    <key>RunAtLoad</key>
+    <false/>
+    
+    <!-- スリープ中でも実行 -->
+    <key>KeepAlive</key>
+    <false/>
+    
+    <!-- Nice値（優先度）の設定 -->
+    <key>Nice</key>
+    <integer>10</integer>
+</dict>
+</plist>

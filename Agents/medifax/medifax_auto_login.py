@@ -43,32 +43,35 @@ import teams_notification
 
 class MedifaxAutoLogin:
     """医療情報RSSフィード取得・要約クラス（自動ログイン対応）"""
-    
+
     def __init__(self):
         self.rss_url = "https://mfd.jiho.jp/genre/1/rss.xml"
         self.login_url = "https://mfd.jiho.jp/login"  # ログインページのURL
         self.output_dir = Path(current_file.parent.parent.parent / "80-MEDIFAX_DIGEST")
         self.output_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # ログイン情報（環境変数から取得）
         self.username = os.getenv("MEDIFAX_USERNAME")
         self.password = os.getenv("MEDIFAX_PASSWORD")
-        
+
         # セッション管理
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         })
-        
+
         # ログインキャッシュファイル
         self.cache_dir = Path(current_file.parent / ".cache")
         self.cache_dir.mkdir(exist_ok=True)
         self.login_cache_file = self.cache_dir / "medifax_login.pkl"
         self.cookie_cache_file = self.cache_dir / "medifax_cookies.pkl"
-        
+
+        # SafariウィンドウID（AppleScriptのwindow index, 1-origin）
+        self.safari_window_index = None
+
         # キャッシュからセッション情報を復元
         self._load_cached_session()
-    
+
     def _load_cached_session(self):
         """キャッシュからセッション情報を読み込む"""
         try:
@@ -80,7 +83,7 @@ class MedifaxAutoLogin:
                         login_info = pickle.load(f)
                         print("キャッシュされたログイン情報を使用します")
                         self.cached_login = True
-                        
+
                         # クッキー情報も復元
                         if self.cookie_cache_file.exists():
                             with open(self.cookie_cache_file, 'rb') as f:
@@ -89,29 +92,29 @@ class MedifaxAutoLogin:
                         return
                 else:
                     print("キャッシュされたログイン情報が期限切れです")
-            
+
             self.cached_login = False
-            
+
         except Exception as e:
             print(f"キャッシュ読み込みエラー: {e}")
             self.cached_login = False
-    
+
     def _save_cached_session(self):
         """セッション情報をキャッシュに保存"""
         try:
             # ログイン成功の記録
             with open(self.login_cache_file, 'wb') as f:
                 pickle.dump({'logged_in': True, 'timestamp': datetime.datetime.now()}, f)
-            
+
             # クッキー情報を保存
             with open(self.cookie_cache_file, 'wb') as f:
                 pickle.dump(dict(self.session.cookies), f)
-            
+
             print("ログイン情報をキャッシュに保存しました")
-            
+
         except Exception as e:
             print(f"キャッシュ保存エラー: {e}")
-    
+
     def _clear_cache(self):
         """キャッシュをクリア"""
         try:
@@ -122,16 +125,16 @@ class MedifaxAutoLogin:
             print("キャッシュをクリアしました")
         except Exception as e:
             print(f"キャッシュクリアエラー: {e}")
-    
+
     def setup_safari_automation(self):
         """Safariでの自動ログイン設定"""
         # キャッシュされたログイン情報がある場合はスキップ
         if hasattr(self, 'cached_login') and self.cached_login:
             print("キャッシュされたログイン情報を使用中 - Safariログインをスキップします")
             return True
-        
+
         print("Safariでの自動ログイン設定を確認中...")
-        
+
         # AppleScriptでSafariを開いてログイン
         if self.username and self.password:
             print("環境変数からログイン情報を取得しました")
@@ -140,7 +143,7 @@ class MedifaxAutoLogin:
             print("環境変数 MEDIFAX_USERNAME と MEDIFAX_PASSWORD が設定されていません")
             print("手動でログインしてください")
             return self.manual_login_prompt()
-    
+
     def login_with_safari(self):
         """Safariで自動ログイン（AppleScriptによるDOM操作）"""
         import subprocess
@@ -150,13 +153,17 @@ class MedifaxAutoLogin:
 
         login_url = escape_quotes(self.login_url)
 
+        # Safariで新しいウィンドウを必ず開くAppleScript
+        # 既存のSafariが起動していても新規windowを作成し、そのwindowのindexを返す
         apple_script = f'''
         tell application "Safari"
             activate
             delay 1
-            -- 既存のウィンドウがあるかチェック
-            set loginTab to make new document
-            set URL of loginTab to "{login_url}"
+            set loginWindow to (make new document)
+            delay 0.5
+            set URL of loginWindow to "{login_url}"
+            delay 0.5
+            set winIndex to (get index of loginWindow)
         end tell
 
         delay 5
@@ -164,14 +171,12 @@ class MedifaxAutoLogin:
             tell process "Safari"
                 set frontmost to true
                 delay 1
-                -- 英数入力に切り替え
-                key code 102 -- USキーボード: F6, JISキーボード: 102は英数
+                key code 102 -- 英数入力
                 delay 0.3
                 keystroke "{self.username}"
                 delay 0.5
                 keystroke tab
                 delay 0.5
-                -- 念のため再度英数入力に切り替え
                 key code 102
                 delay 0.3
                 keystroke "{self.password}"
@@ -180,6 +185,7 @@ class MedifaxAutoLogin:
             end tell
         end tell
         delay 3
+        return winIndex
         '''
 
         print("Safariで自動ログインを実行中...")
@@ -190,6 +196,15 @@ class MedifaxAutoLogin:
                 capture_output=True, text=True
             )
             if result.returncode == 0:
+                # Safariのwindow indexを取得
+                win_index_str = result.stdout.strip()
+                try:
+                    self.safari_window_index = int(win_index_str)
+                    print(f"Safariの新しいウィンドウ index: {self.safari_window_index}")
+                except Exception as e:
+                    print(f"Safariウィンドウindex取得エラー: {e}")
+                    self.safari_window_index = 1  # fallback
+
                 print("Safariでの自動ログインが完了しました")
                 # ログイン後にセッション情報を取得
                 success = self.get_safari_session()
@@ -203,13 +218,14 @@ class MedifaxAutoLogin:
         except Exception as e:
             print(f"Safari自動ログインエラー: {e}")
             return self.manual_login_prompt()
-    
+
     def get_safari_session(self):
         """Safariのセッション情報を取得してrequestsセッションに反映"""
         try:
             print("Safariのセッション情報を取得中...")
-            
+
             # Safariのクッキー情報を取得
+            # (ウィンドウindexは使わないが、今後拡張する場合は利用可)
             apple_script = '''
             tell application "Safari"
                 set cookieData to ""
@@ -225,12 +241,12 @@ class MedifaxAutoLogin:
                 return cookieData
             end tell
             '''
-            
+
             result = subprocess.run(
                 ['osascript', '-e', apple_script],
                 capture_output=True, text=True
             )
-            
+
             if result.returncode == 0 and "found" in result.stdout:
                 print("Safariでログイン済みセッションを確認しました")
                 # Safariのセッションを模倣するためのヘッダーを設定
@@ -250,7 +266,7 @@ class MedifaxAutoLogin:
             else:
                 print("Safariでログイン済みセッションが見つかりません")
                 return self.manual_login_prompt()
-                
+
         except Exception as e:
             print(f"セッション情報取得エラー: {e}")
             return self.manual_login_prompt()
@@ -259,49 +275,66 @@ class MedifaxAutoLogin:
         """SafariでRSSフィードを取得してスクレイピング"""
         try:
             print("SafariでRSSフィードを取得中...")
-            
-            # SafariでRSSフィードを開く
+
+            # Safariのwindow indexを使う。なければ1
+            win_index = self.safari_window_index if self.safari_window_index else 1
+
+            # 指定ウィンドウの1つ目のタブでRSSを開く
             apple_script = f'''
             tell application "Safari"
                 activate
                 delay 1
-                -- 既存のウィンドウがあるかチェック
-                if (count of windows) > 0 then
-                    set rssTab to current tab of front window
+                set winIndex to {win_index}
+                if (count of windows) >= winIndex then
+                    set targetWin to window winIndex
+                    if (count of tabs of targetWin) > 0 then
+                        set rssTab to tab 1 of targetWin
+                    else
+                        set rssTab to make new tab at targetWin
+                    end if
+                    set current tab of targetWin to rssTab
+                    set URL of rssTab to "{self.rss_url}"
                 else
-                    set rssTab to make new document
+                    -- fallback: 新しいウィンドウ
+                    set targetWin to make new document
+                    set URL of targetWin to "{self.rss_url}"
                 end if
-                set URL of rssTab to "{self.rss_url}"
             end tell
             delay 3
             tell application "Safari"
-                set rssContent to source of document 1
+                set winIndex to {win_index}
+                if (count of windows) >= winIndex then
+                    set targetWin to window winIndex
+                    set rssContent to source of document of tab 1 of targetWin
+                else
+                    set rssContent to source of document 1
+                end if
                 return rssContent
             end tell
             '''
-            
+
             result = subprocess.run(
                 ['osascript', '-e', apple_script],
                 capture_output=True, text=True
             )
-            
+
             if result.returncode == 0 and result.stdout.strip():
                 print("SafariからRSSフィードを取得しました")
                 xml_content = result.stdout.strip()
-                
+
                 # RSSフィードをパース
                 feed = feedparser.parse(xml_content)
-                
+
                 print(f"RSSフィードから {len(feed.entries)} 件の記事を取得")
-                
+
                 # 記事情報を抽出
                 articles = []
                 today = datetime.date.today()
                 print(f"\n今日の日付: {today}")
-                
+
                 for i, entry in enumerate(feed.entries):
                     print(f"\n記事 {i+1}: {entry.get('title', 'No title')}")
-                    
+
                     # 各種日付フィールドの取得
                     dc_date = entry.get('dc_date', '')
                     published = entry.get('published', '')
@@ -309,12 +342,12 @@ class MedifaxAutoLogin:
                     updated = entry.get('updated', '')
                     updated_parsed = entry.get('updated_parsed', None)
                     jdate = getattr(entry, 'dc_jdate', '') if hasattr(entry, 'dc_jdate') else ''
-                    
+
                     print(f"  dc_date: {dc_date}")
                     print(f"  published: {published}")
                     print(f"  updated: {updated}")
                     print(f"  jdate: {jdate}")
-                    
+
                     # 日付判定
                     is_today = False
                     # 優先順位: dc_date > published > updated > jdate
@@ -342,7 +375,7 @@ class MedifaxAutoLogin:
                             if m:
                                 entry_date = datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
                                 print(f"  正規表現でパースされた日付: {entry_date}")
-                    
+
                     # published_parsedまたはupdated_parsedがあればそちらも見る
                     if not entry_date and published_parsed:
                         entry_date = datetime.date(published_parsed.tm_year, published_parsed.tm_mon, published_parsed.tm_mday)
@@ -350,7 +383,7 @@ class MedifaxAutoLogin:
                     elif not entry_date and updated_parsed:
                         entry_date = datetime.date(updated_parsed.tm_year, updated_parsed.tm_mon, updated_parsed.tm_mday)
                         print(f"  updated_parsedから取得した日付: {entry_date}")
-                    
+
                     if entry_date and entry_date == today:
                         is_today = True
                         print(f"  ✓ 今日の記事として判定")
@@ -370,18 +403,18 @@ class MedifaxAutoLogin:
                     }
                     articles.append(article)
                     print(f"  ✓ 記事を追加")
-                
+
                 print(f"\n{len(articles)}件の本日分の記事を取得しました")
                 return articles
-                
+
             else:
                 print("SafariからRSSフィードを取得できませんでした")
                 return []
-                
+
         except Exception as e:
             print(f"Safari RSS取得エラー: {e}")
             return []
-    
+
     def manual_login_prompt(self):
         """手動ログインの案内"""
         print("\n=== 手動ログインが必要です ===")
@@ -389,40 +422,40 @@ class MedifaxAutoLogin:
         print("2. ログイン情報を入力してログインしてください")
         print("3. ログイン後、このプログラムを再実行してください")
         print("   ※ 既存のSafariウィンドウを使用します")
-        
+
         input("\nログインが完了したら Enter キーを押してください...")
         # 手動ログイン後もキャッシュを保存
         self._save_cached_session()
         return True
-    
+
     def fetch_rss_feed(self) -> List[Dict]:
         """RSSフィードを取得して本日分の記事情報のみ抽出"""
         try:
             print(f"RSSフィードを取得中: {self.rss_url}")
-            
+
             # まずrequestsセッションで試行
             response = self.session.get(self.rss_url, timeout=30)
             response.raise_for_status()
-            
+
             print(f"RSSレスポンスステータス: {response.status_code}")
             print(f"RSSレスポンスサイズ: {len(response.content)} bytes")
-            
+
             # 生のXML内容を確認（デバッグ用）
             xml_content = response.content.decode('utf-8', errors='ignore')
             print(f"\n=== RSSフィードの最初の1000文字 ===")
             print(xml_content[:1000])
             print("=== RSSフィード内容終了 ===\n")
-            
+
             # ログインが必要な場合のチェック
             if "ログイン" in xml_content or "login" in xml_content.lower() or len(xml_content) < 1000:
                 print("ログインが必要なようです。Safariでスクレイピングを試行します...")
                 return self.fetch_rss_with_safari()
-            
+
             # RSSフィードをパース
             feed = feedparser.parse(response.content)
-            
+
             print(f"RSSフィードから {len(feed.entries)} 件の記事を取得")
-            
+
             # 最初の3件の記事の詳細を表示（デバッグ用）
             if feed.entries:
                 print("\n=== 最初の3件の記事の詳細 ===")
@@ -436,14 +469,14 @@ class MedifaxAutoLogin:
                     if hasattr(entry, 'dc_jdate'):
                         print(f"  dc_jdate: {entry.dc_jdate}")
                     print(f"  全キー: {list(entry.keys())}")
-            
+
             articles = []
             today = datetime.date.today()
             print(f"\n今日の日付: {today}")
-            
+
             for i, entry in enumerate(feed.entries):
                 print(f"\n記事 {i+1}: {entry.get('title', 'No title')}")
-                
+
                 # 各種日付フィールドの取得
                 dc_date = entry.get('dc_date', '')
                 published = entry.get('published', '')
@@ -451,22 +484,22 @@ class MedifaxAutoLogin:
                 updated = entry.get('updated', '')
                 updated_parsed = entry.get('updated_parsed', None)
                 jdate = getattr(entry, 'dc_jdate', '') if hasattr(entry, 'dc_jdate') else ''
-                
+
                 # feedparserでの名前空間付き要素の確認
                 print(f"  dc_date: {dc_date}")
                 print(f"  published: {published}")
                 print(f"  updated: {updated}")
                 print(f"  jdate: {jdate}")
-                
+
                 # 名前空間付き要素の直接確認
                 if hasattr(entry, 'dc_date'):
                     print(f"  entry.dc_date: {entry.dc_date}")
                 if hasattr(entry, 'dc_jdate'):
                     print(f"  entry.dc_jdate: {entry.dc_jdate}")
-                
+
                 # 全属性を確認（デバッグ用）
                 print(f"  entry.__dict__.keys(): {list(entry.__dict__.keys())}")
-                
+
                 # 日付判定
                 is_today = False
                 # 優先順位: dc_date > published > updated > jdate
@@ -497,7 +530,7 @@ class MedifaxAutoLogin:
                         if m:
                             entry_date = datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
                             print(f"  正規表現でパースされた日付: {entry_date}")
-                
+
                 # published_parsedまたはupdated_parsedがあればそちらも見る
                 if not entry_date and published_parsed:
                     entry_date = datetime.date(published_parsed.tm_year, published_parsed.tm_mon, published_parsed.tm_mday)
@@ -505,7 +538,7 @@ class MedifaxAutoLogin:
                 elif not entry_date and updated_parsed:
                     entry_date = datetime.date(updated_parsed.tm_year, updated_parsed.tm_mon, updated_parsed.tm_mday)
                     print(f"  updated_parsedから取得した日付: {entry_date}")
-                
+
                 if entry_date and entry_date == today:
                     is_today = True
                     print(f"  ✓ 今日の記事として判定")
@@ -525,25 +558,25 @@ class MedifaxAutoLogin:
                 }
                 articles.append(article)
                 print(f"  ✓ 記事を追加")
-                
+
             print(f"\n{len(articles)}件の本日分の記事を取得しました")
             return articles
-            
+
         except Exception as e:
             print(f"RSSフィード取得エラー: {e}")
             return []
-    
+
     def fetch_article_content(self, url: str) -> str:
         """記事URLから本文を取得（ログイン済みセッション使用）"""
         try:
             print(f"記事内容を取得中: {url}")
-            
+
             # まずrequestsセッションで試行
             response = self.session.get(url, timeout=30)
             response.raise_for_status()
-            
+
             soup = BeautifulSoup(response.content, 'html.parser')
-            
+
             # 記事本文を抽出（一般的なセレクタ）
             content_selectors = [
                 'article',
@@ -555,68 +588,85 @@ class MedifaxAutoLogin:
                 '.article-body',
                 '.post-body'
             ]
-            
+
             content = ""
             for selector in content_selectors:
                 element = soup.select_one(selector)
                 if element:
                     content = element.get_text(strip=True)
                     break
-            
+
             # セレクタで見つからない場合はbody全体から抽出
             if not content:
                 # 不要な要素を削除
                 for tag in soup(['script', 'style', 'nav', 'header', 'footer', 'aside', 'menu']):
                     tag.decompose()
                 content = soup.get_text(strip=True)
-            
+
             # ログインが必要な場合のチェック
             if len(content) < 500 or "ログイン" in content or "login" in content.lower():
                 print("ログインが必要なようです。Safariでスクレイピングを試行します...")
                 return self.fetch_article_content_with_safari(url)
-            
+
             return content[:5000]  # 長すぎる場合は切り詰め
-            
+
         except Exception as e:
             print(f"記事内容取得エラー ({url}): {e}")
             return self.fetch_article_content_with_safari(url)
-    
+
     def fetch_article_content_with_safari(self, url: str) -> str:
         """Safariで記事内容を取得"""
         try:
             print(f"Safariで記事内容を取得中: {url}")
-            
-            # Safariで記事を開く
+
+            # Safariのwindow indexを使う。なければ1
+            win_index = self.safari_window_index if self.safari_window_index else 1
+
+            # 指定ウィンドウの1つ目のタブで記事を開く
             apple_script = f'''
             tell application "Safari"
                 activate
                 delay 1
-                -- 既存のウィンドウがあるかチェック
-                if (count of windows) > 0 then
-                    set articleTab to current tab of front window
+                set winIndex to {win_index}
+                if (count of windows) >= winIndex then
+                    set targetWin to window winIndex
+                    if (count of tabs of targetWin) > 0 then
+                        set articleTab to tab 1 of targetWin
+                    else
+                        set articleTab to make new tab at targetWin
+                    end if
+                    set current tab of targetWin to articleTab
+                    set URL of articleTab to "{url}"
                 else
-                    set articleTab to make new document
+                    -- fallback: 新しいウィンドウ
+                    set targetWin to make new document
+                    set URL of targetWin to "{url}"
                 end if
-                set URL of articleTab to "{url}"
             end tell
             delay 3
             tell application "Safari"
-                set articleContent to source of document 1
+                set winIndex to {win_index}
+                if (count of windows) >= winIndex then
+                    set targetWin to window winIndex
+                    set articleContent to source of document of tab 1 of targetWin
+                else
+                    set articleContent to source of document 1
+                end if
                 return articleContent
             end tell
             '''
-            
+
             result = subprocess.run(
                 ['osascript', '-e', apple_script],
                 capture_output=True, text=True
             )
-            
+
             if result.returncode == 0 and result.stdout.strip():
                 print("Safariから記事内容を取得しました")
                 html_content = result.stdout.strip()
-                
+
                 soup = BeautifulSoup(html_content, 'html.parser')
-                
+
                 # 記事本文を抽出（一般的なセレクタ）
                 content_selectors = [
                     'article',
@@ -628,31 +678,31 @@ class MedifaxAutoLogin:
                     '.article-body',
                     '.post-body'
                 ]
-                
+
                 content = ""
                 for selector in content_selectors:
                     element = soup.select_one(selector)
                     if element:
                         content = element.get_text(strip=True)
                         break
-                
+
                 # セレクタで見つからない場合はbody全体から抽出
                 if not content:
                     # 不要な要素を削除
                     for tag in soup(['script', 'style', 'nav', 'header', 'footer', 'aside', 'menu']):
                         tag.decompose()
                     content = soup.get_text(strip=True)
-                
+
                 return content[:5000]  # 長すぎる場合は切り詰め
-                
+
             else:
                 print("Safariから記事内容を取得できませんでした")
                 return ""
-                
+
         except Exception as e:
             print(f"Safari記事内容取得エラー ({url}): {e}")
             return ""
-    
+
     def summarize_article(self, title: str, content: str) -> str:
         """Geminiで記事を要約"""
         try:
@@ -693,17 +743,17 @@ class MedifaxAutoLogin:
 - 医療関係者にとって実用的な情報を重視
 """
             return gemini.summarize(prompt)
-            
+
         except Exception as e:
             return f"要約エラー: {e}"
-    
+
     def save_digest(self, articles: List[Dict]):
         """記事情報をファイルに保存（記事内容を取得して要約を含める）"""
         today = datetime.date.today()
         # ファイル名を修正
         md_file = self.output_dir / f"medifax_digest_{today}.md"
         txt_file = self.output_dir / f"medifax_digest_{today}.txt"
-        
+
         # 内容を作成
         content_lines = []
         content_lines.append(f"医療情報ダイジェスト - {today}")
@@ -711,19 +761,19 @@ class MedifaxAutoLogin:
         content_lines.append(f"取得日時: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         content_lines.append("=" * 80)
         content_lines.append("")
-        
+
         for i, article in enumerate(articles, 1):
             print(f"\n記事 {i}/{len(articles)} を処理中: {article['title']}")
-            
+
             # 記事内容を取得
             content = self.fetch_article_content(article['link'])
-            
+
             # 内容を要約
             if content:
                 summary = self.summarize_article(article['title'], content)
             else:
                 summary = "記事内容を取得できませんでした。"
-            
+
             # 新しいフォーマットで出力
             content_lines.append(f"【記事 {i}】")
             content_lines.append("")
@@ -738,44 +788,44 @@ class MedifaxAutoLogin:
             content_lines.append("")
             content_lines.append("-" * 80)
             content_lines.append("")
-        
+
         # MDファイルとして保存
         with open(md_file, 'w', encoding='utf-8') as f:
             # Markdown版
             f.write(f"# 医療情報ダイジェスト - {today}\n\n")
             f.write(f"取得日時: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
             f.write("=" * 80 + "\n\n")
-            
+
             for i, article in enumerate(articles, 1):
                 # MDファイルには既に取得済みの要約を使用
                 idx = content_lines.index(f"【記事 {i}】")
                 title_idx = content_lines.index("タイトル：", idx) + 1
                 summary_idx = content_lines.index("解説と要約：", idx) + 1
                 url_idx = content_lines.index("URL：", idx) + 1
-                
+
                 f.write(f"## 記事 {i}\n\n")
                 f.write(f"**タイトル：**\n{content_lines[title_idx]}\n\n")
-                
+
                 # 要約部分を取得
                 summary_end_idx = content_lines.index("URL：", summary_idx)
                 summary_text = "\n".join(content_lines[summary_idx:summary_end_idx-1])
                 f.write(f"**解説と要約：**\n{summary_text}\n\n")
                 f.write(f"**URL：**\n{content_lines[url_idx]}\n\n")
                 f.write("-" * 80 + "\n\n")
-        
-        # TXTファイルとして保存（Teams用）
-        with open(txt_file, 'w', encoding='utf-8') as f:
+
+        # TXTファイルとして保存（Teams用、UTF-8 with BOM）
+        with open(txt_file, 'w', encoding='utf-8-sig') as f:
             f.write("\n".join(content_lines))
-        
+
         print(f"\nMDファイルを保存: {md_file}")
         print(f"TXTファイルを保存: {txt_file}")
-        
+
         # 月別フォルダへの移動処理
         self.move_to_monthly_folder(md_file, today)
         self.move_to_monthly_folder(txt_file, today)
-        
+
         return txt_file  # Teams送信用にTXTファイルを返す
-    
+
     def move_to_monthly_folder(self, file_path: Path, date: datetime.date):
         """前月作成のファイルのみ月別フォルダに移動。今月作成のファイルは移動しない"""
         try:
@@ -807,90 +857,160 @@ class MedifaxAutoLogin:
         except Exception as e:
             print(f"月別フォルダへの移動エラー: {e}")
             # エラーが発生しても元のファイルは残す
-    
+
     def send_to_teams(self, articles: List[Dict], file_path: Path):
-        """Teamsのチャンネルにメッセージとファイルを送信"""
+        """Teamsのチャンネルに @一般 メンション付きでメッセージを投稿し、ファイルをアップロードしてリンクを挿入"""
         try:
-            # メッセージ内容を作成（HTML形式で改行を明確に）
+            # teams.pyのtoken_cacheの仕組みを参考にaccess_tokenを取得
+            import teams
+            # MSALのPublicClientApplicationとキャッシュを利用
+            app = teams.app
+            accounts = app.get_accounts()
+            result = None
+            if accounts:
+                # 既存アカウントでサイレント認証
+                result = app.acquire_token_silent(teams.SCOPES, account=accounts[0])
+            if not result:
+                print("Teams認証: サイレント認証に失敗しました。手動で認証してください。")
+                flow = app.initiate_device_flow(scopes=teams.SCOPES)
+                if "user_code" not in flow:
+                    raise Exception("デバイスフローの初期化に失敗しました")
+                print(flow["message"])
+                result = app.acquire_token_by_device_flow(flow)
+            if "access_token" not in result:
+                raise Exception("アクセストークンの取得に失敗しました: {}".format(result.get("error_description")))
+            access_token = result["access_token"]
+
+            team_id    = os.environ["TEAMS_TARGET_TEAM_ID"]    # 対象Team
+            channel_id = os.environ["TEAMS_TARGET_CHANNEL_ID"] # 対象Channel（一般 など）
+
             today = datetime.date.today()
-            
-            # HTMLフォーマットで見やすく整形
+
+            # ------------------------------
+            # 1) チャンネルのFilesフォルダを取得 → その配下にファイルをアップロード
+            # ------------------------------
+            base = "https://graph.microsoft.com/v1.0"
+            headers = {
+                "Authorization": f"Bearer {access_token}",
+                "Content-Type": "application/json"
+            }
+
+            # チャンネルのFilesフォルダ情報を取得
+            r = requests.get(f"{base}/teams/{team_id}/channels/{channel_id}/filesFolder", headers=headers)
+            r.raise_for_status()
+            files_folder = r.json()
+            drive_id = files_folder["parentReference"]["driveId"]
+            parent_item_id = files_folder["id"]
+
+            # アップロード（小～中サイズファイル想定。大きい場合はUploadSession推奨）
+            upload_headers = {
+                "Authorization": f"Bearer {access_token}",
+                "Content-Type": "application/octet-stream"
+            }
+            file_name = file_path.name
+
+            with open(file_path, "rb") as f:
+                ur = requests.put(
+                    f"{base}/drives/{drive_id}/items/{parent_item_id}:/{file_name}:/content",
+                    headers=upload_headers,
+                    data=f
+                )
+            ur.raise_for_status()
+            uploaded = ur.json()
+            file_web_url = uploaded["webUrl"]  # SharePoint上のWeb URL
+
+            # ------------------------------
+            # 2) HTML本文を生成（<at id="0">一般</at> + 記事一覧 + ファイルリンク）
+            # ------------------------------
             content_parts = []
             content_parts.append(f"<h2>本日の医療情報ダイジェストを作成しました</h2>")
-            content_parts.append("<br/>")
+            content_parts.append("<at id='0'>一般</at><br/>")
             content_parts.append(f"<strong>📅 日付:</strong> {today}<br/>")
             content_parts.append(f"<strong>📊 取得記事数:</strong> {len(articles)}件<br/>")
             content_parts.append("<br/>")
             content_parts.append("<strong>📰 本日の記事一覧:</strong><br/>")
             content_parts.append("<br/>")
-            
+
             for i, article in enumerate(articles, 1):
-                content_parts.append(f"{i}. {article['title']}<br/>")
-            
+                title = article.get("title", "(無題)")
+                url = article.get("url")
+                if url:
+                    content_parts.append(f"{i}. <a href=\"{url}\">{title}</a><br/>")
+                else:
+                    content_parts.append(f"{i}. {title}<br/>")
+
             content_parts.append("<br/>")
-            content_parts.append("<strong>📎 詳細な解説と要約は添付ファイルをご確認ください</strong><br/>")
-            
+            content_parts.append("<strong>📎 詳細な解説と要約は以下のファイルをご確認ください。</strong><br/>")
+            content_parts.append(f"<a href=\"{file_web_url}\">{file_name}</a><br/>")
             content = "".join(content_parts)
-            
-            # ファイル内容を読み込む
-            with open(file_path, 'r', encoding='utf-8') as f:
-                file_content = f.read()
-            
-            # タイトルも見やすく
-            title = f"医療情報ダイジェスト {today}"
-            
-            # teams_notificationモジュールにファイル送信機能がある場合はそれを使用
+
+            # ------------------------------
+            # 3) mentions 配列を付けてメッセージを投稿
+            #    ※ <at id='0'> の "0" と下記 mentions[].id を一致させる
+            # ------------------------------
+            payload = {
+                "body": {
+                    "contentType": "html",
+                    "content": content
+                },
+                "mentions": [
+                    {
+                        "id": 0,
+                        "mentionText": "一般",
+                        "mentioned": {
+                            "conversation": {
+                                "id": channel_id,
+                                "displayName": "一般"
+                            }
+                        }
+                    }
+                ]
+            }
+
+            mr = requests.post(
+                f"{base}/teams/{team_id}/channels/{channel_id}/messages",
+                headers=headers,
+                json=payload
+            )
+            mr.raise_for_status()
+
+            print("Teamsにメッセージを送信しました")
+
+        except KeyError as ke:
+            print(f"環境変数が未設定です: {ke}. 必要: TEAMS_TARGET_TEAM_ID, TEAMS_TARGET_CHANNEL_ID")
+        except requests.HTTPError as he:
+            # Graphからの詳細エラーを可視化
             try:
-                # ファイル添付付きの送信を試みる
-                success = teams_notification.send_teams_notification_with_file(
-                    title, 
-                    content, 
-                    file_path=str(file_path),
-                    file_name=file_path.name
-                )
-            except AttributeError:
-                # ファイル添付機能がない場合は、内容を含めて送信
-                full_content = content + "<br/><br/>"
-                full_content += "=" * 80 + "<br/><br/>"
-                full_content += "<strong>添付ファイル内容:</strong><br/><br/>"
-                # テキストファイルの内容をHTML形式に変換
-                file_lines = file_content.split('\n')
-                for line in file_lines:
-                    full_content += line.replace(' ', '&nbsp;') + "<br/>"
-                
-                success = teams_notification.send_teams_notification(title, full_content)
-            
-            if success:
-                print("Teamsにメッセージを送信しました")
-            else:
-                print("Teamsへのメッセージ送信に失敗しました")
-            
+                err_detail = he.response.json()
+            except Exception:
+                err_detail = he.response.text
+            print(f"Teams送信エラー (HTTP): {he} | 詳細: {err_detail}")
         except Exception as e:
             print(f"Teams送信エラー: {e}")
-    
+
     def run(self):
         """メイン処理"""
         print("医療情報RSSフィード取得・要約を開始します")
         print(f"処理開始: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        
+
         # 1. ログイン設定
         login_success = self.setup_safari_automation()
         if not login_success:
             print("ログインに失敗しました")
             return
-        
+
         # 2. RSSフィードを取得（本日分のみ）
         articles = self.fetch_rss_feed()
         if not articles:
             print("本日分の記事が取得できませんでした")
             return
-        
+
         # 3. 結果を保存（要約・jsonは出力しない）
         txt_file = self.save_digest(articles)
-        
+
         # 4. Teamsに送信
         self.send_to_teams(articles, txt_file)
-        
+
         # 5. TXTファイルを削除（Teams送信後）
         try:
             if txt_file.exists():
@@ -898,7 +1018,7 @@ class MedifaxAutoLogin:
                 print(f"TXTファイルを削除しました: {txt_file}")
         except Exception as e:
             print(f"TXTファイル削除エラー: {e}")
-        
+
         print(f"\n処理完了: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"処理した記事数: {len(articles)}")
 
@@ -910,4 +1030,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main() 
+    main()
