@@ -66,9 +66,6 @@ class MedifaxAutoLogin:
         self.login_cache_file = self.cache_dir / "medifax_login.pkl"
         self.cookie_cache_file = self.cache_dir / "medifax_cookies.pkl"
 
-        # SafariウィンドウID（AppleScriptのwindow index, 1-origin）
-        self.safari_window_index = None
-
         # キャッシュからセッション情報を復元
         self._load_cached_session()
 
@@ -153,39 +150,45 @@ class MedifaxAutoLogin:
 
         login_url = escape_quotes(self.login_url)
 
-        # Safariで新しいウィンドウを必ず開くAppleScript
-        # 既存のSafariが起動していても新規windowを作成し、そのwindowのindexを返す
+        # Safariで新しいウィンドウを開くAppleScript（エラーハンドリング改善）
         apple_script = f'''
         tell application "Safari"
             activate
             delay 1
-            set loginWindow to (make new document)
-            delay 0.5
-            set URL of loginWindow to "{login_url}"
-            delay 0.5
-            set winIndex to (get index of loginWindow)
+            -- 新しいドキュメントを作成
+            set loginDoc to make new document
+            delay 1
+            -- URLを設定（documentに対して直接設定）
+            set URL of loginDoc to "{login_url}"
+            -- ページの読み込みを待つ
+            delay 6
         end tell
-
-        delay 5
+        
+        -- フォームに入力
         tell application "System Events"
             tell process "Safari"
                 set frontmost to true
                 delay 1
-                key code 102 -- 英数入力
-                delay 0.3
+                -- 英数入力に切り替え
+                key code 102
+                delay 0.5
+                -- ユーザー名を入力
                 keystroke "{self.username}"
                 delay 0.5
+                -- Tabでパスワードフィールドに移動
                 keystroke tab
                 delay 0.5
+                -- 英数入力を再確認
                 key code 102
-                delay 0.3
+                delay 0.5
+                -- パスワードを入力
                 keystroke "{self.password}"
                 delay 0.5
+                -- Enterでログイン
                 keystroke return
             end tell
         end tell
         delay 3
-        return winIndex
         '''
 
         print("Safariで自動ログインを実行中...")
@@ -196,15 +199,6 @@ class MedifaxAutoLogin:
                 capture_output=True, text=True
             )
             if result.returncode == 0:
-                # Safariのwindow indexを取得
-                win_index_str = result.stdout.strip()
-                try:
-                    self.safari_window_index = int(win_index_str)
-                    print(f"Safariの新しいウィンドウ index: {self.safari_window_index}")
-                except Exception as e:
-                    print(f"Safariウィンドウindex取得エラー: {e}")
-                    self.safari_window_index = 1  # fallback
-
                 print("Safariでの自動ログインが完了しました")
                 # ログイン後にセッション情報を取得
                 success = self.get_safari_session()
@@ -276,39 +270,23 @@ class MedifaxAutoLogin:
         try:
             print("SafariでRSSフィードを取得中...")
 
-            # Safariのwindow indexを使う。なければ1
-            win_index = self.safari_window_index if self.safari_window_index else 1
-
-            # 指定ウィンドウの1つ目のタブでRSSを開く
+            # SafariでRSSフィードを開く（シンプルなアプローチ）
             apple_script = f'''
             tell application "Safari"
                 activate
                 delay 1
-                set winIndex to {win_index}
-                if (count of windows) >= winIndex then
-                    set targetWin to window winIndex
-                    if (count of tabs of targetWin) > 0 then
-                        set rssTab to tab 1 of targetWin
-                    else
-                        set rssTab to make new tab at targetWin
-                    end if
-                    set current tab of targetWin to rssTab
-                    set URL of rssTab to "{self.rss_url}"
+                -- 既存のウィンドウがあればそれを使用、なければ新規作成
+                if (count of windows) > 0 then
+                    set rssDoc to front document
                 else
-                    -- fallback: 新しいウィンドウ
-                    set targetWin to make new document
-                    set URL of targetWin to "{self.rss_url}"
+                    set rssDoc to make new document
                 end if
-            end tell
-            delay 3
-            tell application "Safari"
-                set winIndex to {win_index}
-                if (count of windows) >= winIndex then
-                    set targetWin to window winIndex
-                    set rssContent to source of document of tab 1 of targetWin
-                else
-                    set rssContent to source of document 1
-                end if
+                delay 0.5
+                set URL of rssDoc to "{self.rss_url}"
+                -- ページの読み込みを待つ
+                delay 5
+                -- ソースを取得
+                set rssContent to source of rssDoc
                 return rssContent
             end tell
             '''
@@ -615,43 +593,51 @@ class MedifaxAutoLogin:
             return self.fetch_article_content_with_safari(url)
 
     def fetch_article_content_with_safari(self, url: str) -> str:
-        """Safariで記事内容を取得"""
+        """Safariで記事内容を取得（ログイン状態を維持）"""
         try:
             print(f"Safariで記事内容を取得中: {url}")
+            
+            # エスケープ処理
+            escaped_url = url.replace('"', '\\"')
 
-            # Safariのwindow indexを使う。なければ1
-            win_index = self.safari_window_index if self.safari_window_index else 1
-
-            # 指定ウィンドウの1つ目のタブで記事を開く
+            # Safariで記事を開く（ログインセッションを維持したまま）
             apple_script = f'''
             tell application "Safari"
                 activate
-                delay 1
-                set winIndex to {win_index}
-                if (count of windows) >= winIndex then
-                    set targetWin to window winIndex
-                    if (count of tabs of targetWin) > 0 then
-                        set articleTab to tab 1 of targetWin
-                    else
-                        set articleTab to make new tab at targetWin
-                    end if
-                    set current tab of targetWin to articleTab
-                    set URL of articleTab to "{url}"
+                
+                -- ログイン済みのウィンドウ/タブを探す
+                set foundLoggedIn to false
+                set targetWindow to missing value
+                
+                repeat with w in windows
+                    repeat with t in tabs of w
+                        try
+                            set tabURL to URL of t
+                            if tabURL contains "mfd.jiho.jp" then
+                                set foundLoggedIn to true
+                                set targetWindow to w
+                                exit repeat
+                            end if
+                        end try
+                    end repeat
+                    if foundLoggedIn then exit repeat
+                end repeat
+                
+                -- ログイン済みウィンドウがあればそこで開く、なければ新規
+                if foundLoggedIn and targetWindow is not missing value then
+                    set current tab of targetWindow to make new tab at targetWindow
+                    set URL of current tab of targetWindow to "{escaped_url}"
                 else
-                    -- fallback: 新しいウィンドウ
-                    set targetWin to make new document
-                    set URL of targetWin to "{url}"
+                    -- 新規ウィンドウで開く
+                    set newDoc to make new document
+                    set URL of newDoc to "{escaped_url}"
                 end if
-            end tell
-            delay 3
-            tell application "Safari"
-                set winIndex to {win_index}
-                if (count of windows) >= winIndex then
-                    set targetWin to window winIndex
-                    set articleContent to source of document of tab 1 of targetWin
-                else
-                    set articleContent to source of document 1
-                end if
+                
+                -- ページの読み込みを長めに待つ（認証やリダイレクトがある場合）
+                delay 8
+                
+                -- 現在のドキュメントのソースを取得
+                set articleContent to source of front document
                 return articleContent
             end tell
             '''
@@ -662,21 +648,28 @@ class MedifaxAutoLogin:
             )
 
             if result.returncode == 0 and result.stdout.strip():
-                print("Safariから記事内容を取得しました")
                 html_content = result.stdout.strip()
-
+                
+                # ログインページにリダイレクトされていないかチェック
+                if "ログイン" in html_content[:500] or "login" in html_content[:500].lower():
+                    print("ログインページが表示されています。ブラウザで手動ログインが必要です。")
+                    return self.fetch_article_with_manual_safari(url)
+                
+                print("Safariから記事内容を取得しました")
                 soup = BeautifulSoup(html_content, 'html.parser')
 
-                # 記事本文を抽出（一般的なセレクタ）
+                # MEDIFAXの記事構造に特化したセレクタ
                 content_selectors = [
+                    '.article-detail',  # MEDIFAX特有
+                    '.article-body',
+                    '.article-content', 
+                    '.main-content',
                     'article',
-                    '.article-content',
                     '.post-content',
                     '.entry-content',
+                    'main',
                     '#content',
-                    '.content',
-                    '.article-body',
-                    '.post-body'
+                    '.content'
                 ]
 
                 content = ""
@@ -684,24 +677,108 @@ class MedifaxAutoLogin:
                     element = soup.select_one(selector)
                     if element:
                         content = element.get_text(strip=True)
-                        break
+                        if len(content) > 100:  # 有効なコンテンツか確認
+                            break
 
                 # セレクタで見つからない場合はbody全体から抽出
-                if not content:
+                if not content or len(content) < 100:
                     # 不要な要素を削除
-                    for tag in soup(['script', 'style', 'nav', 'header', 'footer', 'aside', 'menu']):
+                    for tag in soup(['script', 'style', 'nav', 'header', 'footer', 'aside', 'menu', 'button']):
                         tag.decompose()
                     content = soup.get_text(strip=True)
+
+                # コンテンツが短すぎる場合は手動取得を促す
+                if len(content) < 200:
+                    print(f"取得したコンテンツが短すぎます（{len(content)}文字）。手動取得を試みます。")
+                    return self.fetch_article_with_manual_safari(url)
 
                 return content[:5000]  # 長すぎる場合は切り詰め
 
             else:
                 print("Safariから記事内容を取得できませんでした")
-                return ""
+                return self.fetch_article_with_manual_safari(url)
 
         except Exception as e:
             print(f"Safari記事内容取得エラー ({url}): {e}")
-            return ""
+            return self.fetch_article_with_manual_safari(url)
+    
+    def fetch_article_with_manual_safari(self, url: str) -> str:
+        """Safariで記事を開いて手動で内容を確認してもらう"""
+        try:
+            print(f"\n=== 手動での記事確認が必要です ===")
+            print(f"URL: {url}")
+            
+            # Safariで記事を開く
+            escaped_url = url.replace('"', '\\"')
+            apple_script = f'''
+            tell application "Safari"
+                activate
+                open location "{escaped_url}"
+            end tell
+            '''
+            
+            subprocess.run(['osascript', '-e', apple_script])
+            
+            print("\n1. Safariで記事が開きました")
+            print("2. 必要に応じてログインしてください")
+            print("3. 記事が表示されたら、Enterキーを押してください")
+            print("   ※ 記事の内容を自動的に取得します\n")
+            
+            input("準備ができたらEnterキーを押してください...")
+            
+            # 現在表示されているページのソースを取得
+            apple_script_get = '''
+            tell application "Safari"
+                set pageSource to source of front document
+                return pageSource
+            end tell
+            '''
+            
+            result = subprocess.run(
+                ['osascript', '-e', apple_script_get],
+                capture_output=True, text=True
+            )
+            
+            if result.returncode == 0 and result.stdout.strip():
+                html_content = result.stdout.strip()
+                soup = BeautifulSoup(html_content, 'html.parser')
+                
+                # コンテンツ抽出
+                content_selectors = [
+                    '.article-detail',
+                    '.article-body',
+                    '.article-content',
+                    '.main-content',
+                    'article',
+                    'main',
+                    '.content'
+                ]
+                
+                content = ""
+                for selector in content_selectors:
+                    element = soup.select_one(selector)
+                    if element:
+                        content = element.get_text(strip=True)
+                        if len(content) > 100:
+                            break
+                
+                if not content or len(content) < 100:
+                    for tag in soup(['script', 'style', 'nav', 'header', 'footer', 'aside', 'menu', 'button']):
+                        tag.decompose()
+                    content = soup.get_text(strip=True)
+                
+                if content and len(content) > 100:
+                    print(f"記事内容を取得しました（{len(content)}文字）")
+                    return content[:5000]
+                else:
+                    print("記事内容の取得に失敗しました")
+                    return "記事内容を自動取得できませんでした。手動で確認が必要です。"
+            
+            return "記事内容を取得できませんでした。"
+            
+        except Exception as e:
+            print(f"手動取得エラー: {e}")
+            return f"記事取得エラー: {e}"
 
     def summarize_article(self, title: str, content: str) -> str:
         """Geminiで記事を要約"""
