@@ -80,22 +80,27 @@ echo -e "👥 ターゲット: ${GREEN}$TARGET${NC}"
 echo -e "📁 出力先: ${GREEN}$WORK_DIR${NC}"
 echo ""
 
-# ファイル名定義
-declare -A FILE_NAMES
-FILE_NAMES[C1]="research_prompt.md"
-FILE_NAMES[C2]="research-results.md"
-FILE_NAMES[C3]="agenda.md"
-FILE_NAMES[C4]="blog-post.md"
-FILE_NAMES[C5]="main-images.md"
-FILE_NAMES[C6]="section-images.md"
-FILE_NAMES[C7]="x-posts.md"
-FILE_NAMES[C8]="podcast-dialogue-script.md"
-FILE_NAMES[C9]="podcast-solo-script.md"
+# ファイル名定義（通常の変数として定義）
+FILE_C1="research_prompt.md"
+FILE_C2="research-results.md"
+FILE_C3="agenda.md"
+FILE_C4="blog-post.md"
+FILE_C5="main-images.md"
+FILE_C6="section-images.md"
+FILE_C7="x-posts.md"
+FILE_C8="podcast-dialogue-script.md"
+FILE_C9="podcast-solo-script.md"
 
 # 初期ファイル作成
-for step in C{1..9}; do
-    touch "$WORK_DIR/${FILE_NAMES[$step]}"
-done
+touch "$WORK_DIR/$FILE_C1"
+touch "$WORK_DIR/$FILE_C2"
+touch "$WORK_DIR/$FILE_C3"
+touch "$WORK_DIR/$FILE_C4"
+touch "$WORK_DIR/$FILE_C5"
+touch "$WORK_DIR/$FILE_C6"
+touch "$WORK_DIR/$FILE_C7"
+touch "$WORK_DIR/$FILE_C8"
+touch "$WORK_DIR/$FILE_C9"
 
 # 実行プロンプトの生成
 cat > "$WORK_DIR/execution_prompts.md" << EOF
@@ -103,7 +108,7 @@ cat > "$WORK_DIR/execution_prompts.md" << EOF
 
 ## 🚀 一括実行プロンプト
 
-以下のプロンプトをClaude Codeで実行してください：
+以下のプロンプトをClaude Codeで実行してください:
 
 \`\`\`
 「$TOPIC」について、9段階のコンテンツ生成ワークフローを実行します。

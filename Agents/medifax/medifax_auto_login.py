@@ -53,6 +53,9 @@ class MedifaxAutoLogin:
         # ログイン情報（環境変数から取得）
         self.username = os.getenv("MEDIFAX_USERNAME")
         self.password = os.getenv("MEDIFAX_PASSWORD")
+        
+        # Safari window IDを保持（最初に開いたウィンドウを記録）
+        self.safari_window_id = None
 
         # セッション管理
         self.session = requests.Session()
@@ -150,7 +153,7 @@ class MedifaxAutoLogin:
 
         login_url = escape_quotes(self.login_url)
 
-        # Safariで新しいウィンドウを開くAppleScript（エラーハンドリング改善）
+        # Safariで新しいウィンドウを開くAppleScript（ウィンドウIDを取得）
         apple_script = f'''
         tell application "Safari"
             activate
@@ -158,10 +161,14 @@ class MedifaxAutoLogin:
             -- 新しいドキュメントを作成
             set loginDoc to make new document
             delay 1
+            -- ウィンドウIDを取得
+            set windowId to id of window 1
             -- URLを設定（documentに対して直接設定）
             set URL of loginDoc to "{login_url}"
             -- ページの読み込みを待つ
             delay 6
+            -- ウィンドウIDを返す
+            return windowId as string
         end tell
         
         -- フォームに入力
@@ -189,6 +196,7 @@ class MedifaxAutoLogin:
             end tell
         end tell
         delay 3
+        return windowId
         '''
 
         print("Safariで自動ログインを実行中...")
@@ -199,7 +207,9 @@ class MedifaxAutoLogin:
                 capture_output=True, text=True
             )
             if result.returncode == 0:
-                print("Safariでの自動ログインが完了しました")
+                # ウィンドウIDを保存
+                self.safari_window_id = result.stdout.strip()
+                print(f"Safariでの自動ログインが完了しました (Window ID: {self.safari_window_id})")
                 # ログイン後にセッション情報を取得
                 success = self.get_safari_session()
                 if success:
@@ -600,47 +610,88 @@ class MedifaxAutoLogin:
             # エスケープ処理
             escaped_url = url.replace('"', '\\"')
 
-            # Safariで記事を開く（ログインセッションを維持したまま）
-            apple_script = f'''
-            tell application "Safari"
-                activate
-                
-                -- ログイン済みのウィンドウ/タブを探す
-                set foundLoggedIn to false
-                set targetWindow to missing value
-                
-                repeat with w in windows
-                    repeat with t in tabs of w
-                        try
-                            set tabURL to URL of t
-                            if tabURL contains "mfd.jiho.jp" then
-                                set foundLoggedIn to true
-                                set targetWindow to w
-                                exit repeat
-                            end if
-                        end try
+            # 保存したウィンドウIDを使用するか、またはMEDIFAXのウィンドウを探す
+            if self.safari_window_id:
+                # 保存したウィンドウIDを使用
+                apple_script = f'''
+                tell application "Safari"
+                    activate
+                    
+                    -- 保存したウィンドウIDでウィンドウを取得
+                    set targetWindow to missing value
+                    repeat with w in windows
+                        if (id of w as string) is "{self.safari_window_id}" then
+                            set targetWindow to w
+                            exit repeat
+                        end if
                     end repeat
-                    if foundLoggedIn then exit repeat
-                end repeat
-                
-                -- ログイン済みウィンドウがあればそこで開く、なければ新規
-                if foundLoggedIn and targetWindow is not missing value then
-                    set current tab of targetWindow to make new tab at targetWindow
-                    set URL of current tab of targetWindow to "{escaped_url}"
-                else
-                    -- 新規ウィンドウで開く
-                    set newDoc to make new document
-                    set URL of newDoc to "{escaped_url}"
-                end if
-                
-                -- ページの読み込みを長めに待つ（認証やリダイレクトがある場合）
-                delay 8
-                
-                -- 現在のドキュメントのソースを取得
-                set articleContent to source of front document
-                return articleContent
-            end tell
-            '''
+                    
+                    -- ウィンドウが存在する場合は新しいタブを作成
+                    if targetWindow is not missing value then
+                        set current tab of targetWindow to make new tab at targetWindow
+                        set URL of current tab of targetWindow to "{escaped_url}"
+                    else
+                        -- ウィンドウが閉じられている場合は新規作成
+                        set newDoc to make new document
+                        set URL of newDoc to "{escaped_url}"
+                        -- 新しいウィンドウIDを取得して返す
+                        set windowId to id of window 1
+                    end if
+                    
+                    -- ページの読み込みを長めに待つ（認証やリダイレクトがある場合）
+                    delay 8
+                    
+                    -- 現在のドキュメントのソースを取得
+                    set articleContent to source of front document
+                    return articleContent
+                end tell
+                '''
+            else:
+                # ウィンドウIDがない場合は従来のロジック
+                apple_script = f'''
+                tell application "Safari"
+                    activate
+                    
+                    -- ログイン済みのウィンドウ/タブを探す
+                    set foundLoggedIn to false
+                    set targetWindow to missing value
+                    
+                    repeat with w in windows
+                        repeat with t in tabs of w
+                            try
+                                set tabURL to URL of t
+                                if tabURL contains "mfd.jiho.jp" then
+                                    set foundLoggedIn to true
+                                    set targetWindow to w
+                                    exit repeat
+                                end if
+                            end try
+                        end repeat
+                        if foundLoggedIn then exit repeat
+                    end repeat
+                    
+                    -- ログイン済みウィンドウがあればそこで開く、なければ新規
+                    if foundLoggedIn and targetWindow is not missing value then
+                        set current tab of targetWindow to make new tab at targetWindow
+                        set URL of current tab of targetWindow to "{escaped_url}"
+                        -- ウィンドウIDを取得
+                        set windowId to id of targetWindow
+                    else
+                        -- 新規ウィンドウで開く
+                        set newDoc to make new document
+                        set URL of newDoc to "{escaped_url}"
+                        -- 新しいウィンドウIDを取得
+                        set windowId to id of window 1
+                    end if
+                    
+                    -- ページの読み込みを長めに待つ（認証やリダイレクトがある場合）
+                    delay 8
+                    
+                    -- 現在のドキュメントのソースを取得
+                    set articleContent to source of front document
+                    return articleContent
+                end tell
+                '''
 
             result = subprocess.run(
                 ['osascript', '-e', apple_script],
@@ -649,6 +700,11 @@ class MedifaxAutoLogin:
 
             if result.returncode == 0 and result.stdout.strip():
                 html_content = result.stdout.strip()
+                
+                # 新しいウィンドウIDが返された場合は更新
+                if not self.safari_window_id:
+                    # AppleScriptの出力からwindowIdを探して更新する可能性がある
+                    pass
                 
                 # ログインページにリダイレクトされていないかチェック
                 if "ログイン" in html_content[:500] or "login" in html_content[:500].lower():
@@ -1065,36 +1121,72 @@ class MedifaxAutoLogin:
         except Exception as e:
             print(f"Teams送信エラー: {e}")
 
+    def close_safari_windows(self):
+        """処理で開いたSafariウィンドウを閉じる"""
+        try:
+            if not self.safari_window_id:
+                print("閉じるウィンドウIDが記録されていません")
+                return
+                
+            print(f"Safari ウィンドウ (ID: {self.safari_window_id}) を閉じています...")
+            
+            # 保存したウィンドウIDのウィンドウのみを閉じる
+            apple_script = f'''
+            tell application "Safari"
+                -- 指定されたIDのウィンドウを探して閉じる
+                repeat with w in windows
+                    if (id of w as string) is "{self.safari_window_id}" then
+                        close w
+                        exit repeat
+                    end if
+                end repeat
+            end tell
+            '''
+            
+            subprocess.run(['osascript', '-e', apple_script])
+            print(f"Safari ウィンドウ (ID: {self.safari_window_id}) を閉じました")
+            
+            # ウィンドウIDをクリア
+            self.safari_window_id = None
+            
+        except Exception as e:
+            print(f"Safariウィンドウのクローズ中にエラー: {e}")
+
     def run(self):
         """メイン処理"""
         print("医療情報RSSフィード取得・要約を開始します")
         print(f"処理開始: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-        # 1. ログイン設定
-        login_success = self.setup_safari_automation()
-        if not login_success:
-            print("ログインに失敗しました")
-            return
-
-        # 2. RSSフィードを取得（本日分のみ）
-        articles = self.fetch_rss_feed()
-        if not articles:
-            print("本日分の記事が取得できませんでした")
-            return
-
-        # 3. 結果を保存（要約・jsonは出力しない）
-        txt_file = self.save_digest(articles)
-
-        # 4. Teamsに送信
-        self.send_to_teams(articles, txt_file)
-
-        # 5. TXTファイルを削除（Teams送信後）
         try:
-            if txt_file.exists():
-                txt_file.unlink()
-                print(f"TXTファイルを削除しました: {txt_file}")
-        except Exception as e:
-            print(f"TXTファイル削除エラー: {e}")
+            # 1. ログイン設定
+            login_success = self.setup_safari_automation()
+            if not login_success:
+                print("ログインに失敗しました")
+                return
+
+            # 2. RSSフィードを取得（本日分のみ）
+            articles = self.fetch_rss_feed()
+            if not articles:
+                print("本日分の記事が取得できませんでした")
+                return
+
+            # 3. 結果を保存（要約・jsonは出力しない）
+            txt_file = self.save_digest(articles)
+
+            # 4. Teamsに送信
+            self.send_to_teams(articles, txt_file)
+
+            # 5. TXTファイルを削除（Teams送信後）
+            try:
+                if txt_file.exists():
+                    txt_file.unlink()
+                    print(f"TXTファイルを削除しました: {txt_file}")
+            except Exception as e:
+                print(f"TXTファイル削除エラー: {e}")
+
+        finally:
+            # 6. Safariのウィンドウを閉じる
+            self.close_safari_windows()
 
         print(f"\n処理完了: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"処理した記事数: {len(articles)}")

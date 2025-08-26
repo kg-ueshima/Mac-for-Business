@@ -21,3 +21,6 @@ short_video_workflow_chopin()
 
 #Deep Research
 bash Claude/scripts/run_workflow_claude.sh "トピックス"
+
+#medifax
+ python3 Agents/medifax/medifax_auto_login.py
