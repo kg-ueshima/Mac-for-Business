@@ -1,6 +1,10 @@
 python3 -m venv .venv
 source .venv/bin/activate
 
+#update
+npm i -g @anthropic-ai/claude-code
+npm i -g @google/gemini-cli
+
 #git push refused
 #BFGで機密ファイルを削除
 bfg --delete-files token_cache_onedrive.bin #セキュリティ情報が入ったファイル
@@ -23,4 +27,4 @@ short_video_workflow_chopin()
 bash Claude/scripts/run_workflow_claude.sh "トピックス"
 
 #medifax
- python3 Agents/medifax/medifax_auto_login.py
+python3 Agents/medifax/medifax_auto_login.py

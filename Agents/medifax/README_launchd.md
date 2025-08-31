@@ -76,6 +76,11 @@ launchctl unload ~/Library/LaunchAgents/com.medifax.digest.plist
 launchctl load ~/Library/LaunchAgents/com.medifax.digest.plist
 ```
 
+### ジョブの検証
+```bash
+launchctl kickstart -k gui/$(id -u)/com.medifax.digest.plist
+```
+
 ### ジョブの完全削除
 ```bash
 launchctl unload ~/Library/LaunchAgents/com.medifax.digest.plist
